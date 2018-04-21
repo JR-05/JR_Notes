@@ -1,0 +1,4 @@
+Error:Execution failed for task ':app:transformClassesWithJarMergingForDebug'.
+> com.android.build.api.transform.TransformException: java.util.zip.ZipException: duplicate entry: android/support/v4/util/MapCollections$ArrayIterator.class
+
+本地已经存在引入的lib，然后又配置了compile链接了,就是重复引用了第三方jar包，我这里是重复引用了V4包，你看下你重复引用了什么，删除一个就行了

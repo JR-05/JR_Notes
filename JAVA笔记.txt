@@ -1,0 +1,571 @@
+
+
+-----------------------------------------------------------------------------------多线程-----------------------------------------------------------------------------------------
+创建多线程的方法有两种。   一：创建一个继承Thread类的子类，创建一个既创建一个线程。    二：创建一个Thread（Runnable R）类，创建一个既创建一个线程。
+
+二者的区别：
+class Sale extends Thread{
+int ticket=100；
+public void run（）{System.out.println(Thread.currentThread.getName()+"卖了一张票"+“总共剩下”+(--ticket);}
+
+}
+
+class Sale implements Runnable{
+int ticket=100；
+public void run（）{System.out.println(Thread.currentThread.getName()+"卖了一张票"+“总共剩下”+(--ticket);}
+}
+
+
+在实现售票系统的过程中，假若使用第一种方法创建线程。
+Sale a=new sale（）.start;
+Sale b=new sale（）.start;
+Sale c=new sale（）.start;
+则创建的多个线程共享的不是同一个资源，每次创建一个线程的同时又实例了一个sale类。
+
+假若使用第二种方法创建线程。
+Sale s=new Sale();
+Thread A=new Thread(s).start;
+Thread b=new Thread(s).start;
+Thread c=new Thread(s).start;
+由于只实例一个Sale对象，所以三个线程共享同一个资源，从而达到售票的目的。
+
+
+
+synchronized：同步。
+代码同步的方法有两种，一是使用同步代码块。二是使用synchronized关键字。
+在遇到线程安全时需要使用线程同步。
+当多个线程使用同一个监视器，只有拿到监视器的标志位的线程才能运行该线程的代码块。
+
+       线程交流{
+   只有在同一个监视器下的一个或多个线程才能进行交流，比如使用wait（），notify（），notifyall（）方法。
+注意！！！：使用匿名内部类创建的多线程不能进行线程交流
+}
+
+
+---------------------------------------------------------------------------内部类-------------------------------------------------------------------------------------------------
+在内部类里，分为类内部类，方法内部类，匿名内部类。
+
+前面两个内部类之所以能够调用外类的成员，而匿名内部类不能，是因为匿名内部类的代码写在static的main方法。（static方法的成员必须都为static）
+
+结构特点：在new father（）{ 代码块 }，father为集成的父类。
+
+     类内部类
+package Test;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Scanner;
+import java.util.Set;
+
+import Test.MapTest.R;
+
+public class MapTest {
+	Map<String, R> hashMap;
+
+
+！！！
+	public class R {
+		String id = "007";
+		String name = "邦德";
+
+		public R(String id, String name) {
+			this.id = id;
+			this.name = name;
+		}
+	}
+！！！
+	public MapTest() {
+		hashMap = new HashMap<String, R>();
+	}
+
+	public static void main(String[] args) {
+		MapTest map = new MapTest();
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("请输入id：");
+		String id = scanner.next();
+		System.out.println("请输入name：");
+		String name = scanner.next();
+		MapTest.R r = map.new R(id, name);      //实现方式写法。
+		map.hashMap.put(id, r);
+		Set<Entry<String, R>> entry = map.hashMap.entrySet();
+		for (Entry<String, R> entry1 : entry) {
+			System.out.println(entry1.getKey());
+			System.out.println(entry1.getValue().name);
+		}
+	}
+
+}  
+
+
+
+
+
+
+     匿名内部类（
+        public class Testlass{
+    public static void main（String[]args）{
+     get(new Inclass（）{
+   super.say();   //调用父类的方法。
+   })
+
+   }
+pulic static void get(InClass inclass){
+  inclass.say(); 
+  }  
+}
+  
+
+       public  class InClass{
+    public void say（）{
+
+System.out.println("HelloWorld")}
+
+}   
+                   ）
+
+
+
+
+
+--------------------------------------------------------------------------==与equals的区别---------------------------------------------------------------------------------------
+    eaquals方法是继承Object的方法。在没有重写这个方法之前，它表示的意义跟==相同。判断两个值的内存地址是否相同。
+    在判断基本数据类型时，一般使用==
+比如：int a=1；与int b=1；
+
+    但有时需要判断两个对象是否相同时需要重写相关类的equals（）方法。
+比如：
+String s1 = new String("str");
+String s2 = new String("str");
+但由于String类已经改重写equals（）方法，故不需再改写。其他类需注意。
+比如：
+public class Course {
+
+public int ID;
+public String name=null;
+	public boolean equals(Object obj) {
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ID;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Course other = (Course) obj;
+		if (ID != other.ID)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+
+	}
+}
+
+进行改写判断：
+
+public class Caual {
+
+	public static void main(String[] args) {
+	Course c=new Course();
+	c.ID=1;
+	Course cu=new Course();
+	cu.ID=1;
+System.out.println(c.equals(cu));
+	}
+
+}
+
+
+instanceof ：用来判断有一个实现类是否是某个类的实现类，或继承类。  如：boolean result=aa instanceof a;
+
+----------------------------------------------------------------------------哈希表(hashcode)-------------------------------------------------------------------------------------
+首先，想要明白hashCode的作用，你必须要先知道Java中的集合。
+　　总的来说，Java中的集合（Collection）有两类，一类是List，再有一类是Set。你知道它们的区别吗？前者集合内的元素是有序的，元素可以重复；后者元素无序，但元素不可重复。那么这里就有一个比较严重的问题了：要想保证元素不重复，可两个元素是否重复应该依据什么来判断呢？这就是Object.equals方法了。但是，如果每增加一个元素就检查一次，那么当元素很多时，后添加到集合中的元素比较的次数就非常多了。也就是说，如果集合中现在已经有1000个元素，那么第1001个元素加入集合时，它就要调用1000次equals方法。这显然会大大降低效率。
+    于是，Java采用了哈希表的原理。哈希（Hash）实际上是个人名，由于他提出一哈希算法的概念，所以就以他的名字命名了。哈希算法也称为散列算法，是将数据依特定算法直接指定到一个地址上。如果详细讲解哈希算法，那需要更多的文章篇幅，我在这里就不介绍了。初学者可以这样理解，hashCode方法实际上返回的就是对象存储的物理地址（实际可能并不是）。
+    这样一来，当集合要添加新的元素时，先调用这个元素的hashCode方法，就一下子能定位到它应该放置的物理位置上。如果这个位置上没有元素，它就可以直接存储在这个位置上，不用再进行任何比较了；如果这个位置上已经有元素了，就调用它的equals方法与新元素进行比较，相同的话就不存了，不相同就散列其它的地址。所以这里存在一个冲突解决的问题。这样一来实际调用equals方法的次数就大大降低了，几乎只需要一两次。
+    所以，Java对于eqauls方法和hashCode方法是这样规定的：
+1、如果两个对象相同，那么它们的hashCode值一定要相同；
+2、如果两个对象的hashCode相同，它们并不一定相同
+    上面说的对象相同指的是用eqauls方法比较。
+    你当然可以不按要求去做了，但你会发现，相同的对象可以出现在Set集合中。同时，增加新元素的效率会大大下降。
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    char字符型数据类型。意思就是在内存中一个字节所表达的意思。（“符”：符号）。所以它的基本属性还是一些像short，int，long，byte
+
+那样，可以加加减减。
+
+
+
+
+  --------------------------------------------------------------------package 大小寫字母轉換-------------------------------------------------------------------------------------
+
+     ;
+
+
+
+import java.util.Scanner;
+
+
+
+/*           大小寫轉換原理
+
+ *      小寫字母的數值比大寫多32
+
+ * */
+public class Word1 {
+
+	public static void main(String[] args) {
+
+
+
+		Scanner S = new Scanner(System.in);
+
+
+
+	
+	String a = S.next();
+
+		
+char b = (char) a.charAt(0);// charAt(i)，i为int类型，i从0开始,指定String類型a中的元素。
+
+	
+	System.out.println((b - 32));
+
+		
+if (b >= 'a' & b <= 'z') {
+
+System.out.println((char) (b - 32));
+
+}
+
+		
+if (b >= 'A' & b <= 'Z') {
+
+System.out.println((char) (b + 32));
+
+	}
+
+
+
+}
+
+}
+
+----------------------------------------------------------------------jdk和jre的区别---------------------------------------------------------------------------------------------
+    就是java的开发工具集，顾名思义就是你做开发用的，其中包括javac，也就是java compiler等。
+    jre(java runtime environment),就是java程序的运行环境。你所写的java程序在经过javac编译后会形成字符行文件，这个java的中间文件，计算机是看不懂的，而这个文件是给jvm（java的虚拟机）用的，由jvm进行解释后形成机器语言给计算机。而这个jvm就在jre中，也就是说java程序的运行要有jre来担当。
+    所以jdk和jre的区别就是一个用于开发，一个用于运行，联系就是他们都是java开发者所必备的（除非你就像运行java程序，那么用jre就足够了）。
+
+
+
+
+
+    System.in.read();误区：每次只读一个字节，int a=System.in.read();a最后的值是最后一次敲下键盘那个键的阿斯科马值。故每次都需注意当按下回车键时的情况。
+
+
+
+
+-----------------------------------------------------------------------break与return的区别---------------------------------------------------------------------------------------
+return在定义一个方法中可以返回一个值。可以结束一个方法。包括main方法。
+break在switch语句中可以结束这个语句。在循环中可以结束一个循环。
+
+
+
+   int a=1;int b=2;
+a=b;
+=等于使得a的指针指向b内存的指针。
+
+
+
+
+----------------------------------------------------------------------内部类的实例-----------------------------------------------------------------------------------------------
+    内部类因外部类而存在，故实例内部类之前需实例外部类。
+
+ public class Out{
+public class in{
+
+}
+}
+实例过程：Out.in i=new Out().new in();
+
+
+
+-------------------------------------------------------------------------集合类--------------------------------------------------------------------------------------------------
+   集合类是储存一系列同一属性的的类的集合。他可以动态的储存数据并操作这些数据，比数组在使用上有更大的发展空间。
+
+   集合中的元素，可以是任意类型的对象。如果把某个对象放在集合，则会忽略它的类型，把他当做Object处理，
+故在取出元素时应该进行数据类型的强制转换
+
+集合类的两大家族：Collection        Map。其中Collection的子接口包括：List  Queue（不提）  Set。   
+
+特点：List接口储存的元素有序且可重复，而Set储存的元素无序（無序不是亂序）且不可重複。
+HashSet注意：輸入的順序與輸入的順序不一樣（但不是亂序），儲存的方式可能按照判斷對象的哈希值來存入。每次輸出的順序可能都一樣。
+
+Collection的两个重要子接口的实现类分别是：ArrayList  HashSet 
+
+Map的重要实现类是：HashMap
+
+特点：用Map储存的元素都有一个重要的映射（键）用来寻找储存的元素（值）。
+
+
+
+
+   泛型则是规定了某个集合只可以存放特定类型的对象及其子类类型的对象。会在编译时进行类型检查，
+可以按指定类型获取集合元素,不需进行强转。
+   声明泛型：List<Integer> L=new ArrayList<Integer>();
+
+
+
+------------------------------------------------------------------------循环遍历的特殊方法----------====--------------------------------------------------------------------------
+		int[] array = new int[] { 1, 2, 3, 4, 5, 6 };
+		for (int i : array) {
+			System.out.println(i);
+		}
+
+
+---------------------------------------------------------------------------sacnner-----------------------------------------------------------------------------------------------
+  public class b {
+
+	public static void main(String[] args) {
+				Scanner S=new Scanner(System.in);
+				int a=S.nextInt();
+				int b=S.nextInt();   
+				String c=S.nextLine();  //c無法賦值是一個奇怪的一點 ！！！！！！
+System.out.print(c);
+	}
+
+}
+
+
+  
+--------------------------------------------------------定义boolean signal=false,与if（signal）与if（signal==false）的区别-------------------------------------------------------
+   if（）语句中，只有（）内的表达式为真的时候，才会执行if（）语句的代码。
+故   if（signal）    //因为signal为false  ，retrun false；
+      {    }内的代码块不会被执行。
+
+if（signal==false）等价于（false==false） //retrun true；
+
+      {    }内的代码会被执行。
+
+案例代码：
+public class cc {
+	boolean signal = false;
+
+	// true打印one false打印two
+	public synchronized void aa() {
+
+		if (signal) { // 当signal为true的时候才会执行里面的代码块
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("one");
+			signal = true;
+			notify();
+		}
+	}
+
+	public synchronized void bb() {
+
+		if (!signal) {// 当signal为false的时候才会执行里面的代码块）
+			try { // （！signal的意思是取不等于signal的值，也就是它的相反数false
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("two");
+			signal = false;
+			notify();
+		}
+	}
+}
+
+
+
+
+
+public class c {
+
+	public static void main(String[] args) {
+		final Test_c p = new Test_c();
+		new Thread(new Runnable() {
+			public void run() {
+				while (true) {
+					p.aa();
+				}
+			}
+		}).start();
+		new Thread(new Runnable() {
+			public void run() {
+				while (true) {
+					p.bb();
+				}
+			}
+		}).start();;
+	}
+
+}
+
+-----------------------------------------------------------------------------------字符------------------------------------------------------------------------------------------
+回车："\r"   换行："\n"    空格："\u0000"
+
+
+
+-----------------------------------------------------------------------------------编码------------------------------------------------------------------------------------------
+   编码的意思时：假如一串字符串String=“fuck”，它存储在电脑里的数据并不是这个字符串，而是将它转换成字节（byte）之后存储在电脑里。
+   编码格式有不同种。不同编码格式转换的的字节不一样。
+   当你的字节序列式为某种编码是，这时候你想把字节序列变成字符串，也需要用这种编码方式，否则会出现乱码。
+   
+   四种编码：
+   gbk：一个中文字符两个字节，一个英文字符一个字节
+   utf-8：一个中文字符三个字节，一个英文字符一个字节
+   utf-16be（java的编码形式）：一个中文字符两个字节，一个英文字符两个字节
+   ansi：当在中文机直接创建中文机是，默认的编码格式就是ansi
+
+
+
+-----------------------------------------------------------------------------------IO流------------------------------------------------------------------------------------------
+    File.createTempFile("record", ".mp4", vecordDir); //mp4格式    创建随机数    
+
+
+任何文件在计算机中都是一字节（byte）的形式存在的。
+ 文本文件根据不同的编码格式，在文件中以不同的字节序列形式存在。
+
+    File：文件（text...），目录（文件夹） 。    在创建一个File文件时， File file=new File（E：\\***）时，返回的是一个File对象。
+    注意：分隔符是一个"\\"
+ 
+    InputStream类中的read（）方法返回的是一个整数。那么这个整数是什么呢？
+    我猜是阿斯科码值。
+    何为阿斯科码值？：一种使用7个或8个二进制位进行编码的方案，最多可以给256个字符(包括字母、数字、标点符号、控制字符及其他符号)分配(或指定)数值，
+用于在不同计算机硬件和软件系统中实现数据传输标准化，在大多数的小型机和全部的个人计算机都使用此码。
+
+
+   File类只能表示文件的（目录）的信息（名称，大小等），
+   不能用于文件内容的访问（read（），write（））。
+   故，如果需要对文件进行访问，需要使用它的子类。
+   如RandomAccessFile，以及InpuStream的实现类和OutputSteam的实现类
+
+
+
+
+工具类：
+BufferInputStream：可先将数据保存在缓存内，这样可以一次读多个字节，比如一次读一行字。
+RandomAccessFile ，不仅可以创建一个指定文件夹，可以对该文件设置指定大小，文件读取模式。和对文件进行读取。并指定写入位置和读取位置。比File类功能更加强大
+
+
+
+
+
+
+      IO流分为两种：字节流和字符流。
+   字节流：以字节的形式读和写。
+ 两大接口：InputStram ， OutputStream；
+各种实现类：根据输入输出的要求，有FileInputStream，FileOutputStream。ByteArrayInputStream，ByteArrayOutputStream。FilerInputStream，FilerOutputStream 。。输入流实现类和输出流实现都是对应的。
+其中FilerInputStream，FilerOutputStream还有两个包装类，主要方便代码书写。如FileInputStream写一个整数需要写4次，但有这个包装类DataInputStream，有一个方法writeInt（）可以自己接写进。
+InputStream两个包装类：BufferedInputStream BufferedInputStream。DataInputStream，DataInputStream。
+
+
+  字符流：以字符的形式读和写。
+ 两大接口：Reader ， Writer；  ！！！在我觉得，这个接口接口的实现类就是字节流实现类的包装类。
+基本实现方式：InputStreamReader （将字节流解析为字符流，可按照自定义编码格式解析），OutputStreamWriter（将char流转换成字节流，可自定义编码格式转换）
+输入的char都是用int包装的。两个字节放在int的低16位。
+
+
+  硬盘与缓存的关系，在硬盘内有个马达，可以控制一个指针的伸缩，从而实现的数据读写到硬盘。
+但如果多次对硬盘进行读写的话会造成硬盘的磨损减低寿命。所以出现了缓存这个东西，它可以先将数据保存在缓存里面，但缓存的空间满的时候就将数据写到硬盘内。有时BufferStream就是实现这种
+原理，有时已经写了数据但硬盘没出现该数据，就是应为数据没有写到硬盘里，而是仍然在缓存内。
+  其中有一个RandomAccessFile这个类可以指定写入模式（mode），有r(只读)，w（只写），rw（可读写），
+特别的是 rws（可读写，对于“rw”还要求对文件的内容和元数据的每个更新都写都同步写到底层设备（硬盘等）），
+rwd（可读写，对于“rw”还要求对文件的内容的每个更新都写都同步写到底层设备（硬盘等））。这两种数据保存模式从而保证了在突发情况下数据的丢失。
+但缺点就是对硬盘的开销大，减少寿命。
+
+
+
+
+-----------------------------------------------------------------------------------基本数据类型----------------------------------------------------------------------------------
+   byte：8位，最大存储数据量是255，存放的数据范围是-128~127之间。
+
+   short：16位，最大数据存储量是65536，数据范围是-32768~32767之间。
+
+   int：32位，最大数据存储容量是2的32次方减1，数据范围是负的2的31次方到正的2的31次方减1。
+
+   long：64位，最大数据存储容量是2的64次方减1，数据范围为负的2的63次方到正的2的63次方减1。
+
+   这些8位，16位，32位，64位，怎么理解:
+比如一个数字1：它可能在电脑表示101，数字2表示100，3表示111，则这些位数就是表示这种类型的数据能存储多少个01，byte最多就只能存8个，short能存16个。
+之前提到为什么高位数据强转成低位数据会发生数据丢失，就是这么一回事。
+
+   数据的存储会从低位到高位存储，如果高位没有数据则默认位0.一个位没数据，那个位就位0.
+
+
+
+
+
+-----------------------------------------------------------------------------数据的存储与字节------------------------------------------------------------------------------------
+
+     在计算机中，无论是文本，图片，音频还是视频，所有文件都是以二进制（字节）形式存在的。基本单位是byte，也就是一个字节。一个字节有8位。
+     何为位？：二进制也就是又 0，1 组成的数据。一位能放一个0或1，则八位能放8个0或1。
+     基本数据类型包括byte，short，int，long
+     byte :一个字节，8位
+     short：2个字节，16位
+     int  ：4个字节，32位
+     long ：8个字节，64位
+字节数越多，对应的位数越多，所存储的数据也就越大。
+
+    
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------网络编程------------------------------------------------------------------------------------
+
+  基于TCL的Socket编程：服务端：ServerSocket，客户端：Socket。
+ 其中创建服务端ServerSocket（int Port），指定监控客户端的端口号。
+ 创建客户端：
+ InetAddress address = InetAddress.getLocalHost();// 获得地址，由于InetAddress没有构造方法，所以只能通过其静态方法获取该对象
+ Socket socket = new Socket(address, 8888);//指定该网络传输的地址和端口号
+ServerSocket.accept（）方法是一个阻塞的方法，它会不断等待客户端发送数据。当客户端发送数据后，服务端会得到发送数据的Socket。
+Socket用来发送数据和读取数据。
+
+
+  URI与URL:http://www.baidu.com/new/1.html称之为URL（全球统一资源定位符）。new/1.html称之为URI：资源定位符
+  URL可以标识一个互联网上的资源，URI可以表示一个资源.URI是URL的衍生。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

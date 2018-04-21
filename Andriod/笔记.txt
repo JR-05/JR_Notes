@@ -1,0 +1,458 @@
+-----------------------------------------------------------------------------------Other----------------------------------------------------------------------------------------
+     命名包名时切记使用中文，大写字母    
+
+     队列：吃完了，拉出来。先进先出          栈：吃完了，吐出来。后进后出
+
+     在Xaml中每个节点，表示对应一个View对象，如<TextView/>对应TextView，所有控件的实现类都是继承View，另外LinearLayout也是View对象 
+
+     只有在Activity子类中才能使用this获得Context
+
+     xml文件是之上往下编译的，如果上面用到下面的资源id，则运行的时候会报错。
+
+     ScrollView只能容纳一个子控件
+
+     如果一个进程或线程引用一个SharePerference实例的话，当这个SharePerference索引的数据文件发生变化（删除或更改），而这个SharePerference实例并未重新创建索引该数据文件的SharePerference实例的话，
+那么这个SharePerference包含的数据任然是之前的未改时的数据状态，，因为每次创建SharePerference实例都会将数据文件都提取到缓存里，并不是索引到同一块区域。改变的是两块不同内存地址。故SharePerference才有
+comit（）方法，将SharePerference内的数据从缓存保存到硬盘内。
+
+     findViewByid与view.findViewByid不一样，看复杂ListView界面显示第12分钟。
+
+     与IO流一样，当不使用数据库时，数据库是不会被创建的。如：new SQLite（）是不会被创建一个数据库的，只有使用它的方法，getWritableDatabase（）或getReadableDatabase（）是才会创建数据库
+
+     多线程并发问题：空指针异常，当A线程需要使用B线程的变量时，由于A线程在运行时之前B线程并未运行，从而导致B线程的对象并没有被创建，当A线程使用该变量时就会导致空值针异常。
+
+     在创建Activity时或Fragement时，不能直接对空间进行操作，因为在OnCreate方法对控件进行初始化需要一段时间，如果控件还没初始化完就进行操作的话会造成空指针异常，只有当Activity或Fragement
+在OnResum阶段时，所有控件完成初始化，这时才能对所有控件进行初始化。
+
+     帧:每秒帧数实际上就是指动画或视频每秒放映的画面数。帧就是指“画面”，1幅画就叫做“1帧”
+     16ms（毫秒规则）:Andriod系统中有个规则，就是界面刷新的频率是24帧/S(秒)，也就是每一帧16ms（毫秒），就是说每一帧只有16ms的时间绘制。如果在16ms时间没无法绘制完的话，就会出现视觉是的卡顿和掉帧的现象。
+一般出现这种情况就是因为在UI线程（主线程）执行一些耗时操作，比如IO或网络请求等。
+
+     首先我们要知道当打开一个Activity的时候发生了什么，在一个Activity打开时，如果该Activity所属的Application还没有启动，那么系统会为这个Activity创建一个进程（每创建一个进程都会调用一次Application，所以Application的onCreate()方法可能会被调用多次），在进程的创建和初始化中，势必会消耗一些时间，在这个时间里，WindowManager会先加载APP里的主题样式里的窗口背景（windowBackground）作为预览元素，然后才去真正的加载布局，如果这个时间过长，而默认的背景又是黑色或者白色，这样会给用户造成一种错觉，这个APP很卡，很不流畅，自然也影响了用户体验。
+     
+     Service如果是Bind方法开启的话，onStart和onStartCommand都不会调用；
+
+     Andriod图片资源中有一个特殊格式的图片：9.path：是一个可以定义缩放位置的图片格式。比如在QQ聊天中，当发送一个信息过来时。他的背景是随
+内容的大小进行缩放的，当有一点比较奇怪的是。在它对图片进行缩放的时候，它的那个尖脚却不对被进行缩放。这就是一种把9.path格式的图片当背景资源。它被定义为只在一些区域进行缩放。
+   
+    CardView的使用要开启硬件加速android:hardwareAccelerated="true"
+
+
+    adb调试;
+adb kill-server
+adb start-server
+adb shell
+
+    MAC:MAC地址就是在媒体接入层上使用的地址，也叫物理地址、硬件地址或链路地址，由网络设备制造商生产时写在硬件内部。MAC地址与网络无关，也即无论将带 有这个地址的硬件（如网卡、集线器、路由器等）接入到网络的何处，都有相同的MAC地址，
+
+    ipconfig：通过doc命令查询本机IP
+
+    ping + 域名 :可以查看网络链接状况
+
+    SQLiteOpenHelper 这个类中的onCreate方法什么时候被执行？？？
+是在创建MyHelper对象的时候执行？
+还是调用它的getWritableDatabase()方法执行？或者是其它什么时候执行？
+    在调getReadableDatabase或getWritableDatabase时，会判断指定的数据库是否存在，不存在则调SQLiteDatabase.create创建， onCreate只在数据库第一次创建时才执行
+
+    而INVISIBLE和GONE的主要区别是：当控件visibility属性为INVISIBLE时，界面保留了view控件所占有的空间；而控件属性为GONE时，界面则不保留view控件所占有的空间。
+
+
+   如果要想让自己创建的业务Bean对象让Intent携带着在Activity之间传递的话，要让该Bean对象实现可序列化。也就是实现Serializable（可序列化的）或者Parcelable（可打包的）
+
+
+    所谓的命名控件就是在XML上使用的属性名称，如width.height等。。。存放这些属性名称的文件路径。如：xmlns:costom="http://schemas.android.com/apk/res/。xmlns，就是文件XML Namespaces。命名空间的应用，
+
+xml注释
+<!--  我是注释 -->
+
+数据读写注意事项：
+      根目录（跟SD卡同一级别）下的文件不可读写，所以保存的文件须在SD卡的目录下
+      由于安卓版本的不同，一些手机的SD卡的存储路径不一样。
+Android2.2一下在根目录下，而Android2.1以上在mnt/sdcard。故，在读写的时候File文件的对象最好用Android的API获得，
+Environment。getExternalstorStorageDirectory（）来获取Sdcard文件对象。
+
+
+
+--------------------------------------------------------------------------------数据的包装---------------------------------------------------------------------------------------
+       有几类可用来包装数据。如包装一个类。
+   有Bundle Intent Message
+   发送数据的有Handler
+  
+-------------------------------------------------------------------------------OnClickListener-----------------------------------------------------------------------------------
+    在OnCliclListenner接口中有个抽象方法，OnClick（View v），当某个View控件绑定了这个接口的实现类，
+    当它点击时则会传入这个控件的实现类，这个v = view，
+如：bt3.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {                                 //v=bt3
+				Toast.makeText(MainActivity.this, "我按了Button3",
+						Toast.LENGTH_SHORT).show();
+
+			}
+		});
+假如说有多个View绑定这个OnClickListener的实现类，则可以通过这个View的ID进行判断，使每个View执行不同的代码。
+或则其他的功能。（记得多态）
+
+
+
+--------------------------------------------------------------------------------AIP代码查看--------------------------------------------------------------------------------------
+光标停在在一个方法名然后按Ctrl
+
+
+
+
+
+
+--------------------------------------------------------------------------------保存数据-----------------------------------------------------------------------------------------
+    如果我们要将数据保存到手机里，则需要将文件保存在sdcard目录里面或其他，如果将它保存到根目录（与sdcard同一级别）下的话，文件将不能被进行改写。
+    有些版本的手机的sdcard目录在根目录下，在保存数据时需要获取权限。在AndroidMainfest.xml添加android.permission.WRITE_EXTERNAL_STORAGE权限
+有些在  mnt  目录下，安卓4以上在大多在mnt。所以在保存数据时，路径最好使用Android内部的API获取手机的sdcard目录路径。
+Environment。内部有许多方法用于操作手机内存。其中有：getExternalStorageDirectory（）用于获取sdcard目录。getExternalStorageState（）判断sd卡的状态，是否存在，是否可读
+ 。getExternalStorageDirectory（），getFreeSpace()判断sd卡剩余可用空间。  
+
+
+   保存数据在手机内存里，如果将数据保存在sd卡，会导致应用程序的数据不安全，其他的app会访问这个app的数据。
+故最好将app的数据保存在data\data\包名下的目录 ，   context.getFilesDir（）:返回data\data\Files的目录路径    context.getCacheDir（）:返回data\data\Cache的目录路径
+cache：缓存，当手机的内存不足时，会释放缓存的内存，一般放一些临时文件。比如在看一些新闻时，那些图片就是放在这里。
+
+
+
+
+
+----------------------------------------------------------------------------------布局-------------------------------------------------------------------------------------------
+1.首先来看看Android:layout_gravity和android:gravity的使用区别。
+android:gravity：
+这个是针对控件里的元素来说的，用来控制元素在该控件里的显示位置。例如，在一个Button按钮控件中设置如下两个属性，
+android:gravity="left"和android:text="提交"，这时Button上的文字“提交”将会位于Button的左部。
+
+android:layout_gravity：
+这个是针对控件本身而言，用来控制该控件在包含该控件的父控件中的位置。同样，当我们在Button按钮控件中设置android:layout_gravity="left"属性时，表示该Button按钮将位于界面的左部。
+
+
+
+
+---------------------------------------------------------------------------------常见的单位--------------------------------------------------------------------------------------
+   可分为三种 ： px dp（dip） sp
+ px：像素
+ dp（dip）：像素密度
+ sp：类似于dp
+     由于在不同的Andriod手机里，不同屏幕的尺寸和分辨率不一样，进而会导致一个问题，（屏幕失真）
+px：固定尺寸，无论在720p，还是1080p手机里，假若一个控件的长和高都以px为单位，那么这个控件无论之哪个屏幕都是相同的大小。
+dp和sp：则两个单位则避免了这个问题，它会自动按尺寸和像素大小比例进行缩放。   其中dp用在控件上，sp用在字体大小上。  
+
+
+
+---------------------------------------------------------------------------------intent（意图）----------------------------------------------------------------------------------
+     intent（意图）：可以调用其他activity，发送数据给其他activity。
+
+     调用activity的intent：分为显式意图，隐式意图
+  显式意图：由于小效率高，但由于调用外界的activity复杂，一般调用程序自身的activity，      
+  隐式意图：通过定义一个过滤器，可以让外界程序调用程序内部的activity，但每一次调用需要调出内存中的activity，然后进行筛选，导致效率低。
+注意！！！：在写隐式意图时需要在配置清单中的<intent-filter>节点都写入action和Category
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------avtivity-----------------------------------------------------------------------------------------
+    横竖屏切换activity的生命周期：默认情况下，横竖屏切换时，activity是从onDestory——onStart——onResume，也就是每当切换时，就要重新创造一个activity。
+有些情况下必须解决这个问题，比如在游戏情况下。
+    解决方法：一 ，使他固定方向。  二 ，使他对某些情况不反应
+一，在清单文件中的<activity>节点配置screenOrientation。参数 “landscape”：横屏，“portrait”：竖屏 ，“sensor”：根据重力调整
+二，在清单文件中的<activity>节点配置configChanges。配置android:configChanges=     "orientation|keyboardHidden|screenSize"。    
+    分析配置二，当横竖屏切换时，屏幕的方向会改变，尺寸大小会改变。默认情况下，当这些东西改变时，都会重新创建一个Activity。当配置了这些之后，当出现这些情况都不会做出反应
+
+
+
+
+
+
+-------------------------------------------------------------------------------R 与 res -----------------------------------------------------------------------------------------
+    在Layout文件中可以通过直接访问res中的文件，方法：@***（目录名）/***文件名
+    但在Class文件中只能通过访问R.class来访问目标文件。R.class，res目录中每个文件和Layout中的控件都会在R.class创建一个ID号，通过这个ID号，可以使访问对应的目标文件
+
+
+
+
+
+---------------------------------------------------------------------------Adapter（适配器）-------------------------------------------------------------------------------------
+    BaseAdapter功能比较强大,能够适配更多的View对象,但使用起来比较复杂，不过可以自定义适配器
+    ArrayAdapter使用简单，但只能适配TextView对象。
+    SimpleAdapter功能逼ArrayAdapter强大一点，能够适配TextView ,ImageView等其他View对象
+而且使用起来也挺方便，只要创建一个SimpleAdapter对象，new SimpleAdapter(this, data, resource, from, to)，但总体功能还是不够BaseAdapter强大
+
+
+
+----------------------------------------------------------------------------------多线程-----------------------------------------------------------------------------------------
+   注意子线程不能改变应用程序的UI，比如在子线程里不能设置ImageView的图片，TextView的文本。所以只能在主线程里改变
+
+
+-----------------------------------------------------------------------------------网络编程--------------------------------------------------------------------------------------
+   由于子线程不能改变app的UI，那只能在主线程里改变了，Handler类能够将子线程的数据传递到主线程里.
+   
+   改写Handler类：Handler handler=new Handler（）{
+     public void handler(Message msg){    //当收到Message时发生的事件
+      ***********************
+           *********
+      }
+   } 
+   Messagae msg=new Message(); msg.obj=Object(); handler.sendMessage(msg);//发送信息并触发handler的handler方法。
+  
+   HttpConnection.getResponseCode();返回请求码有很多，其中200代表请求全部正常，206代表请求部分正常
+
+
+
+
+----------------------------------------------------------------------------------SQLite数据库-----------------------------------------------------------------------------------------
+      SQLiteOpenHander类用于创建一个数据库，其中有一个有参构造方法两个函数。
+  有参构造方法。（Context，DatabaseName，cursor，version） 分别代表，一，上下文（用于获取当前环境，应用程序包名），二，数据库名称，三，cursor：指针（写null时位默认），version（开始版本）
+  两个方法。Oncreate：当数据库第一次被创建的时候触发，可用于初始化数据库的表结构。
+            OnUpgrade：当数据库版本升级时触发（version参数用处），可用来修改数据库表结构，增加表，删除表，删除指定表名的指定字段（列）。
+
+  在SQLiteDatabase.query方法中的参数属性（table（表名），columns（需要查询的列），selection{需要查询的字段(行)}，selectionArgs（用占位符表示的字符串数组），grouBy（是否排序），having，ordeBy
+  
+
+     使用命令行查看数据库：
+  1.打开cmd
+  2.adb shell
+  3.su
+  4.cd + 文件目录（data/data/包名/数据库目录）
+  5.sqlite3 + 数据库名
+  6.可以数据sql语句了，如select * from 表名 
+其中select * from sqlite_master where type = "table";语句是查看表结构
+
+     使用命令行修改文件权限：
+  1.打开cmd
+  2.adb shell
+  3.su
+  4.chmod 755 指定修改文件个目录路径
+
+  cd ../返回上级
+
+
+
+
+------------------------------------------------------------------------------------广播-----------------------------------------------------------------------------------------
+   采用代码对receiver进行注册与在mainfest.xml的不同点：
+  1.在mainfest.xml清单文件上注册的话，无论程序是否运行，只要当广播接收者接收到该广播，就行自动创建一个新的进程。
+  2.与之相反的是，使用代码注册的话，当程序销毁的话，广播接收者也会随之销毁。无论是否触发该广播接受者，都不会创建一个新的进程。
+
+
+
+   屏幕锁屏和解锁的广播接受者比较特殊，它在注册广播接收者时在mainfest.xml注册清单文件注册时不生效的。
+它只能用代码注册广播接收者。其中四大组件中广播接受者（<receiver/>）时唯一能够用代码进行实现注册的。
+代码注册：registerReceiver（new BroardcastReceiver（），new IntentFilter（））；注销unregisterReceiver
+
+
+
+
+
+------------------------------------------------------------------------------------Framegment------------------------------------------------------------------------------------
+   Framegment中的onCreateView()方法类似于Activity中在onCreate（）方法中调setConentView（）方法类似，都是设置用户交互界面
+   
+
+
+
+
+------------------------------------------------------------------------------------手机硬件------------------------------------------------------------------------------------
+     摄像头：由于调用系统摄像机回掉回来的图像是一张缩略图，当我们想要拿到一张原图时可以设置系统摄像机拍出来的照片的路径，之后在从该路径中获取原图
+  方法：
+         Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//开启系统自带摄像界面意图，
+         Uri photoUri=new Uri.fromFile(new File(***));             //自定义uri路径
+         intent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);        //关键！！！进行设置
+         StartActivityForResult(intent)                            //开启系统自带摄像界面
+
+
+-------------------------------------------------------------------------------------获取手机媒体路径---------------------------------------------------------------------------
+    //使用隐式意图打开文件夹界面
+    public void choose(View v) {
+        Intent intent = new Intent();
+        intent.setType("audio/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+    }
+    //当文件夹界面关闭后得到用Intent包装的数据 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            //获取音乐路径
+            uri = data.getData();
+            String[] proj = {MediaStore.Audio.Media.DATA};
+            Cursor actualimagecursor = managedQuery(uri, proj, null, null, null);
+            int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+            actualimagecursor.moveToFirst();
+            music_Path = actualimagecursor.getString(actual_image_column_index);
+    }
+
+-----------------------------------------------------------------------------------录音--------------------------------------------------------------------------------------------------------------
+                                                                     setOutputFormat/setAudioEncoder   
+    设置文件格式 与 设置 声音编码。意思就是：一个文件，如果设置文件格式的话就相当于如何设置它里面的数据，而设置编码的就是设置它里面的数据又是怎样设置自己的数据（比如说：字节。如何管理字节排列什么的）
+
+
+
+
+
+-----------------------------------------------------------------------------------动态打开权限访问--------------------------------------------------------------------------------------------------
+
+        //询问是否打开权限
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.RECORD_AUDIO}, 1);
+        }
+    
+
+    //requestPermissions方法执行后的回调方法
+    /*
+    * requestCode:相当于一个标志，
+    * permissions：需要传进的permission，不能为空
+    * grantResults：用户进行操作之后，或同意或拒绝回调的传进的两个参数;
+    * */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //这里实现用户操作，或同意或拒绝的逻辑
+        /*grantResults会传进android.content.pm.PackageManager.PERMISSION_GRANTED 或 android.content.pm.PackageManager.PERMISSION_DENIED两个常，前者代表用户同意程序获取系统权限，后者代表用户拒绝程序获取系统权限*/
+    }
+
+
+//判断是否有该权限
+PackageManager pm = getPackageManager();  
+        boolean permission = (PackageManager.PERMISSION_GRANTED ==   
+                pm.checkPermission("android.permission.RECORD_AUDIO", "packageName"));  
+        if (permission) {  
+            showToast("有这个权限");  
+        }else {  
+            showToast("木有这个权限");  
+        }  
+
+
+
+
+
+
+--------------------------------------------------------Butterknife使用----------------------------------------------------------------
+如何添加依赖
+在项目的project 的build.gredle 文件中的dependencies标签下添加。
+
+ classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+
+例如：
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+在module的build.gredle 文件中添加
+
+
+例如
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "jr.sweepqrode"
+        minSdkVersion 19
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile files('libs/core-3.2.1.jar')
+    compile 'com.android.support:recyclerview-v7:21.0.+'
+    
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+}
+
+
+
+
+
+----------------------------------------------------------ActionBarActivity-------------------------------------------------------------
+    //创建ActionBar的事件，可以加载Item项
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+
+    //正准备item的事件,可以给Item添加数据
+    @Override
+    public boolean onPrepareOptionsMenu(final Menu menu) {
+ 
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    //item被选中的事件，可以给Item添加点击事件
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+
+   -----------------------------------------------------------动画----------------------------------------------------------------------                 设置动画
+                    view.animate()
+                    .translationY(0).alpha(1.f)//设置最终效果为完全不透明，并且在原来的位置
+                    .setStartDelay(delayEnterAnimation ? 20 * (position) : 0)//根据item的位置设置延迟时间，达到依次动画一个接一个进行的效果
+                    .setInterpolator(new DecelerateInterpolator(0.5f))//设置动画效果为在动画开始的地方快然后慢
+                    .setDuration(700)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            animationsLocked = true;//确保仅屏幕一开始能够显示的item项才开启动画，也就是说屏幕下方还没有显示的item项滑动时是没有动画效果
+                        }
+                    })
+                    .start();
+
+
+ animation（补间动画）：只能做一些显示的动画，不能做控件交互的动画（也就是并不是将一个View控件真正的进行移动）。比如说你将一个控件设置了一个点击事件（弹出一个Toast），然后你将设置补间属性（位移），在点击这个控件，你会发现在位移后的在点击该控件没反应，正在有反应的还是位移前的位置
+  animator（属性动画）：将一个View控件真正的进行移动

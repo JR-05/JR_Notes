@@ -1,0 +1,134 @@
+----------------------------------------------------------------------------------單詞-----------------------------------------------------------------------------------------
+ Stackpanel ：堆积面板        visibility :  能见度         collapsed ：不可见      visible ： 可见
+
+ definition ：定义            columnDefinition ：定义列数  picker   ：采集器       mouse   ： 鼠标
+
+ dialog     ：对话            Resize     ：调整大小        cursor   ：  光标       Thickness：都读 
+
+ CornerRadius：圆角度         Transparency：透明度         Offset   : 偏移         HorizontalOffset：水平偏移度
+
+ Dynamic    ：动态            Merged     ：合并
+
+
+---------------------------------------------------------------------------------方法--------------------------------------------------------------------------------------------
+  Window_Loaded : 类似于Andriod中的OnCreate ，就是当创建窗口时（加载窗口时）说需要发生的事件代码
+
+
+
+
+----------------------------------------------------------------------------------快捷鍵-----------------------------------------------------------------------------------------
+ ctrl+j（提示代码）   ctrl+shift+f（全局查找）
+
+
+
+
+
+----------------------------------------------------------------------------------控件------------------------------------------------------------------------------------------
+RedioButto（单选按钮） ：当有多组RedioButton时，通过自身属性Grundname来进行分组，不然多个RedioButton控件只能有一个被选中
+DatePicker：日期采集器    ，   ProgressBar ： 进度条
+StackPanel（堆积面板）：跟LinearLayout（线性布局）很类似。
+DockPanel （停靠面板）：跟RelativeLayout很类似，指定子控件位置。
+TextBox：类似于TextView           TextBlock：类似于EditText
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------属性------------------------------------------------------------------------------------------
+ Visibility（能见度），IsEnabled （控件是否可用），Background（背景，色），FontSize（字体大小） Name：类似与Andriod中的ID
+
+ Stretch（拉伸）：是否拉伸，有时当image放入一个图片时会被拉伸，我们只要设置该属性None就表示不拉伸。
+
+ Placement个个枚举属性 ：Absolute（相对于屏幕），Relative（相对于控件），Mouse（相对于鼠标）使用Placement时需搭配VerticalOffset； HorizontalOffset；两个属性，代指偏移度
+
+ Panel.ZIndex=“int（级别）”：控件显示的级别，如果两个控件重叠在一起，如果级别越高，则就在最顶层
+ 
+ VerticalScrollBarVisibility（在ScrollViewer中的竖直方向拖动条的能见度）：Hidden:不可见 visible：可见的 disable：不可用的（不能拖动）对应有HorizontalScrollViewerVisibility。
+
+ BorderBrush:边框颜色         BorderThickness:边框厚度         CornerRadius:边框圆角度，值只越大，越园
+
+
+----------------------------------------------------------------------------------笔记-----------------------------------------------------------------------------------------
+   在Xaml中写入一个标签，就相当与创建一个该标签对应的对象，类似于Andriod
+
+   一个项目中的App.xaml就像Android的清单文件一样，在其中可以设置启动窗口，StrattuUri=“MainWindow.xaml”
+  
+   定义变量：public  String text { get; set; }   ，不同的是需要添加权限，{get；set；}只读，只写，还是读写
+ 
+由于C#中有些值不能为空，比如（int，boolean，decimal，datatime），但有些情况想让它为空，这时，C#出现了可为null的数据类型？，
+定义可为null的数据类型：如int？，boolean？，在不可为空的数据类型后在“？”。
+   注意！！！在checkBox中的属性，isCheck，它的数据类型是可为空的，要使用  if 语句时需要进行强转。
+
+
+行和列宽度和高度的定义，可以固定值，auto值，比例值。设置比例的做法 width=“*”， width=“2*” width=“3*” 1-2-3
+
+
+定义属性有两种方法，复杂方法更加强大，因为简单方法仅仅只能加载文本，而复杂方法可以添加任意内容，比如图片
+        <StackPanel>
+            <!-- 简单方法-->
+            <Button  Width="100" Height="100" Content="简单"></Button>
+            <!--复杂方法-->
+            <Button Width="100" Height="100">
+                <Button.Content>
+                    复杂
+                </Button.Content>
+            </Button>
+            <Button  Width="100" Height="100">
+                <Button.Content>
+                    <Image Source="照片\P70325-222151(1)(1).jpg" Width="100" Height="100"></Image>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+   而且，在特殊情况下必须使用复杂方法。
+如：在定义Grid面板的ColumnDefination和RowDefination中必须用到复杂方法
+        <Grid Height="175" VerticalAlignment="Bottom" ShowGridLines="True">      
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+              </Grid.ColumnDefinitions>
+        </Grid>
+
+
+
+附加属性：
+  如：   <Grid Height="175" VerticalAlignment="Bottom" ShowGridLines="True">      
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+              </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"></Button>
+            <Button Grid.Column="1"></Button>
+            <Button Grid.Column="2"></Button>
+        </Grid>
+    当Button成为Grid的child时，Button就多了一些附加属性
+
+
+
+添加文本的方式：大多为Content ，Text 。menuItiem  添加文本属性：header。由于是PasswordBox，只有它是Password 
+
+设置光标的属性：Cursor  ，当鼠标移到该控件时，光标显示的形态
+
+控件的背景和前景：background  foreground。前景主要指字体颜色。改变字体颜色不是color，而是Foreground
+
+内容控件指的是控件里面能够在放入一个控件，比如imagejon控件，但由于只能放一个控件，如果想放多个控件的话，需要放一个容器控件来存放控件。
+
+如果想让一串文字中特定的文字有特殊的属性，比如有其他事件，改变字体颜色等。可以用到。<Run></Run>
+这么写： <TextBlock >
+          This is
+<Run TextDecorations="Underline" Cursor="Hand" MouseEnter="Run_MouseEnter">  A  </Run>
+          Run
+         </TextBlock>
+显示的文字还是This is A Run。
+
+
+
+   资源文件:  资源文件会以二进制的形式在编译的时候嵌入到软件，   标记：Resource
+   文本文件   文本文件不会嵌入软件本身，而是软件自动从外部提问指定Soucrce路径下的文件，    标记 ：内容
+

@@ -1,0 +1,13 @@
+Alt + enter 代码提示
+
+Alt + /     自动补全
+
+ctrl+x剪切   ctrl+v粘贴 
+
+ctrl+p      参数信息
+
+ctrl+Alt+L  自动排版
+
+ctrl+shift+c  copy reference
+
+ctrl+Alt+M  提取代码
