@@ -26,7 +26,7 @@
 
 # MyBatis工作原理
 
-![MyBatis工作原理](E:\笔记\SSM\photo\MyBatis工作原理.bmp)
+![MyBatis工作原理](photo\MyBatis工作原理.bmp)
 
 ​	MyBatis框架对操作数据库的JDBC进行了封装，但并不是完全进行封装，而是半自动封装，另外一半也就是用户需要写的SQL语句
 
@@ -62,7 +62,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 如果XML标签不提示，需要手动配置DTD文件
 
-![配置文件dtd路径](E:\笔记\SSM\photo\配置文件dtd路径.bmp)
+![配置文件dtd路径](photo\配置文件dtd路径.bmp)
 
 4. **配置操作数据库SQL语句**
 
@@ -204,7 +204,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 </mappers>
 ```
 
-4.在使用注解式开发时，自动扫描注册所有指定包名下的接口
+4.注册包名下的所有Dao的映射文件，注意前提是需要映射文件名需要和Dao类名一致，而且SQL映射文件必须与Dao类放在同一个包下
 
 ```
 <mappers>
@@ -216,7 +216,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 
 
-### 注意
+### Maven工程注意
 
 - **Maven 工程 中， .xml 或 .properties 配置文件无法找到** 
 
@@ -244,11 +244,11 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 将xml，properties等配置文件统一放到resoures文件目录
 
-![资源存放目录](E:\笔记\SSM\photo\资源存放目录.bmp)
+![资源存放目录](photo\资源存放目录.bmp)
 
 注意引用文件的路径是编译后的文件路径
 
-![资源路径](E:\笔记\SSM\photo\资源路径.bmp)
+![资源路径](photo\资源路径.bmp)
 
 
 
@@ -400,7 +400,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 [^id]: 确定该映射map的id
 [^type]: 传入的数据类型
-[^<parameter/>]: 映射该数据关系的属性
+[^parameter]: 映射该数据关系的属性
 [^resultMap]: 封装数据映射的resultMap的id
 [^property]: SQL语句的动态参数名，对应到resultMap中的property
 
@@ -447,7 +447,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
     }
 ```
 
-调用SqlSession的**insert()**、commit()、close()进行数据传递，事务的提交和关闭
+调用SqlSession的**insert()**、**commit()**、**close()**进行数据传递，事务的提交和关闭
 
 [^insert（String id，Object obj） ]: id：SQL映射文件中的SQL语句的ID；obj：传入参数对象
 
@@ -479,8 +479,6 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
     }
 ```
 
-调用SqlSession的**insert()**、commit()、close()进行数据传递，事务的提交和关闭
-
 [^insert（String id，Object obj）]: id：SQL映射文件中的SQL语句的ID；obj：传入参数对象
 
 
@@ -502,17 +500,14 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 **接口实现方法**
 
 ```
-
     @Override
-    public void insert_array(Student[] students) {
+    public void insert_array(String[] data) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
-        sqlSession.insert("student.inser_array", students);
+        sqlSession.insert("student.inser_array", data);
         sqlSession.commit();
         sqlSession.close();
     }
 ```
-
-调用SqlSession的**insert()**、commit()、close()进行数据传递，事务的提交和关闭
 
 [^insert（String id，Object obj）]: id：SQL映射文件中的SQL语句的ID；obj：传入参数对象
 
@@ -760,9 +755,7 @@ select @@identity;
 
 调用SqlSession的**selectMap()**、commit()、close()进行数据传递，事务的提交和关闭
 
-[^selectMap（String id,String key）]: id：SQL映射文件中的SQL语句的ID；key：Map集合中的key，可以指定为字段数据的ID，否则可能会覆盖某些数据。
-
-
+[^selectMap（String id,String key）]: id：SQL映射文件中的SQL语句的ID；key：Map集合中的key，可以指定为字段数据的主键，否则可能会覆盖某些数据。
 
 
 
@@ -816,16 +809,40 @@ select @@identity;
 
 
 
-### 总结
+### 获取方法参数
 
 > **\#获取到动态参数值**
 
-1. \#{成员变量名}
-2. \#{Map集合Key}
-3. \#{array[数组指针]}
-4. \#{0(方法参数位置)}
+1. 单个方法参数：#{成员变量名}
+
+2. 多个方法参数：#{0(方法参数位置)}
+
+3. 再注解式开发中的多个方法参数：在方法参数中使用@Param("key"),后通过#{key}获取方法参数值
+
+   ```
+       @Delete("delete from student where id=#{myId}")
+       void delete(@Param("myId") int id);
+   ```
+
+4. Map集合参数：#{Map集合Key}
+
+5. 数组参数：#{array[数组指针]}
+
+   
+
+### 数据查询和提交到数据库乱码问题
+
+​	有时候数据查询的结果与数据库内的不一致，或者数据提交到数据库也可能出现乱码不一致的现象。
+
+​	如果出现乱码的现象，解决方法是在连接数据库的url上添加参数，如：
+
+```
+jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
+```
 
 
+
+​	
 
 # Mapper代理
 
@@ -895,7 +912,7 @@ select @@identity;
 
 ​	动态SQL，即通过MyBatis提供的各种标签对条件做出判断以实现动态拼接SQL语句。
 
-![动态SQL](E:\笔记\SSM\photo\动态SQL.bmp)
+![动态SQL](photo\动态SQL.bmp)
 
 ### if
 
@@ -1009,13 +1026,100 @@ select @@identity;
 
 
 
+### Set
+
+​	MyBatis在生成update语句时若使用if标签，如果前面的if没有执行，则可能导致有多余逗号的错误。 如：
+
+```
+
+<update <upda id="updateByPrimaryKeySelective" parameterType="RecruitmentConfBanner">
+        UPDATE conf_banner 
+        set
+            <if test="bannerName != null">
+                t.banner_name = #{bannerName},
+            </if>
+            <if test="bannerUrl != null">
+                t.banner_url = #{bannerUrl},
+            </if>
+        where t.banner_id = #{bannerId}
+</update>
+```
+
+
+
+​	使用set标签可以将动态的配置SET 关键字，和剔除追加到条件末尾的任何不相关的逗号 
+
+```
+
+<update <upda id="updateByPrimaryKeySelective" parameterType="RecruitmentConfBanner">
+        UPDATE conf_banner 
+        <set>
+            <if test="bannerName != null">
+                t.banner_name = #{bannerName},
+            </if>
+            <if test="bannerUrl != null">
+                t.banner_url = #{bannerUrl},
+            </if>
+        <set/>    
+        where t.banner_id = #{bannerId}
+</update>
+```
+
+
+
+### trim
+
+​	trim元素的主要功能是:
+
+ 1. 在自己包含的内容前加上某些前缀。与之对应的属性是prefix
+
+	2. 可以在其后加上某些后缀。与之对应的属性是suffix
+
+	3. 可以把包含内容的首部某些内容覆盖，即忽略。与之对应的属性是prefixOverrides
+
+	4. 也可以把尾部的某些内容覆盖，与之对应的属性是suffixOverrides。
+
+    正因为trim有这样的功能，所以我们也可以非常简单的利用trim来代替where元素等其它标签元素的功能。如：
+
+```
+<select id="selectUsersTrim" resultMap="resultListUsers" parameterType="Users">
+      select * from users
+      <trim prefix="where" prefixOverrides="and">
+          <if test="name!=null">
+              name=#{name}
+          </if>
+          <if test="address!=null">
+               and address=#{address}
+          </if>
+      </trim>    
+  </select>
+```
+
+**执行SQL语句**
+
+```
+select *  from users where name=xxx and address=xxx;
+```
+
+或
+
+```
+select *  from users where address=xxx;
+```
+
+prefix属性定义拼接的SQL语句内容包含where前缀
+
+prefixOverrides设置定义拼接的SQL语句内容的省略and前缀
+
+
+
 ### 注意事项
 
 ​	在mappre的动态SQL中若出现大于号（>）、小于号（<）、大于等于号（>=）、小于等于号（<=）、最好将其转换成事宜符号。否则，xml可能出现解析出错问题。
 
 ​	特别是对于小于号（<），在XML中是绝对不能出现的。否则，一定出现错误。
 
-​	![注意事项](E:\笔记\SSM\photo\注意事项.bmp)
+​	![注意事项](photo\注意事项.bmp)
 
 
 
@@ -1045,13 +1149,13 @@ select @@identity;
 
 #### 定义实体
 
-![Cuntry实体](E:\笔记\SSM\photo\Cuntry实体.bmp)
+![Cuntry实体](photo\Cuntry实体.bmp)
 
-![Minister实体](E:\笔记\SSM\photo\Minister实体.bmp)
+![Minister实体](photo\Minister实体.bmp)
 
 #### 定义数据库表
 
-![一对多数据库表](E:\笔记\SSM\photo\一对多数据库表.bmp)
+![一对多数据库表](photo\一对多数据库表.bmp)
 
 
 
@@ -1148,7 +1252,7 @@ public class Associsational {
 
 ​	多表单独查询方式是多张表各自查询各自的相关内容，需要多张表的联合数据，则主表的查询结果联合其他表的查询结果，然后封装为一个对象。
 
-​	当然，这多个查询是可以跨多个映射文件的，即是可以跨多个namespace的。在使用其它namespace的查询时，添加上其所在的namespace即可![一对多单独查询mapper](E:\笔记\SSM\photo\一对多单独查询mapper.bmp)。
+​	当然，这多个查询是可以跨多个映射文件的，即是可以跨多个namespace的。在使用其它namespace的查询时，添加上其所在的namespace即可![一对多单独查询mapper](photo\一对多单独查询mapper.bmp)。
 
 ​	**关联属性\<collection/>的数据来自另一个查询\<selectMinisterByCountry/>。而该查询的\<selectMinisterByCountry/>的动态参数cuntryid=#{ooo}的值来自与查询\<selectMinisterByCountryById/>的查询结果字段cid**
 
@@ -1166,17 +1270,19 @@ public class Associsational {
 
 #### 定义实体
 
-![Cuntry实体](E:\笔记\SSM\photo\Cuntry实体.bmp)
+![Cuntry实体](photo\Cuntry实体.bmp)
 
-![Minister实体](E:\笔记\SSM\photo\Minister实体.bmp)
+![Minister实体](photo\Minister实体.bmp)
 
 #### 定义数据库表
 
-![一对多数据库表](E:\笔记\SSM\photo\一对多数据库表.bmp)
+![一对多数据库表](photo\一对多数据库表.bmp)
 
 
 
 #### 定义Dao层接口
+
+
 
 ```
 public interface IMinistorDao {
@@ -1271,7 +1377,7 @@ public class Associsational {
 
 > 多表单独查询方式
 
-![多表单独查询](E:\笔记\SSM\photo\多表单独查询.bmp)
+![多表单独查询](photo\多表单独查询.bmp)
 
 ​	**通过主查询出的CountryId作为动态参数，在通过关联查询出Monister表中的其他关联数据**
 
@@ -1287,15 +1393,15 @@ public class Associsational {
 
 #### 定义实体
 
-![Cuntry实体](E:\笔记\SSM\photo\Cuntry实体.bmp)
+![Cuntry实体](photo\Cuntry实体.bmp)
 
-![Minister实体](E:\笔记\SSM\photo\Minister实体.bmp)
+![Minister实体](photo\Minister实体.bmp)
 
 #### 
 
 #### 定义数据库表
 
-![多对多数据库表](E:\笔记\SSM\photo\多对多数据库表.bmp)
+![多对多数据库表](photo\多对多数据库表.bmp)
 
 #### 定义Dao层接口
 
@@ -1643,11 +1749,11 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ​	当一个SqlSession结束后，该SqlSession中的一级查询缓存也就不存在了，MyBatias默认一级查询缓存是开启状态的，且不能关闭。
 
-![一级缓存原理图](E:\笔记\SSM\photo\一级缓存原理图.bmp)
+![一级缓存原理图](photo\一级缓存原理图.bmp)
 
 #### 一级缓存依据
 
-​	一级缓存中缓存的是相同的Sql映射id的查询结果，而非相同Sql语句的查询结果。因为MyBatis内部对于查询缓存，无论是一级缓存还是二级缓存，其底层使用一个HashMap实现：key为Sql的id相关内容（可理解为sql的id+查询参数），value为从数据库中查询出的结果。
+​	一级缓存中缓存的是相同的Sql映射id的查询结果，而非相同Sql语句的查询结果。因为MyBatis内部对于查询缓存，无论是一级缓存还是二级缓存，其底层使用一个HashMap实现：key为Sql的id相关内容（**可理解为sql的id+查询参数**），value为从数据库中查询出的结果。
 
 #### 增删改对一级缓存的影响
 
@@ -1768,7 +1874,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 2. **添加ehcache.xml配置文件**
 
-​       解压echache的核心jar包ehcache-core.jar，将其中的一个配置文件ehcache-failsage.xml直接放到项目的src目录下，并更名为ehcache.xml![ehcache](E:\笔记\SSM\photo\ehcache.bmp)
+​       解压echache的核心jar包ehcache-core.jar，将其中的一个配置文件ehcache-failsage.xml直接放到项目的src目录下，并更名为ehcache.xml![ehcache](photo\ehcache.bmp)
 
 
 
@@ -1882,3 +1988,259 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
     Student select(int id);
 ```
 
+​                                                                                                                                                                                                                                                                                                                                        
+
+### 注册注解Dao
+
+```
+<!-- mapping 文件路径配置 -->
+<mappers>
+    <mapper class="com.jr.exmaple.dao.IStudentDao_Annotation"></mapper>
+</mappers>
+```
+
+
+
+
+
+# 逆向工程
+
+​	使用MyBatis最大的问题就是需要自己手动写Dao的接口，SQL的映射文件，和数据库对应的Bean类。
+
+​	有了MyBatis提供的逆向工厂后，这些将会通过该插件对应到数据库中的表结构自动生成。
+
+### 使用步骤
+
+1. **配置Maven的配置文件**
+
+   ```
+   //添加逆向工厂插件
+   <build>
+     <finalName>zsxt</finalName>
+     <plugins>
+       <plugin>
+         <groupId>org.mybatis.generator</groupId>
+         <artifactId>mybatis-generator-maven-plugin</artifactId>
+         <version>1.3.2</version>
+         <configuration>
+           <verbose>true</verbose>
+           <overwrite>true</overwrite>
+         </configuration>
+       </plugin>
+     </plugins>
+   </build>
+   ```
+
+2. **配置逆向工厂**
+
+   ​	使用逆向工厂需要配置所需的文件，如指定生成的Dao接口类的路径，生成的SQL映射文件的路径...
+
+   ​	需要注意的是，该配置文件需要放在resources资源目录下，并取名generaterConfiguration，否则执行该插件时会出现找不到文件错误。
+
+   ```
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!DOCTYPE generatorConfiguration
+           PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+           "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+   
+   <generatorConfiguration>
+       <!--导入属性配置-->
+       <properties resource="properties/jdbc_mysql"></properties>
+   
+       <!--指定特定数据库的jdbc驱动jar包的位置-->
+       <classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.25\mysql-connector-java-5.1.25.jar"/>
+   
+       <context id="default" targetRuntime="MyBatis3">
+   
+           <!-- optional，旨在创建class时，对注释进行控制 -->
+           <commentGenerator>
+               <property name="suppressDate" value="true"/>
+               <property name="suppressAllComments" value="true"/>
+           </commentGenerator>
+   
+           <!--jdbc的数据库连接 -->
+           <jdbcConnection
+                   driverClass="${jdbc.driver}"
+                   connectionURL="${jdbc.url}"
+                   userId="${jdbc.user}"
+                   password="${jdbc.password}">
+           </jdbcConnection>
+   
+   
+           <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
+           <javaTypeResolver>
+               <property name="forceBigDecimals" value="false"/>
+           </javaTypeResolver>
+   
+   
+           <!-- Model模型生成器,用来生成含有主键key的类，记录类 以及查询Example类
+               targetPackage     指定生成的model生成所在的包名
+               targetProject     指定在该项目下所在的路径
+           -->
+           <javaModelGenerator targetPackage="generator.pojo"
+                               targetProject="src/main/java">
+   
+               <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+               <property name="enableSubPackages" value="false"/>
+               <!-- 是否对model添加 构造函数 -->
+               <property name="constructorBased" value="true"/>
+               <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+               <property name="trimStrings" value="true"/>
+               <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+               <property name="immutable" value="false"/>
+           </javaModelGenerator>
+   
+           <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
+           <sqlMapGenerator targetPackage="generator.dao"
+                            targetProject="src/main/java">
+               <property name="enableSubPackages" value="false"/>
+           </sqlMapGenerator>
+   
+           <!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件 的代码
+                   type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
+                   type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
+                   type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
+           -->
+           <javaClientGenerator targetPackage="generator.dao"
+                                targetProject="src/main/java" type="XMLMAPPER">
+               <property name="enableSubPackages" value="true"/>
+           </javaClientGenerator>
+   
+   
+           <table tableName="student" schema="">
+           </table>
+       </context>
+   </generatorConfiguration>
+   ```
+
+   ​	其中最要的配置是：
+
+   [^jdbcConnection]: 数据库连接配置
+   [^javaModelGenerator]: 生成表结构映射的Model实体类
+   [^sqlMapGenerator]: 数据库操作的SQL映射文件
+   [^javaClientGenerator]: Dao层接口
+   [^table]: 需要进行逆向生成数据库操作的表
+
+   
+
+3. **执行逆向工厂插件**
+
+   ![执行逆向工程](photo\执行逆向工程.bmp)
+
+4. **生成的Java代码和映射文件**
+
+
+
+![逆向工程生成资源](photo\逆向工程生成资源.bmp)
+
+
+
+### 测试
+
+1. **注册SQL映射文件**
+
+   ```
+       <mappers>
+           <!--注册逆向工厂产生的映射文件-->
+           <mapper resource="dao/StudentMapper.xml"></mapper>
+       </mappers>
+   ```
+
+2. **测试类**
+
+   *举例：mybatis工程包名generator*
+
+   > **Selective**
+
+   ​	在insert和update的操作中都有出现Selective后缀的方法，该方法的区别在于拼接SQL语句的时候，会对实体类中的每个属性值进行判断是否为null(这也就是为什么逆向工程的实体类中的变量类型是每种基本数据类型对应的包装对象的原因)，如果为null的话该属性对应的字段将不拼接到SQL语句当中。如：
+
+   **updateByPrimaryKey**
+
+   ```
+   @Test
+   public void updateByPrimaryKey() {
+       Student student = new Student();
+       student.setId(12);
+       student.setName("SB");
+       student.setAge((byte) 8);
+       student.setTid(null);
+       studentMapper.updateByPrimaryKeySelective(student);
+   }
+   ```
+
+   **拼接的SQL语句**
+
+   ![noSelective](photo\noSelective.bmp)
+
+   **updateByPrimaryKeySelective**
+
+   ```
+   @Test
+   public void updateByPrimaryKeySelective() {
+       Student student = new Student();
+       student.setId(12);
+       student.setName("SB");
+       student.setAge((byte) 7);
+       student.setTid(null);
+       studentMapper.updateByPrimaryKeySelective(student);
+   }
+   ```
+
+   **拼接的SQL语句**
+
+   ![selective](photo\selective.bmp)
+
+   ​	在进行更新操作时，如实体类中的属性值为null使用Selective的方法不会影响数据库中的字段。而普通的更新方法将会直接把其中的数据库字段值设置为null。
+
+
+
+> Exmaple	
+
+​	在生成数据库表结构对应的实体类时都附带生成一个xxxExmaple类，有时逆向工程生成的SQL文件并不能满足实际的需求，如需要进行高级的查询操作。这时xxxExmaple类就能够满足这类需求。
+
+**模糊查询**
+
+```
+@Test
+public void selectByExample() {
+	StudentExample studentExample = new StudentExample();
+	StudentExample.Criteria criteria = studentExample.createCriteria();
+	criteria.andNameLike("S%");
+	List<Student> students =studentMapper.selectByExample(studentExample);
+	for (Student student : students) {
+  	   System.out.println(student);
+	}
+}
+```
+
+ 	其中Criteria是设置查询条件参数对象，其中对每个对象字段都有相应的高级操作方法，如：
+
+ andNameIsNull（）
+
+ andNameIsNotNull（）
+
+ andNameEqualTo（）
+
+ andNameNotEqualTo（）
+
+ andNameGreaterThan（）
+
+ 。。。
+
+​	每个查询条件都有一个Criteria对象，如果where条件中出现or，那么就需要有两个Criteria对象进行条件进行包装，最后在通过xxxExmaple对象进行串联，如：
+
+```
+@Test
+public void selectByExample() {
+    StudentExample studentExample = new StudentExample();
+    StudentExample.Criteria criteria1 = studentExample.createCriteria();
+    criteria1.andAgeBetween((byte) 1, (byte) 5);
+    StudentExample.Criteria criteria2 = studentExample.createCriteria();
+    criteria2.andNameLike("S%");
+    studentExample.or(criteria2);
+    List<Student> students = studentMapper.selectByExample(studentExample);
+    for (Student student : students) {
+        System.out.println(student);
+    }
+}
+```

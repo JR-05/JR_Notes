@@ -439,7 +439,8 @@ dependencies {
 
 
 
-   -----------------------------------------------------------动画----------------------------------------------------------------------                 设置动画
+   -----------------------------------------------------------动画----------------------------------------------------------------------                 
+   设置动画
                     view.animate()
                     .translationY(0).alpha(1.f)//设置最终效果为完全不透明，并且在原来的位置
                     .setStartDelay(delayEnterAnimation ? 20 * (position) : 0)//根据item的位置设置延迟时间，达到依次动画一个接一个进行的效果
@@ -456,3 +457,50 @@ dependencies {
 
  animation（补间动画）：只能做一些显示的动画，不能做控件交互的动画（也就是并不是将一个View控件真正的进行移动）。比如说你将一个控件设置了一个点击事件（弹出一个Toast），然后你将设置补间属性（位移），在点击这个控件，你会发现在位移后的在点击该控件没反应，正在有反应的还是位移前的位置
   animator（属性动画）：将一个View控件真正的进行移动
+
+
+
+------------------------------------------------------------ViewPager的使用注意------------------------------------------------------------
+	在实现其中的方法中    
+	@Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+        return view==object;
+    }
+	必须返回view==object，否则页面将出现空白，因为所有设置View的大小都为零
+
+
+------------------------------------------------------------lauout-height------------------------------------------------------------
+	layout_weight 的含义及使用
+	在Android的控件布局中，有一个奇葩的 layout_weight 属性，定义如下：
+	layout_weight : 用于指定剩余空闲空间的分割比例。用法：
+<LinearLayout 
+  android:orientation="horizontal">
+
+  <TextView 
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_height"
+      android:layout_weight="1"
+      android:text="888"/>
+
+  <TextView 
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_height"
+      android:layout_weight="1"
+      android:text="999999"/>
+
+</LinearLayout>
+	为什么说是奇葩呢？
+
+	以上面的布局代码为例，TextView-888 和 TextView-999999 是横向排列的2个控件，它们的layout_weight="1"，说明这2个控件平分了所在LinearLayout的剩余的空闲空间， 我们很容易的就误认为这2个控件平分了水平方向的空间，即：各自占据了 50% 的宽度。
+
+其实这是错误的，而是：TextView-999999控件所占据的宽度 > TextView-888所占据的宽度。因为999999字符占据的宽度大于888占据的宽度，即：w(999999) + 1/2空闲空间 > w(888) + 1/2空闲空间。
+
+这就是它奇葩的地方，很容易就让我们一直误认为是整个控件分割空间。
+	到这里，大家一定会认为，这样的话，layout_weight 这个属性就没有什么意义了，原以为它可以分配空间呢，原来只是分割剩余空闲空间。
+
+	其实，呵呵，layout_weight 是可以用来进行整个空间的分割的，如果我们让控件的宽度定义为0，这样比如2个控件的 layout_weight="1" 就可以各自50%平分整个空间了，因为：0 + 1/2空闲空间 = 0 + 1/2空闲空间
+
+这是一个小技巧，也是非常实用的一个实用layout_weight分割方案：定义控件的 layout_width="0dp" 或layout_height="0dp" 配上 layout_weight 就可以实现对整个空间的比例分割了。
+
+下面定义了2个控件的 layout_width="0dp", layout_weight="1"，实现了水平方向50%平均分割：
+
