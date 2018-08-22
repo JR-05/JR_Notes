@@ -1,30 +1,31 @@
 ## 介绍
 
 	Docker是一种类似于与虚拟机技术，是一种虚拟容器技术。
-	
 	是一个容器运行载体或称之为容器管理引擎。我们把应用程序和配置依赖打包好形成一个可交付的运行环境，这个打包好的运行环境就似乎image镜像文件。
-	
 	但与虚拟机技术不同的是，在Docker容器上运行的程序并不是一个完整的操作系统+软件，Docker舍弃了传统虚拟机容器中需要的Hypervisor硬件虚拟化，运行在Docker容器上的程序直接使用实际物理机的硬件资源。因此在CPU，内存利用率上Docker将会在效率上有明显优势。并且Docker的镜像文件也比平常的镜像文件小很多。
 
 ### Docker三要素
 
 	Docker的组成架构
-	
-	#### 仓库
-	
+
+#### 仓库
+
 	是集中存放镜像文件的场所 
 
 #### 镜像
 
-	它可以看作是一个轻量级的操作系统+应用程序，但它省去了硬件Hypervisor虚拟化，而又它只能运行在Docker引擎内。
-	
+	它可以看作是一个轻量级的Linux操作系统+应用程序，但它省去了硬件Hypervisor虚拟化，而又它只能运行在Docker引擎内。
+
 	我们把应用程序和配置依赖打包好形成一个可交付的运行环境，这个打包好的运行环境就似乎image镜像文件。
+
+
 
 #### 容器
 
-	我们通过这个镜像文件生成的实例称为容器，image镜像文件可以看作是容器的模板。同一个image文件可以生成多个同时运行的容器实例。
-	
-	就好比class类可以生成多个实例对象。
+  	我们通过这个镜像文件生成的实例称为容器，image镜像文件可以看作是容器的模板。同一个image文件可以生成多个同时运行的容器实例。
+就好比class类可以生成多个实例对象。
+
+
 
 
 
@@ -33,8 +34,10 @@
 	在Centos7环境下安装Docker
 	
 	Docker从1.13版本之后采用时间线的方式作为版本号，分为社区版CE和企业版EE。
-	
-	社区版是免费提供给个人开发者和小型团体使用的，企业版会提供额外的收费服务，比如经过官方测试认证过的基础设施、容器、插件等。
+
+社区版是免费提供给个人开发者和小型团体使用的，企业版会提供额外的收费服务，比如经过官方测试认证过的基础设施、容器、插件等。
+
+
 
 1. **Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。**
 
@@ -73,7 +76,7 @@ $ sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/c
 ```
 
 	执行完毕后，就会产生一个/etc/yum.repos.d/docker-ce.repo文件，会自动设置镜像仓库链接地址，也就是之后的镜像下载更新地址。
-
+	
 	通常一个repo文件定义了一个或者多个软件仓库的[细节](http://gcell.yo2.cn/archives/tag/%E7%BB%86%E8%8A%82)内容，例如我们将从哪里下载需要[安装](http://gcell.yo2.cn/archives/tag/%E5%AE%89%E8%A3%85)或者升级的软件包，repo文件中的设置内容将被yum读取和应用！
 
 6. **可以查看所有仓库中所有docker版本，并选择特定版本安**
@@ -124,55 +127,187 @@ sudo systemctl restart docker
 
 ## Docker命令
 
-	注意，Docker命令必须在管理员权限下执行
+	**注意，Docker命令必须在管理员权限下执行**
+
+### docker help
+
+	查看所有Docker命令及解释
+
+>命令
+
+```
+docker --help  #查询帮助所有Docker命令
+```
+
+```
+docker 指定命令 --help #查询指定帮助命令
+```
+
+![docker_help](/photo\docker_help.png)
 
 
 
-[^docker help]: 查看所有Docker命令及解释
+### docker info
 
-![docker_help](C:\Users\Administrator\Desktop\JR\markdown\notes\Docker\photo\docker_help.png)
+	查看当前Docker信息，包括所有镜像文件，当前正在运行容器，关闭容器，以及Docker引擎运行环境...
+
+> 命令
+
+![docker_info](/photo\docker_info.png)
+
+### docker search 
+
+	查看仓库服务器内的所有该镜像信息
+
+> 命令
 
 
 
-[^docker info]: 查看当前Docker信息，包括所有镜像文件，当前正在运行容器，关闭容器，以及Docker引擎运行环境...
+> 标记
 
-![docker_info](C:\Users\Administrator\Desktop\JR\markdown\notes\Docker\photo\docker_info.png)
+1. [^START]: 点赞量
+
+2. [^OFFICIAL]: 是否为官方版本
+
+3. [^AUTOMATED]: 是否为自动构建版本
+
+> 可加参数
+
+1. --no-trunc：显示完整的镜像信息
+
+   ```shell
+   docker search --no-trunc 镜像名
+   ```
+
+2. -s：列出收藏数不小于指定值的镜像
+
+   ```shell
+   docker search -s 500 镜像名
+   ```
+
+3. -automated：只列出automated build类型的镜像
+
+   ```shell
+   docker search -automated 镜像名
+   ```
+
+4. 可追加参数
+
+   ```shell
+   docker search -s -automated 镜像名
+   ```
 
 
 
-[^docker images]: 查看本地仓库下所有的镜像文件
+###docker pull
 
-![docker_images](C:\Users\Administrator\Desktop\JR\markdown\notes\Docker\photo\docker_images.png)
+	下载镜像
 
-- 标记
+> 命令
 
-1. REPOSITORY ：镜像仓库源，可用于操作镜像命令用的
+- **不指定TAG（默认下载latest最新版本）**
 
-2. TAG：镜像标签，比如同一个Mysql镜像有多个版本，那么TAG就是用于区分不同版本的
+  ```shell
+  docker pull mysql
+  ```
 
-3. IMAGE ID : 区分本地不同镜像ID，可用于操作镜像命令用的
+- **指定TAG（指定镜像版本）**
 
-4. CREATED：镜像在本地创建时间
+  ```
+  docker pull mysql:TAG
+  ```
 
-5. SIZE：镜像大小
 
-- 可加参数
+### docker images
 
-1. docker images -a :列出本地所有镜像
+	查看本地仓库下所有的镜像文件
 
-2. docker images -q :只显示镜像ID
-3. docker images --digests：显示镜像的摘要信息
-4. docker images --no-trunc：显示完整的镜像信息
+> 命令
 
-**可追加参数**
+![docker_images](/photo\docker_images.png)
 
-[^docker images -aq]: 显示所有镜像的ID
+> 标记
 
-![docker_images -aq](C:\Users\Administrator\Desktop\JR\markdown\notes\Docker\photo\docker_images -aq.png)
+1. [^TAG]: 镜像标签，比如同一个Mysql镜像有多个版本，那么TAG就是用于区分不同版本的
 
-[^docker imgaes -a --no-trunc]: 显示所有镜像的完整信息
+2. [^REPOSITORY]: 镜像仓库源，可用于操作镜像命令用的
 
-![docker_images -a --no-trunc](C:\Users\Administrator\Desktop\JR\markdown\notes\Docker\photo\docker_images -a --no-trunc.png)
+3. [^SIZE]: 镜像大小
+
+4. [^IMAGE ID]: 区分本地不同镜像ID，可用于操作镜像命令用的**CREATED**：镜像在本地创建时间
+
+> 可加参数
+
+1.  -a :列出本地所有镜像
+
+   ```shell
+   docker images -a
+   ```
+
+2. -q :只显示镜像ID
+
+   ```shell
+   docker images  -q
+   ```
+
+3.  --digests：显示镜像的摘要信息
+
+   ```shell
+   docker images --digests
+   ```
+
+4.  --no-trunc：显示完整的镜像信息
+
+   ```shell
+   docker images --no-trunc
+   ```
+
+5. **可追加参数，如：**
+
+   [^docker images -aq]: 显示所有镜像的ID
+
+   ![docker_images -aq](C:\Users\Administrator\Desktop\JR\markdown\notes\Docker\photo\docker_images -aq.png)
+
+   [^docker imgaes -a --no-trunc]: 显示所有镜像的完整信息
+
+   ![docker_images -a --no-trunc](/photo\docker_images -a --no-trunc.png)
+
+### docker rmi 
+
+	删除镜像
+
+> 　命令
+
+- 删除单个镜像
+
+  ```shell
+  docker  rmi 镜像ID
+  ```
+
+- 删除多个镜像
+
+  ```shell
+  docker rmi 镜像名1：TAG 镜像名2：TAG 
+  ```
+
+- 删除全部镜像
+
+  ```shell
+  docker rmi $(docker images -aq)
+  ```
+
+  [^$(dokcer images -sq)]: 返回docker images -sq 查询出来的所有镜像ID
+
+> 可加参数
+
+- -f
+
+  ```shell
+  docker rmi -f 镜像ID
+  ```
+
+  强制删除，即使存在正在运行的该镜像容器
+
 
 
 
