@@ -1,4 +1,4 @@
-## 介绍
+##  介绍
 
 	Docker是一种类似于与虚拟机技术，是一种虚拟容器技术。
 	是一个容器运行载体或称之为容器管理引擎。我们把应用程序和配置依赖打包好形成一个可交付的运行环境，这个打包好的运行环境就似乎image镜像文件。
@@ -15,7 +15,7 @@
 #### 镜像
 
 	它可以看作是一个轻量级的Linux操作系统+应用程序，但它省去了硬件Hypervisor虚拟化，而又它只能运行在Docker引擎内。
-
+	
 	我们把应用程序和配置依赖打包好形成一个可交付的运行环境，这个打包好的运行环境就似乎image镜像文件。
 
 
@@ -136,11 +136,13 @@ sudo systemctl restart docker
 >命令
 
 ```
-docker --help  #查询帮助所有Docker命令
+docker 指定命令 --help #查询指定帮助命令
 ```
 
+![docker_xxx--help](/photo\docker_xxx--help.png)
+
 ```
-docker 指定命令 --help #查询指定帮助命令
+docker --help  #查询帮助所有Docker命令
 ```
 
 ![docker_help](/photo\docker_help.png)
@@ -153,15 +155,23 @@ docker 指定命令 --help #查询指定帮助命令
 
 > 命令
 
+```shell
+docker info
+```
+
 ![docker_info](/photo\docker_info.png)
 
 ### docker search 
 
 	查看仓库服务器内的所有该镜像信息
 
-> 命令
+> 命令	
 
+```shell
+docker search [OPTIONS]
+```
 
+![docker_search](/photo/docker_search.png)
 
 > 标记
 
@@ -171,7 +181,7 @@ docker 指定命令 --help #查询指定帮助命令
 
 3. [^AUTOMATED]: 是否为自动构建版本
 
-> 可加参数
+> OPTIONS（可加参数）
 
 1. --no-trunc：显示完整的镜像信息
 
@@ -224,6 +234,10 @@ docker 指定命令 --help #查询指定帮助命令
 
 > 命令
 
+```shell
+docker images [OPTIONS]
+```
+
 ![docker_images](/photo\docker_images.png)
 
 > 标记
@@ -236,7 +250,7 @@ docker 指定命令 --help #查询指定帮助命令
 
 4. [^IMAGE ID]: 区分本地不同镜像ID，可用于操作镜像命令用的**CREATED**：镜像在本地创建时间
 
-> 可加参数
+> OPTIONS（可加参数）
 
 1.  -a :列出本地所有镜像
 
@@ -290,13 +304,13 @@ docker 指定命令 --help #查询指定帮助命令
   docker rmi 镜像名1：TAG 镜像名2：TAG 
   ```
 
-- 删除全部镜像
+- 动态删除多个容器
 
   ```shell
   docker rmi $(docker images -aq)
   ```
 
-  [^$(dokcer images -sq)]: 返回docker images -sq 查询出来的所有镜像ID
+  [^$(dokcer images -aq)]: 返回docker images -aq 查询出来的所有镜像ID
 
 > 可加参数
 
@@ -308,48 +322,287 @@ docker 指定命令 --help #查询指定帮助命令
 
   强制删除，即使存在正在运行的该镜像容器
 
+### docker run
+
+	新建并启动一个容器
+
+> 　命令
+
+```shell
+docker run [OPTIONS] 镜像ID [COMMAND] [ARG...]
+```
+
+> OPTIONS（可加参数）
+
+[^--name]: 指定容器名，在之后容器操作中使用
+[^--link]: 添加链接到另一个容器
+[^--expose=[\]]: 开放一个端口或一组端口
 
 
 
+[^-d]: 后台式启动容器（也称守护式容器），成功返回容器ID
+[^-i]: 前台式启动容器（也称交互式容器），通常与-t同时使用
+[^-t]: 为容器重新分配一个伪输入终端，通常与-i同时使用
+[^-P]: 随机端口映射
+[^-p]: 指定端口映射，有以下四种映射格式
+
+1. ip:主机（宿主）端口:容器端口
+2. ip::容器端口
+3. 主机（宿主）端口:容器端口
+4. 容器端口
+
+[^-m]: 设置容器使用内存最大值
+[^-v]: 设置数据卷映射路径
+
+> COMMAND
+
+```
+docker run -it centos /bin/bash
+```
+
+启动后在容器内执行/bin/bash
+
+> 注意
+
+1. Docker容器后台运行，必须有一个前台进程，否则就会自动退出
+
+### docker ps
+
+	查看docker创建的容器，类似于linux中的ps。不加-a，默认列出当前正在运行的容器进程信息。
+
+> 命令
+
+```
+docker ps [OPTIONS]
+```
+
+> OPTIONS（可加参数）
+
+[^-a]: 显示所有的容器，包括未运行的
+[^-f]: 根据条件过滤显示的内容
+
+```shell
+ docker ps -f before=镜像ID #before过滤在容器9c3527ed70ce之前创建的容器
+```
+
+```shell
+ docker ps -f since=镜像ID #since过滤器显示在给定容器id或名称之后创建的容器
+```
+
+[^-l]: 显示最近创建的容器
+[^-n]: 显示最近创建的n个容器
+
+```shell
+docker ps -n 5
+```
+
+[^-q]: 只显示容器ID
+[^-s]: 只显示总的文件大小
+[^--no-trunc]: 不截断输出
 
 
 
+### docker start
+
+	启动已经被停止的容器
+
+> 命令
+
+```shell
+docker start [OPTIONS] 容器ID [启动参数...]
+```
 
 
 
+### docker restart
+
+	重新启动容器
+
+> 命令
+
+```shell
+docker restart [OPTIONS] 容器ID [启动参数...]
+```
 
 
 
+### docker stop
+
+	停止一个正在运行的容器，正常关闭
+
+> 命令
+
+```shell
+docker stop [OPTIONS] 容器ID [启动参数...]
+```
 
 
 
+### docker kill
+
+	直接杀死容器进程，相当于直接拔掉电源
+
+> 命令
+
+```shell
+docker kill [OPTIONS] CONTAINER [启动参数...]
+```
 
 
 
+### docker pause
+
+	暂停容器中的所有进程
+
+> 命令
+
+- 暂停单个容器
+
+  ```shell
+  docker pause [OPTIONS] 容器ID 
+  ```
+
+- 暂停多个容器
+
+  ```shell
+  docker pause [OPTIONS] 容器ID...
+  ```
+
+- 动态暂停多个容器
+
+  ```shell
+  docker pause $(docker ps -aq)
+  ```
 
 
 
+### docker unpause
+
+	恢复容器中的所有进程
+
+> 命令
+
+- 恢复单个容器
+
+  ```shell
+  docker pause [OPTIONS] 容器ID 
+  ```
+
+- 恢复多个容器
+
+  ```shell
+  docker pause [OPTIONS] 容器ID...
+  ```
+
+- 动态恢复多个容器
+
+  ```shell
+  docker unpause $(docker ps -aq)
+  ```
 
 
 
+### 退出当前交互式容器
+
+- exit
+
+  退出并关闭容器
+
+- ctrl+P+Q
+
+  退出并保持容器以后台进行
 
 
 
+### docker rm
+
+	删除一个或多个容器
+
+> 命令
+
+- 删除单个容器
+
+  ```shell
+  docker rm [OPTIONS] 容器ID 
+  ```
+
+- 删除多个容器
+
+  ```shell
+  docker rm [OPTIONS] 容器ID...
+  ```
+
+- 动态删除多个容器
+
+  ```shell
+  docker rm $(docker ps -aq)
+  ```
 
 
 
+> OPTIONS（可加参数）
+
+1. [^-l]: 移除容器间的网络连接，而非容器本身
+
+2. [^-v]: 删除与容器相关联的数据卷
 
 
 
+### docker logs
+
+	获取容器的日志，也就是容器的echo输出
+
+> 命令
+
+```shell
+docker logs [OPTIONS] 容器ID
+```
 
 
 
+> OPTIONS（可加参数）
+
+[^-f]: 跟踪日志输出
+[^-t]: 显示时间戳
+[^--since]: 显示某个时间开始的所有日志
+[^--tail]: 仅列出最新的N条容器日志
+
+```
+docker logs --since="2016-07-01" --tail=10 mynginx
+```
+
+备注：查看容器mynginx从2016年7月1日后的最新10条日志
 
 
 
+### docker top
+
+	查看容器内正在运行的进程，类似于Linux的top
+
+> 命令
+
+```shell
+docker top 容器ID
+```
 
 
 
+### docker inspect
 
+	查看容器内部细节，包括容器ID、创建时间、运行命令、运行参数、容器数据卷映射...
+
+> 命令
+
+```shell
+docker inspect [OPTIONS] 容器ID 
+```
+
+> OPTIONS（可加参数）
+
+1. [^-f]: 指定返回值得模板文件
+
+2. [^-s]: 显示总的文件大小
+
+3. [^--type]: 指定返回类型为JSON
 
 
