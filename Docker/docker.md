@@ -228,6 +228,32 @@ docker search [OPTIONS]
   ```
 
 
+
+### docker push
+
+	将本地的镜像上传到镜像仓库，前提是先登录镜像仓库，并将上传的镜像打上tag
+
+> 命令
+
+```shell
+docker push [OPTIONS] 镜像名[:版本] #可不加版本，默认为latest
+```
+
+> OPTIONS（可加参数）
+
+1. [^disable-content-trust]: 忽略镜像的校验，默认开启
+
+
+
+### docker tag
+
+	标记本地镜像，将其归入某一仓库
+
+
+
+
+
+
 ### docker images
 
 	查看本地仓库下所有的镜像文件
@@ -365,6 +391,24 @@ docker run -it centos /bin/bash
 > 注意
 
 1. Docker容器后台运行，必须有一个前台进程，否则就会自动退出
+
+
+
+### docker create
+
+	创建一个新的容器但不启动它
+
+> 命令
+
+```shell
+docker create [OPTIONS] 镜像ID [执行命令] [启动参数]
+```
+
+> OPTIONS（可加参数）
+
+	如同docker run
+
+
 
 ### docker ps
 
@@ -605,4 +649,209 @@ docker inspect [OPTIONS] 容器ID
 
 3. [^--type]: 指定返回类型为JSON
 
+
+
+### docker attach
+
+	进入正在运行的容器
+
+> 命令
+
+```shell
+docker attach [OPTIONS] 容器ID
+```
+
+
+
+### docker exec
+
+	进入正在运行的容器执行参数命令，执行完毕后返回退出
+
+> 命令
+
+```shell
+docker exec [OPTIONS] 容器ID 执行命令 [ARG...]
+```
+
+- 进入centos容器并查看当前目录结构，返回结果退出
+
+  ```shell
+  docker exec centos ls -l	
+  ```
+
+- 进入centos容器启动命令终端，不退出
+
+  ```shell
+  docker exec centos /bin/bash
+  ```
+
+> OPTIONS（可加参数）
+
+1. [^-d]: 后台运行
+
+2. [^-i]: 即使没有附加也保持STDIN打开
+
+3. [^-t]: 分配一个伪终端
+
+
+### docker cp
+
+	用于容器与主机之间的数据拷贝
+
+> 命令
+
+- 主机拷向容器
+
+  ```shell
+  docker cp [OPTIONS] 主机保存路径 容器ID：文件路径 
+  ```
+
+
+- 容器拷向主机
+
+  ```shell
+  docker cp [OPTIONS] 容器ID：文件路径 主机保存路径
+  ```
+
+
+### docker commit
+
+	以容器为模板创建一个新的镜像
+
+> 命令
+
+```shell
+docker commit [OPTIONS] 容器ID [REPOSITORY[:TAG]]
+```
+
+> OPTIONS（可加参数）
+
+1. [^-a]: 作者
+
+2. [^-c]: 使用Dockerfile指令来创建镜像
+
+3. [^-m]: 说明文字
+
+4. [^-p]: 在commit时，将容器暂停
+
+> 实例
+
+```shell
+docker commit -a "runoob.com" -m "my apache" a404c6c174a2  mymysql:v1
+```
+
+	将容器a404c6c174a2 保存为新的镜像,并添加提交人信息和说明信息。若不指定镜像名:TAG，默认根据容器来创建。
+
+
+
+### docker bulid
+
+	命令用于使用 Dockerfile 创建镜像
+
+> 语法
+
+- 使用当前目录的 Dockerfile 创建镜像
+
+  ```shell
+  docker build [OPTIONS] PATH
+  ```
+
+- 使用URL 的 Dockerfile 创建镜像
+
+  ```shell
+  docker build [OPTIONS] URL 
+  ```
+
+- 也可以通过 -f Dockerfile 文件的位置创建镜像
+
+  ```shell
+   docker build [OPTIONS] -f /path/to/a/Dockerfile .
+  ```
+
+  .：表示保存在当前目录下
+
+>OPTIONS（可加参数）
+
+1. [^--build-arg=[\]]: 设置镜像创建时的变量
+
+2. [^-f]: 指定要使用的Dockerfile路径
+
+3. [^--force-rm]: 设置镜像过程中删除中间容器
+
+4. [^-m]: 设置内存最大值
+
+5. [^--tag,|-t:]: 镜像的名字及标签，通常 name:tag 或者 name 格式；可以在一次构建中为一个镜像设置多个标签
+
+6. [...](http://www.runoob.com/docker/docker-build-command.html)
+
+
+## 镜像的原理
+
+	它是一种联合文件系统，也就是类似于文件夹，一个一个子目录嵌套成一个完整的目录。放在镜像当中理解就是，第一层镜像就好似一个根目录，在子下存在多个子镜像。一开始由一个子镜像作为模板，之后在根据环境需求在构建其它的环境进来然后commit成一个新的镜像，就这样不然的commit，最终为达到一个满足需求的镜像。
+	
+	采用这种架构的好处就是能够**共享资源**。比如：
+	
+	有多个镜像都从相同的base镜像构建而来，那么宿主机只需要在磁盘上保存一份base镜像。同时在内存中只需要加载一份base镜像，就可以为所有容器服务了。而且镜像每一层都可以被共享。
+	
+	在使用中有一个现象，当你一开始下载的时候你会觉得特别慢，但到之后下的时候，你就会发觉到很快，就是因为镜像这种架构的存在。
+
+
+
+##容器数据卷
+
+#### 介绍
+
+	Docker容器产生的数据，如果不同docker commit生成新的镜像，使得数据作为镜像的一部分保存下来。
+	
+	那么当容器关闭，随即也会将产生的数据删除。
+	
+	**1.容器数据卷能够将数据进行持久化，将其映射到主机目录上，实现容器资源与主机共享。**
+	
+	**2.并使之也能够在容器间进行数据共享**
+
+
+
+#### 实现
+
+> -v参数命令创建
+
+- 不带权限（容器可读读写）
+
+```shell
+docker run|create -v /宿主机目录绝对路径：/容器内目录 镜像ID
+```
+
+
+
+- 带权限（容器只读不能写）
+
+```shell
+docker run|create -v /宿主机目录绝对路径：/容器内目录:ro 镜像ID
+```
+
+
+
+> 使用Dockerfile创建
+
+1. 创建Dockerfile文件
+
+   ```shell
+   FROM centos
+   VOLUME ["容器数据卷目录1"，"容器数据卷目录2"]
+   CMD echo "finish,-----success"
+   CMD /bin/bash
+   ```
+
+2. 使用docker bulid命令构建新的镜像
+
+
+#### 查看数据卷是否挂在成功
+
+	创建之后就会在宿主机和容器下的系统个创建一个数据卷目录。
+	
+	可通过docker inspect查看容器完整信息。
+
+
+
+## Dockerfile
 
