@@ -27,6 +27,29 @@
 
 
 
+##几个Linux命令
+
+1. [^ifconfig]: 查看网络信息
+
+2. [^ps]: 所有所有进程
+
+3. [^top]: 当前所有完整的进程信息
+
+4. [^ls]: 列出当前所有子目录
+
+5. [^vi]: 打开文本编辑器
+
+6. [^vim]: vi的升级版
+
+7. [^cat]: 查看文件里面的内容
+
+8. [^touch]: 创建文件
+
+9. [^mkdir]: 创建目录
+
+10. [^/bin/bash]: 启动命令终端
+
+
 
 
 ## Docker的安装
@@ -133,7 +156,7 @@ sudo systemctl restart docker
 
 	查看所有Docker命令及解释
 
->命令
+>语法
 
 ```
 docker 指定命令 --help #查询指定帮助命令
@@ -153,7 +176,7 @@ docker --help  #查询帮助所有Docker命令
 
 	查看当前Docker信息，包括所有镜像文件，当前正在运行容器，关闭容器，以及Docker引擎运行环境...
 
-> 命令
+> 语法
 
 ```shell
 docker info
@@ -165,7 +188,7 @@ docker info
 
 	查看仓库服务器内的所有该镜像信息
 
-> 命令	
+> 语法	
 
 ```shell
 docker search [OPTIONS]
@@ -209,11 +232,57 @@ docker search [OPTIONS]
 
 
 
+### docker login|logout
+
+	登录或退出到一个Docker镜像仓库，如果未指定镜像仓库地址，默认为官方的Docker Hub
+
+> 语法
+
+```shell
+docker login [OPTIONS] [SERVER]
+```
+
+> OPTIONS（可加参数）
+
+1. [^-u]: 登录的用户名
+
+2. [^-p]: 登录的密码
+
+> 案例
+
+```shell
+docker login -u -p registry.cn-jr.aliyuncs.com
+```
+
+备注：登录阿里云docker远程仓库
+
+
+
+### docker tag
+
+	标记本地镜像，将其归入某一仓库
+
+>语法
+
+```shell
+docker tag 镜像ID 仓库名[:版本号]
+```
+
+> 案例
+
+```shell
+docker tag xxx registry.cn-jr.aliyuncs.com/仓库名：版本号
+```
+
+
+
+
+
 ###docker pull
 
 	下载镜像
 
-> 命令
+> 语法
 
 - **不指定TAG（默认下载latest最新版本）**
 
@@ -233,21 +302,15 @@ docker search [OPTIONS]
 
 	将本地的镜像上传到镜像仓库，前提是先登录镜像仓库，并将上传的镜像打上tag
 
-> 命令
+> 语法
 
 ```shell
-docker push [OPTIONS] 镜像名[:版本] #可不加版本，默认为latest
+docker push [OPTIONS] 仓库名[:版本] #可不加版本，默认为latest
 ```
 
 > OPTIONS（可加参数）
 
 1. [^disable-content-trust]: 忽略镜像的校验，默认开启
-
-
-
-### docker tag
-
-	标记本地镜像，将其归入某一仓库
 
 
 
@@ -258,7 +321,7 @@ docker push [OPTIONS] 镜像名[:版本] #可不加版本，默认为latest
 
 	查看本地仓库下所有的镜像文件
 
-> 命令
+> 语法
 
 ```shell
 docker images [OPTIONS]
@@ -316,7 +379,7 @@ docker images [OPTIONS]
 
 	删除镜像
 
-> 　命令
+> 语法
 
 - 删除单个镜像
 
@@ -352,7 +415,7 @@ docker images [OPTIONS]
 
 	新建并启动一个容器
 
-> 　命令
+> 语法
 
 ```shell
 docker run [OPTIONS] 镜像ID [COMMAND] [ARG...]
@@ -379,6 +442,9 @@ docker run [OPTIONS] 镜像ID [COMMAND] [ARG...]
 
 [^-m]: 设置容器使用内存最大值
 [^-v]: 设置数据卷映射路径
+[^-e]: 设置环境变量，比如在启动mysql配置用户名和密码时需要使用到该参数
+
+
 
 > COMMAND
 
@@ -398,7 +464,7 @@ docker run -it centos /bin/bash
 
 	创建一个新的容器但不启动它
 
-> 命令
+> 语法
 
 ```shell
 docker create [OPTIONS] 镜像ID [执行命令] [启动参数]
@@ -414,7 +480,7 @@ docker create [OPTIONS] 镜像ID [执行命令] [启动参数]
 
 	查看docker创建的容器，类似于linux中的ps。不加-a，默认列出当前正在运行的容器进程信息。
 
-> 命令
+> 语法
 
 ```
 docker ps [OPTIONS]
@@ -450,7 +516,7 @@ docker ps -n 5
 
 	启动已经被停止的容器
 
-> 命令
+> 语法
 
 ```shell
 docker start [OPTIONS] 容器ID [启动参数...]
@@ -462,7 +528,7 @@ docker start [OPTIONS] 容器ID [启动参数...]
 
 	重新启动容器
 
-> 命令
+> 语法
 
 ```shell
 docker restart [OPTIONS] 容器ID [启动参数...]
@@ -474,7 +540,7 @@ docker restart [OPTIONS] 容器ID [启动参数...]
 
 	停止一个正在运行的容器，正常关闭
 
-> 命令
+> 语法
 
 ```shell
 docker stop [OPTIONS] 容器ID [启动参数...]
@@ -486,7 +552,7 @@ docker stop [OPTIONS] 容器ID [启动参数...]
 
 	直接杀死容器进程，相当于直接拔掉电源
 
-> 命令
+> 语法
 
 ```shell
 docker kill [OPTIONS] CONTAINER [启动参数...]
@@ -498,7 +564,7 @@ docker kill [OPTIONS] CONTAINER [启动参数...]
 
 	暂停容器中的所有进程
 
-> 命令
+> 语法
 
 - 暂停单个容器
 
@@ -524,7 +590,7 @@ docker kill [OPTIONS] CONTAINER [启动参数...]
 
 	恢复容器中的所有进程
 
-> 命令
+> 语法
 
 - 恢复单个容器
 
@@ -562,7 +628,7 @@ docker kill [OPTIONS] CONTAINER [启动参数...]
 
 	删除一个或多个容器
 
-> 命令
+> 语法
 
 - 删除单个容器
 
@@ -596,7 +662,7 @@ docker kill [OPTIONS] CONTAINER [启动参数...]
 
 	获取容器的日志，也就是容器的echo输出
 
-> 命令
+> 语法
 
 ```shell
 docker logs [OPTIONS] 容器ID
@@ -623,7 +689,7 @@ docker logs --since="2016-07-01" --tail=10 mynginx
 
 	查看容器内正在运行的进程，类似于Linux的top
 
-> 命令
+> 语法
 
 ```shell
 docker top 容器ID
@@ -635,7 +701,7 @@ docker top 容器ID
 
 	查看容器内部细节，包括容器ID、创建时间、运行命令、运行参数、容器数据卷映射...
 
-> 命令
+> 语法
 
 ```shell
 docker inspect [OPTIONS] 容器ID 
@@ -655,7 +721,7 @@ docker inspect [OPTIONS] 容器ID
 
 	进入正在运行的容器
 
-> 命令
+> 语法
 
 ```shell
 docker attach [OPTIONS] 容器ID
@@ -667,7 +733,7 @@ docker attach [OPTIONS] 容器ID
 
 	进入正在运行的容器执行参数命令，执行完毕后返回退出
 
-> 命令
+> 语法
 
 ```shell
 docker exec [OPTIONS] 容器ID 执行命令 [ARG...]
@@ -698,7 +764,7 @@ docker exec [OPTIONS] 容器ID 执行命令 [ARG...]
 
 	用于容器与主机之间的数据拷贝
 
-> 命令
+> 语法
 
 - 主机拷向容器
 
@@ -718,7 +784,7 @@ docker exec [OPTIONS] 容器ID 执行命令 [ARG...]
 
 	以容器为模板创建一个新的镜像
 
-> 命令
+> 语法
 
 ```shell
 docker commit [OPTIONS] 容器ID [REPOSITORY[:TAG]]
@@ -744,7 +810,7 @@ docker commit -a "runoob.com" -m "my apache" a404c6c174a2  mymysql:v1
 
 
 
-### docker bulid
+### docker build
 
 	命令用于使用 Dockerfile 创建镜像
 
@@ -785,21 +851,29 @@ docker commit -a "runoob.com" -m "my apache" a404c6c174a2  mymysql:v1
 6. [...](http://www.runoob.com/docker/docker-build-command.html)
 
 
+
+
+
+
+
+
 ## 镜像的原理
 
-	它是一种联合文件系统，也就是类似于文件夹，一个一个子目录嵌套成一个完整的目录。放在镜像当中理解就是，第一层镜像就好似一个根目录，在子下存在多个子镜像。一开始由一个子镜像作为模板，之后在根据环境需求在构建其它的环境进来然后commit成一个新的镜像，就这样不然的commit，最终为达到一个满足需求的镜像。
+	它是一种联合文件系统，也就是类似于文件夹，一个一个子目录嵌套成一个完整的目录。放在镜像当中理解就是，第一层镜像就好似一个根目录，在子下存在多个子镜像。
 	
 	采用这种架构的好处就是能够**共享资源**。比如：
-	
-	有多个镜像都从相同的base镜像构建而来，那么宿主机只需要在磁盘上保存一份base镜像。同时在内存中只需要加载一份base镜像，就可以为所有容器服务了。而且镜像每一层都可以被共享。
-	
-	在使用中有一个现象，当你一开始下载的时候你会觉得特别慢，但到之后下的时候，你就会发觉到很快，就是因为镜像这种架构的存在。
+
+有多个镜像都从相同的base镜像构建而来，那么宿主机只需要在磁盘上保存一份base镜像。同时在内存中只需要加载一份base镜像，就可以为所有容器服务了。而且镜像每一层都可以被共享。
+
+在使用中有一个现象，当你一开始下载的时候你会觉得特别慢，但到之后下的时候，你就会发觉到很快，就是因为镜像这种架构的存在。
+
+
 
 
 
 ##容器数据卷
 
-#### 介绍
+###介绍
 
 	Docker容器产生的数据，如果不同docker commit生成新的镜像，使得数据作为镜像的一部分保存下来。
 	
@@ -809,9 +883,7 @@ docker commit -a "runoob.com" -m "my apache" a404c6c174a2  mymysql:v1
 	
 	**2.并使之也能够在容器间进行数据共享**
 
-
-
-#### 实现
+###实现
 
 > -v参数命令创建
 
@@ -844,8 +916,7 @@ docker run|create -v /宿主机目录绝对路径：/容器内目录:ro 镜像ID
 
 2. 使用docker bulid命令构建新的镜像
 
-
-#### 查看数据卷是否挂在成功
+###查看数据卷是否挂在成功
 
 	创建之后就会在宿主机和容器下的系统个创建一个数据卷目录。
 	
@@ -854,4 +925,130 @@ docker run|create -v /宿主机目录绝对路径：/容器内目录:ro 镜像ID
 
 
 ## Dockerfile
+
+### 介绍
+
+	Dockerfile是用来构建Docker镜像的构建文件，用Java的思维想，就是如果需要创建一个类的实例，首先必须要有一个类的class声明，这个class默认的会继承一个Object类，之后在根据开发者的需求再往class中添加各种属性，最终通过new语法创建出了一个实例对象。
+
+	在镜像层面上理解的话，同样都属于构建文件，也就是所有的镜像是起源于一个基础镜像，之后根据开发者的需求在往环境添加工具，比如说jdk、mysql、tomcat...。最终通过bulid命令创建出一个可使用的镜像。
+
+[^scratch]: 所有镜像起源镜像，类似于Object
+
+### bulid构建过程
+
+1. docker从基础镜像运行一个容器
+2. 执行一条执行并对容器做出修改
+3. 执行类似docker commit的操作提交一个新的镜像层
+4. docker 再基于刚提交的容器运行一个新容器
+5. 从第二部开始重新对新容器执行dockerfile中的下一条指令，直到所有指令都执行完成
+
+### Dockerfile保留字指令
+
+	下面说到的命令的执行，这些命令的执行是在类似于linux终端上执行的，比如：ls（列出当前所有目录）、pwd（当前所在命令）、yum...（软件包操作命令） 等...
+
+- FROM（from）
+
+  	基础镜像
+
+- MAINTAINER（maintainer）
+
+  	作者
+
+
+- ENV（env）
+
+  	环境变量，这个环境变量可以在后续的任何RUN等其他指令中使用，如：
+
+  ```SHELL
+  ENV	MY_PATH /root
+  WORKDIR $MY_PATH
+  ```
+
+  	当设置JDK等的环境变量也需要使用到该指令
+
+- RUN（run）
+
+  	**容器构建时**在新构建后运行的容器上执行的命令
+
+- EXPOSE（expose）
+
+  	暴露的端口	
+
+- WORKDIR（workdir）
+
+  	工作目录，也就是进入容器后通过pwd查看到目录
+
+- ADD（add）
+
+  	往容器添加文件，若是压缩文件的话，就会解压
+
+- COPY（copy）
+
+  	同样也是往容器添加文件，但也是压缩文件的话，不会解压
+
+- VOLUME（volume）
+
+  	容器数据卷映射名
+
+- CMD（cmd）
+
+  	**镜像构建之后运行的容器启动时**需要执行的命令，Dockerfile中可以存在多条CMD指令，那么最后一条也就是最终构建出来的镜像所运行时所执行的命令。
+
+  	若容器运行时添加了运行参数命令，优先执行该命令，不执行Dockerfile中的CMD命令
+
+- ENTRYPOINT（entrypoint）
+
+  	同样也是**容器启动时**需要执行的命令，与CMD不同的是，
+
+  若容器运行时添加了运行参数命令，ENTRYPOINT中的命令同样会得到执行
+
+- ONBUILD（onbuild）
+
+  	若通过该Dockerfile构建出来的镜像之后被作为基础镜所构建，那么当被构建时（docker bulid）将执行ONBULID声明的命令
+
+
+
+### 案例
+
+> 构建一个有vim编辑器的centos
+
+- 创建centos_Dockerfile
+
+  ```shell
+  FROM centos
+  MAINTAINER JR<1336913542@qq.com>
+  
+  ENV MY_WORKDIR /usr/local
+  WORKDIR $MY_WORKDIR
+  
+  RUN yum -y install vim #下载vim编辑器
+  
+  EXPOSE 80
+  
+  CMD echo "BULID SUCCESS-----------SUCCESS!!!"
+  CMD /bin/bash
+  ```
+
+- 使用docker bulid命令构建新镜像
+
+  ```
+  docker build -f /myCentos/centos_Dockerfile -t my_centos .  # .:表示当前目录
+  ```
+
+- 结果
+
+  ![docker_build](/photo\docker_build.png)
+
+
+
+
+	
+
+
+
+
+
+
+
+
 
