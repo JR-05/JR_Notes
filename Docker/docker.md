@@ -1,22 +1,22 @@
 ##  介绍
 
-	Docker是一种类似于与虚拟机技术，是一种虚拟容器技术。
+​	Docker是一种类似于与虚拟机技术，是一种虚拟容器技术。
 	是一个容器运行载体或称之为容器管理引擎。我们把应用程序和配置依赖打包好形成一个可交付的运行环境，这个打包好的运行环境就似乎image镜像文件。
 	但与虚拟机技术不同的是，在Docker容器上运行的程序并不是一个完整的操作系统+软件，Docker舍弃了传统虚拟机容器中需要的Hypervisor硬件虚拟化，运行在Docker容器上的程序直接使用实际物理机的硬件资源。因此在CPU，内存利用率上Docker将会在效率上有明显优势。并且Docker的镜像文件也比平常的镜像文件小很多。
 
 ### Docker三要素
 
-	Docker的组成架构
+​	Docker的组成架构
 
 #### 仓库
 
-	是集中存放镜像文件的场所 
+​	是集中存放镜像文件的场所 
 
 #### 镜像
 
-	它可以看作是一个轻量级的Linux操作系统+应用程序，但它省去了硬件Hypervisor虚拟化，而又它只能运行在Docker引擎内。
-	
-	我们把应用程序和配置依赖打包好形成一个可交付的运行环境，这个打包好的运行环境就似乎image镜像文件。
+​	它可以看作是一个轻量级的Linux操作系统+应用程序，但它省去了硬件Hypervisor虚拟化，而又它只能运行在Docker引擎内。
+
+我们把应用程序和配置依赖打包好形成一个可交付的运行环境，这个打包好的运行环境就似乎image镜像文件。
 
 
 
@@ -54,11 +54,11 @@
 
 ## Docker的安装
 
-	在Centos7环境下安装Docker
-	
-	Docker从1.13版本之后采用时间线的方式作为版本号，分为社区版CE和企业版EE。
+​	在Centos7环境下安装Docker
 
-社区版是免费提供给个人开发者和小型团体使用的，企业版会提供额外的收费服务，比如经过官方测试认证过的基础设施、容器、插件等。
+​	Docker从1.13版本之后采用时间线的方式作为版本号，分为社区版CE和企业版EE。
+
+​	社区版是免费提供给个人开发者和小型团体使用的，企业版会提供额外的收费服务，比如经过官方测试认证过的基础设施、容器、插件等。
 
 
 
@@ -98,9 +98,9 @@ $ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 $ sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 ```
 
-	执行完毕后，就会产生一个/etc/yum.repos.d/docker-ce.repo文件，会自动设置镜像仓库链接地址，也就是之后的镜像下载更新地址。
-	
-	通常一个repo文件定义了一个或者多个软件仓库的[细节](http://gcell.yo2.cn/archives/tag/%E7%BB%86%E8%8A%82)内容，例如我们将从哪里下载需要[安装](http://gcell.yo2.cn/archives/tag/%E5%AE%89%E8%A3%85)或者升级的软件包，repo文件中的设置内容将被yum读取和应用！
+​	执行完毕后，就会产生一个/etc/yum.repos.d/docker-ce.repo文件，会自动设置镜像仓库链接地址，也就是之后的镜像下载更新地址。
+
+​	通常一个repo文件定义了一个或者多个软件仓库的[细节](http://gcell.yo2.cn/archives/tag/%E7%BB%86%E8%8A%82)内容，例如我们将从哪里下载需要[安装](http://gcell.yo2.cn/archives/tag/%E5%AE%89%E8%A3%85)或者升级的软件包，repo文件中的设置内容将被yum读取和应用！
 
 6. **可以查看所有仓库中所有docker版本，并选择特定版本安**
 
@@ -141,20 +141,20 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-	解决国内网络延迟
+​	解决国内网络延迟
 
 
-	
+​	
 
 
 
 ## Docker命令
 
-	**注意，Docker命令必须在管理员权限下执行**
+**注意，Docker命令必须在管理员权限下执行**
 
 ### docker help
 
-	查看所有Docker命令及解释
+​	查看所有Docker命令及解释
 
 >语法
 
@@ -174,7 +174,7 @@ docker --help  #查询帮助所有Docker命令
 
 ### docker info
 
-	查看当前Docker信息，包括所有镜像文件，当前正在运行容器，关闭容器，以及Docker引擎运行环境...
+​	查看当前Docker信息，包括所有镜像文件，当前正在运行容器，关闭容器，以及Docker引擎运行环境...
 
 > 语法
 
@@ -186,7 +186,7 @@ docker info
 
 ### docker search 
 
-	查看仓库服务器内的所有该镜像信息
+​	查看仓库服务器内的所有该镜像信息
 
 > 语法	
 
@@ -234,7 +234,7 @@ docker search [OPTIONS]
 
 ### docker login|logout
 
-	登录或退出到一个Docker镜像仓库，如果未指定镜像仓库地址，默认为官方的Docker Hub
+​	登录或退出到一个Docker镜像仓库，如果未指定镜像仓库地址，默认为官方的Docker Hub
 
 > 语法
 
@@ -260,7 +260,7 @@ docker login -u -p registry.cn-jr.aliyuncs.com
 
 ### docker tag
 
-	标记本地镜像，将其归入某一仓库
+​	标记本地镜像，将其归入某一仓库
 
 >语法
 
@@ -280,7 +280,7 @@ docker tag xxx registry.cn-jr.aliyuncs.com/仓库名：版本号
 
 ###docker pull
 
-	下载镜像
+​	下载镜像
 
 > 语法
 
@@ -300,7 +300,7 @@ docker tag xxx registry.cn-jr.aliyuncs.com/仓库名：版本号
 
 ### docker push
 
-	将本地的镜像上传到镜像仓库，前提是先登录镜像仓库，并将上传的镜像打上tag
+​	将本地的镜像上传到镜像仓库，前提是先登录镜像仓库，并将上传的镜像打上tag
 
 > 语法
 
@@ -319,7 +319,7 @@ docker push [OPTIONS] 仓库名[:版本] #可不加版本，默认为latest
 
 ### docker images
 
-	查看本地仓库下所有的镜像文件
+​	查看本地仓库下所有的镜像文件
 
 > 语法
 
@@ -377,7 +377,7 @@ docker images [OPTIONS]
 
 ### docker rmi 
 
-	删除镜像
+​	删除镜像
 
 > 语法
 
@@ -413,7 +413,7 @@ docker images [OPTIONS]
 
 ### docker run
 
-	新建并启动一个容器
+​	新建并启动一个容器
 
 > 语法
 
@@ -462,7 +462,7 @@ docker run -it centos /bin/bash
 
 ### docker create
 
-	创建一个新的容器但不启动它
+​	创建一个新的容器但不启动它
 
 > 语法
 
@@ -478,7 +478,7 @@ docker create [OPTIONS] 镜像ID [执行命令] [启动参数]
 
 ### docker ps
 
-	查看docker创建的容器，类似于linux中的ps。不加-a，默认列出当前正在运行的容器进程信息。
+​	查看docker创建的容器，类似于linux中的ps。不加-a，默认列出当前正在运行的容器进程信息。
 
 > 语法
 
@@ -514,7 +514,7 @@ docker ps -n 5
 
 ### docker start
 
-	启动已经被停止的容器
+​	启动已经被停止的容器
 
 > 语法
 
@@ -526,7 +526,7 @@ docker start [OPTIONS] 容器ID [启动参数...]
 
 ### docker restart
 
-	重新启动容器
+​	重新启动容器
 
 > 语法
 
@@ -538,7 +538,7 @@ docker restart [OPTIONS] 容器ID [启动参数...]
 
 ### docker stop
 
-	停止一个正在运行的容器，正常关闭
+​	停止一个正在运行的容器，正常关闭
 
 > 语法
 
@@ -550,7 +550,7 @@ docker stop [OPTIONS] 容器ID [启动参数...]
 
 ### docker kill
 
-	直接杀死容器进程，相当于直接拔掉电源
+​	直接杀死容器进程，相当于直接拔掉电源
 
 > 语法
 
@@ -562,7 +562,7 @@ docker kill [OPTIONS] CONTAINER [启动参数...]
 
 ### docker pause
 
-	暂停容器中的所有进程
+​	暂停容器中的所有进程
 
 > 语法
 
@@ -588,7 +588,7 @@ docker kill [OPTIONS] CONTAINER [启动参数...]
 
 ### docker unpause
 
-	恢复容器中的所有进程
+​	恢复容器中的所有进程
 
 > 语法
 
@@ -626,7 +626,7 @@ docker kill [OPTIONS] CONTAINER [启动参数...]
 
 ### docker rm
 
-	删除一个或多个容器
+​	删除一个或多个容器
 
 > 语法
 
@@ -660,7 +660,7 @@ docker kill [OPTIONS] CONTAINER [启动参数...]
 
 ### docker logs
 
-	获取容器的日志，也就是容器的echo输出
+​	获取容器的日志，也就是容器的echo输出
 
 > 语法
 
@@ -687,7 +687,7 @@ docker logs --since="2016-07-01" --tail=10 mynginx
 
 ### docker top
 
-	查看容器内正在运行的进程，类似于Linux的top
+​	查看容器内正在运行的进程，类似于Linux的top
 
 > 语法
 
@@ -699,7 +699,7 @@ docker top 容器ID
 
 ### docker inspect
 
-	查看容器内部细节，包括容器ID、创建时间、运行命令、运行参数、容器数据卷映射...
+​	查看容器内部细节，包括容器ID、创建时间、运行命令、运行参数、容器数据卷映射...
 
 > 语法
 
@@ -719,7 +719,7 @@ docker inspect [OPTIONS] 容器ID
 
 ### docker attach
 
-	进入正在运行的容器
+​	进入正在运行的容器
 
 > 语法
 
@@ -731,7 +731,7 @@ docker attach [OPTIONS] 容器ID
 
 ### docker exec
 
-	进入正在运行的容器执行参数命令，执行完毕后返回退出
+​	进入正在运行的容器执行参数命令，执行完毕后返回退出
 
 > 语法
 
@@ -762,7 +762,7 @@ docker exec [OPTIONS] 容器ID 执行命令 [ARG...]
 
 ### docker cp
 
-	用于容器与主机之间的数据拷贝
+​	用于容器与主机之间的数据拷贝
 
 > 语法
 
@@ -782,7 +782,7 @@ docker exec [OPTIONS] 容器ID 执行命令 [ARG...]
 
 ### docker commit
 
-	以容器为模板创建一个新的镜像
+​	以容器为模板创建一个新的镜像
 
 > 语法
 
@@ -806,13 +806,13 @@ docker commit [OPTIONS] 容器ID [REPOSITORY[:TAG]]
 docker commit -a "runoob.com" -m "my apache" a404c6c174a2  mymysql:v1
 ```
 
-	将容器a404c6c174a2 保存为新的镜像,并添加提交人信息和说明信息。若不指定镜像名:TAG，默认根据容器来创建。
+​	将容器a404c6c174a2 保存为新的镜像,并添加提交人信息和说明信息。若不指定镜像名:TAG，默认根据容器来创建。
 
 
 
 ### docker build
 
-	命令用于使用 Dockerfile 创建镜像
+​	命令用于使用 Dockerfile 创建镜像
 
 > 语法
 
@@ -834,7 +834,7 @@ docker commit -a "runoob.com" -m "my apache" a404c6c174a2  mymysql:v1
    docker build [OPTIONS] -f /path/to/a/Dockerfile .
   ```
 
-  .：表示保存在当前目录下
+  . ：表示保存在当前目录下
 
 >OPTIONS（可加参数）
 
@@ -859,13 +859,13 @@ docker commit -a "runoob.com" -m "my apache" a404c6c174a2  mymysql:v1
 
 ## 镜像的原理
 
-	它是一种联合文件系统，也就是类似于文件夹，一个一个子目录嵌套成一个完整的目录。放在镜像当中理解就是，第一层镜像就好似一个根目录，在子下存在多个子镜像。
-	
-	采用这种架构的好处就是能够**共享资源**。比如：
+ 	它是一种联合文件系统，也就是类似于文件夹，一个一个子目录嵌套成一个完整的目录。放在镜像当中理解就是，第一层镜像就好似一个根目录，在子下存在多个子镜像。
 
-有多个镜像都从相同的base镜像构建而来，那么宿主机只需要在磁盘上保存一份base镜像。同时在内存中只需要加载一份base镜像，就可以为所有容器服务了。而且镜像每一层都可以被共享。
+采用这种架构的好处就是能够**共享资源**。比如：
 
-在使用中有一个现象，当你一开始下载的时候你会觉得特别慢，但到之后下的时候，你就会发觉到很快，就是因为镜像这种架构的存在。
+​	有多个镜像都从相同的base镜像构建而来，那么宿主机只需要在磁盘上保存一份base镜像。同时在内存中只需要加载一份base镜像，就可以为所有容器服务了。而且镜像每一层都可以被共享。
+
+​	在使用中有一个现象，当你一开始下载的时候你会觉得特别慢，但到之后下的时候，你就会发觉到很快，就是因为镜像这种架构的存在。
 
 
 
@@ -875,13 +875,13 @@ docker commit -a "runoob.com" -m "my apache" a404c6c174a2  mymysql:v1
 
 ###介绍
 
-	Docker容器产生的数据，如果不同docker commit生成新的镜像，使得数据作为镜像的一部分保存下来。
-	
-	那么当容器关闭，随即也会将产生的数据删除。
-	
-	**1.容器数据卷能够将数据进行持久化，将其映射到主机目录上，实现容器资源与主机共享。**
-	
-	**2.并使之也能够在容器间进行数据共享**
+​	Docker容器产生的数据，如果不同docker commit生成新的镜像，使得数据作为镜像的一部分保存下来。
+
+那么当容器关闭，随即也会将产生的数据删除。
+
+**1.容器数据卷能够将数据进行持久化，将其映射到主机目录上，实现容器资源与主机共享。**
+
+**2.并使之也能够在容器间进行数据共享**
 
 ###实现
 
@@ -918,9 +918,9 @@ docker run|create -v /宿主机目录绝对路径：/容器内目录:ro 镜像ID
 
 ###查看数据卷是否挂在成功
 
-	创建之后就会在宿主机和容器下的系统个创建一个数据卷目录。
-	
-	可通过docker inspect查看容器完整信息。
+创建之后就会在宿主机和容器下的系统个创建一个数据卷目录。
+
+可通过docker inspect查看容器完整信息。
 
 
 
@@ -928,9 +928,9 @@ docker run|create -v /宿主机目录绝对路径：/容器内目录:ro 镜像ID
 
 ### 介绍
 
-	Dockerfile是用来构建Docker镜像的构建文件，用Java的思维想，就是如果需要创建一个类的实例，首先必须要有一个类的class声明，这个class默认的会继承一个Object类，之后在根据开发者的需求再往class中添加各种属性，最终通过new语法创建出了一个实例对象。
+​	Dockerfile是用来构建Docker镜像的构建文件，用Java的思维想，就是如果需要创建一个类的实例，首先必须要有一个类的class声明，这个class默认的会继承一个Object类，之后在根据开发者的需求再往class中添加各种属性，最终通过new语法创建出了一个实例对象。
 
-	在镜像层面上理解的话，同样都属于构建文件，也就是所有的镜像是起源于一个基础镜像，之后根据开发者的需求在往环境添加工具，比如说jdk、mysql、tomcat...。最终通过bulid命令创建出一个可使用的镜像。
+​	在镜像层面上理解的话，同样都属于构建文件，也就是所有的镜像是起源于一个基础镜像，之后根据开发者的需求在往环境添加工具，比如说jdk、mysql、tomcat...。最终通过bulid命令创建出一个可使用的镜像。
 
 [^scratch]: 所有镜像起源镜像，类似于Object
 
@@ -944,7 +944,7 @@ docker run|create -v /宿主机目录绝对路径：/容器内目录:ro 镜像ID
 
 ### Dockerfile保留字指令
 
-	下面说到的命令的执行，这些命令的执行是在类似于linux终端上执行的，比如：ls（列出当前所有目录）、pwd（当前所在命令）、yum...（软件包操作命令） 等...
+​	下面说到的命令的执行，这些命令的执行是在类似于linux终端上执行的，比如：ls（列出当前所有目录）、pwd（当前所在命令）、yum...（软件包操作命令） 等...
 
 - FROM（from）
 
@@ -994,7 +994,7 @@ docker run|create -v /宿主机目录绝对路径：/容器内目录:ro 镜像ID
 
   	**镜像构建之后运行的容器启动时**需要执行的命令，Dockerfile中可以存在多条CMD指令，那么最后一条也就是最终构建出来的镜像所运行时所执行的命令。
 
-  	若容器运行时添加了运行参数命令，优先执行该命令，不执行Dockerfile中的CMD命令
+  若容器运行时添加了运行参数命令，优先执行该命令，不执行Dockerfile中的CMD命令
 
 - ENTRYPOINT（entrypoint）
 
@@ -1042,7 +1042,7 @@ docker run|create -v /宿主机目录绝对路径：/容器内目录:ro 镜像ID
 
 
 
-	
+​	
 
 
 

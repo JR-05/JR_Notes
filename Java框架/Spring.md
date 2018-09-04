@@ -234,11 +234,9 @@ public class Test02 {
 
 > **区别**
 
-BeanFactory容器，对容器中对象的装配与加载采用延迟加载策略，即在第一次调用getBean()时，才真正装配该对象
+​	BeanFactory容器，对容器中对象的装配与加载采用延迟加载策略，即在第一次调用getBean()时，才真正装配该对象
 
-```
-而ApplicationContext容器，在容器初始化时就已经装配该对象。
-```
+​	而ApplicationContext容器，在容器初始化时就已经装配该对象。
 
 **Bean的装配，即Bean对象的创建**
 
@@ -2186,7 +2184,7 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 ### 顾问(Advisor)
 
-​	通知是Spring提供的一种切面（Aspect）。但其功能过于简单，只能将切面织入到目标类的所有目标方法中，无法完成将切面织入到指定目标方法中。
+​	通知是Spring提供的一种切面。但其功能过于简单，只能将切面织入到目标类的所有目标方法中，无法完成将切面织入到指定目标方法中。
 
 ​	顾问是Spring提供的另一种切面。其可以完成更为复杂的切面织入功能。
 
@@ -2261,7 +2259,7 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 **配置文件**
 
-```
+```xml
 <!--配置目标对象-->
 <bean id="studentServiceTarget" class="com.jr.spring.aop.test9.dao.StudentServiceImp"></bean>
 <!--配置切面：通知-->
@@ -2270,7 +2268,7 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 <bean id="myRegexpMethodPointcutAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
     <property name="advice" ref="myMethodBeforeAdvice"></property>
     <!--织入单个切入点-->
-    <property name="pattern" value="com\.jr\.spring\.aop\.test9\.dao\.IService\.do.*">
+    <property name="pattern" value="com.jr.spring.aop.test9.dao.IService.do.*">
     </property>
 </bean>
 <!--配置代理-->
@@ -2285,25 +2283,25 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 1. 通过patterns匹配一条正则表达式织入切入点
 
-   ```
-   <property name="pattern" value="com\.jr\.spring\.aop\.test9\.dao\.IService\.do.*">
+   ```xml
+   <property name="pattern" value="com.jr\spring.aop.test9.dao.IService.do.*">
    ```
 
 2. 通过patterns匹配多条正则表达式织入切入点
 
-   ```
+   ```xml
    <property name="patterns">
    	<array>
-   		<value>com\.jr\.spring\.aop\.test9\.dao\.IService\.doSome</value>
-   		<value>com\.jr\.spring\.aop\.test9\.dao\.IService\.doOther</value>
+   		<value>com.jr.spring.aop.test9.dao.IService.doSome</value>
+   		<value>com.jr.spring.aop.test9.dao.IService.doOther</value>
    	</array>
    </property>
    ```
 
 3. 过'|'符号匹配多条正则表达式织入切入点
 
-   ```
-   <property name="pattern" value="com\.jr\.spring\.aop\.test9\.dao\.IService\.doSome|com\.jr\.spring\.aop\.test9\.dao\.IService\.doOther"></property>
+   ```xml
+   <property name="pattern" value="com.jr.spring.aop.test9.dao.IService.doSome|com.jr.spring.aop.test9.dao.IService.doOther"></property>
    ```
 
 #### 注意
@@ -2333,7 +2331,7 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 **配置文件**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -2344,7 +2342,7 @@ public class MyThrowsAdvice implements ThrowsAdvice {
     <!--配置切面：顾问-->
     <bean id="myNameMatchMethodPointcutAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
         <property name="advice" ref="myMethodBeforeAdvice"></property>
-        <!--<property name="mappedName" value="doSome"></property>-->
+        <property name="mappedName" value="doSome"></property>
     </bean>
     <!--配置自动代理生成器-->
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"></bean>
@@ -2447,7 +2445,7 @@ public class MyTest {
 
 		AspectJ是专门针对AOP问题的，所有其运行是需要AOP环境的，即需要之前的AOP的两个Jar包（**AOP联盟**和**Spring整合AOP联盟的兼容包**）。另外，还需要**AspectJ自身的Jar**与**Spring整合AspectJ的兼容包**
 
-		一般情况下，使用weaver包下的jar即可。tools中的Jar除了包含weaver中类库外还包含其他工具，但一般用。所以，使用weaver包下的jar即可。
+	一般情况下，使用weaver包下的jar即可。tools中的Jar除了包含weaver中类库外还包含其他工具，但一般用。所以，使用weaver包下的jar即可。
 
 2. **引入AOP约束**
 
@@ -2824,7 +2822,7 @@ public class MyAspect {
     public void before() {
         System.out.println("前置增强");
     }
-
+	//定义具有JoinPoint形参的前置通知的增强方法
     public void beforeHaveJoinPoin(JoinPoint joinPoint) {
         System.out.println("前置增强，切入点表达式为:" + joinPoint);
         System.out.println("前置增强，方法签名为:" + joinPoint.getSignature());
@@ -2843,7 +2841,8 @@ public class MyAspect {
     public void afterReturning(int result) {
         System.out.println("后置增强,目标方法返回值：" + result);
     }
-
+    
+	//定义环绕通知的增强方法
     public int around(ProceedingJoinPoint proceedingJoinPoint) {
         System.out.println("环绕增强：前");
         int result = 1;
@@ -2857,10 +2856,12 @@ public class MyAspect {
         return result * 100;
     }
 
+	//定义异常通知的增强方法
     public void afterThrowing(Throwable throwable) {
         System.out.println(throwable.getMessage());
     }
 
+	//定义最终通知的增强方法
     public void after() {
         System.out.println("最终方法执行");
     }
@@ -3458,7 +3459,7 @@ PlatformTransactionManager接口有两个常用的实现类：
 
   [^dataSource]: 设置数据源
 
-		因为使用的JDBC或者IBatis的持久化数据，故使用的事务管理器类时DataSourceTransactionManager。
+  因为使用的JDBC或者IBatis的持久化数据，故使用的事务管理器类时DataSourceTransactionManager。
 
 - **配置事务代理**
 
@@ -3479,15 +3480,13 @@ PlatformTransactionManager接口有两个常用的实现类：
 
   
 
-	*配置解释：**	
+  **配置解释：**	
 
-		为目标对象IStockProcessService中以open开头和以find开头的方法名即buyStock方法名注册事务管理。
-		
-		其中open*()方法设置的事务传播行为PROGAGTION_REQUIRED，即该方法必须在事务下进行，即使调用方法无事务也会重新创建一个事务。
-		
-		find*()方法设置的事务传播行为PROPAGATION_SUPPORTS，即该方法有无事务都能进行。其中readOnly表示该方法对数据库只进行读取操作。
-		
-		buyStock()方法设置的事务传播行为同样为PROPAGATION_SUPPORTS，而-StockException表示当程序运行时出现StockException的自定异常时事务将回滚。
+  为目标对象IStockProcessService中以open开头和以find开头的方法名即buyStock方法名注册事务管理。
+
+  - open*()方法：设置的事务传播行为PROGAGTION_REQUIRED，即该方法必须在事务下进行，即使调用方法无事务也会重新创建一个事务。
+  - find*()方法：设置的事务传播行为PROPAGATION_SUPPORTS，即该方法有无事务都能进行。其中readOnly表示该方法对数据库只进行读取操作。
+  - buyStock()方法：设置的事务传播行为同样为PROPAGATION_SUPPORTS，而-StockException表示当程序运行时出现StockException的自定异常时事务将回滚。
 
 
 
@@ -3850,11 +3849,11 @@ public class LoginServlet extends HttpServlet {
 
 - **指定Spring配置文件的位置**
 
-		Spring容器的创建需要加载配置文件，那么ContextLoaderListener在对Spring容器的创建时需要指定Spring配置文件的位置。
+   Spring容器的创建需要加载配置文件，那么ContextLoaderListener在对Spring容器的创建时需要指定Spring配置文件的位置。
 
-		其默认的Spring配置文件位置与名称为：WEB-INF/applicationContext.xml。即不配置参数的话，ContextLoaderLitener会根据该路径和文件名加载配置文件，找不到将抛出异常。
-		
-		但，一般会将配置文件放在项目的classpath下，即src下，所以需要在web.xml中对Spring配置文件的位置及名称进行指定。
+   其默认的Spring配置文件位置与名称为：WEB-INF/applicationContext.xml。即不配置参数的话，ContextLoaderLitener会根据该路径和文件名加载配置文件，找不到将抛出异常。
+
+   但，一般会将配置文件放在项目的classpath下，即src下，所以需要在web.xml中对Spring配置文件的位置及名称进行指定。
 
 ```
 <context-param>
