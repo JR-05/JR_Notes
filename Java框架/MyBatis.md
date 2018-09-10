@@ -1,7 +1,7 @@
 #  介绍
 
 	MyBatis是一个优秀的基于Java的持久层框架，它内部封装了JDBC，使开发者只需要关注SQL语句本身，而不用在花费精力去处理诸如注册驱动，创建Connection，配置Statement等过程。
-
+	
 	MyBatis通过xml或注解的方式将要执行的各种statement（statement，preparedStatement）配置起来，并通过Java对象和Statement中的SQL的动态参数进行映射生成最终执行的SQL语句，最后有MyBatis框架执行SQL并将结果映射成Java对象并返回
 
 
@@ -9,9 +9,9 @@
 ### 与Hibernate的对比
 
 	Hibernate框架是提供了全面的数据库封装机制的”全自动“ORM，即实现了POJO和数据库表之间的映射，以及SQL的自动生成和执行
-
+	
 	相对于此，MyBatis只能算是”半自动“ORM。其着力点，实在POJO类，与SQL语句之间的映射关系。也就是说，MyBatis并不会为程序员自动生成SQL语句，具体的SQL语句需要程序员自己编写，然后通过SQL语句映射文件，将SQL所需的参数，以及返回的结果字段映射到只当的POJO。因此，MyBatis成为了”全自动“ORM的一种有益补充
-
+	
 	与Hibernate相比，MyBatis具有以下几个特点
 
 （1）在XML文件中配置SQL语句，实现了SQL语句与代码的分离，给程序员的维护带来了很大的遍历
@@ -29,11 +29,11 @@
 ![MyBatis工作原理](photo\MyBatis工作原理.bmp)
 
 	MyBatis框架对操作数据库的JDBC进行了封装，但并不是完全进行封装，而是半自动封装，另外一半也就是用户需要写的SQL语句
-
+	
 	Application(用户)通过MyBatis提供的API（增删改查...）操作数据库
-
+	
 	MyBatis将用户需要进行操作数据库的SQL语句放在了XML文件（mapper.xml）上，其中文件名可以自定义
-
+	
 	而进行连接数据库需要的配置，比如链接的驱动名，连接数据库名，密码，端口号...也同样写在了XML文件（mybatis.xml）上，在上面写的SQL映射文件也需要在该文件上进行注册
 
 
@@ -132,7 +132,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 **什么是连接池技术**
 
 	通常WEB应用在进行数据库连接时，往往数据库并不是跟WEB应用在同一个服务器，所以每次在进行数据库连接操作是，都是一个相当消耗资源的操作。
-
+	
 	所以连接池技术是一个将连接数据库的所有对象保存在WEB服务器缓存中，下次要想再次连接数据库就不需要重新连接数据库，而是直接拿到该连接对象进行数据库操作，从而节省了耗费的时间。
 
 7. **添加log4j日志框架**
@@ -789,7 +789,7 @@ select @@identity;
 ### 数据查询和提交到数据库乱码问题
 
 	有时候数据查询的结果与数据库内的不一致，或者数据提交到数据库也可能出现乱码不一致的现象。
-
+	
 	如果出现乱码的现象，解决方法是在连接数据库的url上添加参数，如：
 
 ```
@@ -865,7 +865,7 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 ### 前言
 
 	动态SQL，主要用于解决查询条件不确定的情况。在程序运行期间，根据用户提交的查询条件进行查询。提交的查询条件不同，执行的SQL语句不同。若将每种可能的情况均逐一列出，将所有条件进行排列组合，将会出现大量的SQL语句。此时，可使用动态SQL来解决这样的问题。
-
+	
 	动态SQL，即通过MyBatis提供的各种标签对条件做出判断以实现动态拼接SQL语句。
 
 ![动态SQL](photo\动态SQL.bmp)
@@ -896,7 +896,7 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 ### where
 
 	在单独使用\<if/>动态SQL标签时，会存在一个问题。假如上面参数传入时，id为null的情况下，则where条件判断语句直接拼接成**where and Student.name like '%' #{name} '%' ** ，这样的SQL语句无疑时错误的。
-
+	
 	所以，\<where/>动态SQL标签也就解决了这个问题
 
 ```
@@ -1098,7 +1098,7 @@ prefixOverrides设置定义拼接的SQL语句内容的省略and前缀
 #### 介绍
 
 	这里的一对多关联查询是指，在查询一方对象的时候，同时将其所关联的多方对象也都查询出来。
-
+	
 	这里以国家Cuntry与部长Minister间的一对多关系进行演示。
 
 #### 定义实体
@@ -1219,7 +1219,7 @@ public class Associsational {
 #### 介绍
 
 	多对一关联查询是指，在查询多方对象的时候，同时将其所关联的一方对象也查询出来
-
+	
 	由于在查询多方对象是也是一个一个查询，所以多对一关联查询，其实也就是一对一关联查询。**即一对一关联查询的实现方式与多对一方式是相同的**
 
 #### 定义实体
@@ -1416,7 +1416,7 @@ public interface IStudentDao {
 ### 前言
 
 	MyBatis中的延迟加载，也称为懒加载，是指在进行关联查询时，按照设置延迟规则推迟对关联对象的select查询。延迟加载可以有效的减少数据库压力。
-
+	
 	需要注意的时，MyBatis的延迟加载只是对关联对象的查询有迟延设置，对主加载对象都是直接执行查询语句的。
 
 MyBatis根据关联对象查询的select语句的执行时机，分为三种类型：**直接加载、侵入式延迟加载、与深度延迟加载**
@@ -1466,7 +1466,7 @@ public interface ICuntryDao {
 #### 解释
 
 	执行完对主加载对象的select语句，马上执行对关联对象的select查询。
-
+	
 	若不开启延迟加载，默认采用直接加载查询
 
 如下面中的SQL查询语句。
@@ -1632,7 +1632,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 ### 注意
 
 	延迟加载的应用要求，关联对象的查询与主加载对象的查询必须是分别进行的select语句，不能是使用多表连接所进行的select 查询。因为，多表连接查询，其实质是对一张表的查询，对由多张表连接后形成的一张表的查询。会一次性将多张表的所有信息查询出来
-
+	
 	MyBatis中对延迟加载设置，可以应用到一对一、一对多、多对一、多对多的所有关系查询中
 
 ### 应用
@@ -1692,27 +1692,27 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ### 前言
 
-	查询缓存的使用，主要是为了提高访问速度，将用户对同一数据的重复查询过程简化，不再每次均从数据库查询获取结果数据，从而提高访问速度。
+​	查询缓存的使用，主要是为了提高访问速度，将用户对同一数据的重复查询过程简化，不再每次均从数据库查询获取结果数据，从而提高访问速度。
 
-	MyBatis的查询缓存机制，根据缓存区的作用域（生命周期）可划分为两种，一级查询缓存和二级查询缓存。
+​	MyBatis的查询缓存机制，根据缓存区的作用域（生命周期）可划分为两种，一级查询缓存和二级查询缓存。	
 
 ### 一级缓存
 
 #### 介绍
 
-	MyBatis一级查询缓存是基于org.apache.ibatis.cache.impl.PerpetualCache类的HashMap。一次执行完毕后，会将查询结果写入到缓存中，第二次会从缓存中直接获取数据，而不再到数据库中进行查询，从而提高查询效率。
+​	MyBatis一级查询缓存是基于org.apache.ibatis.cache.impl.PerpetualCache类的HashMap。一次执行完毕后，会将查询结果写入到缓存中，第二次会从缓存中直接获取数据，而不再到数据库中进行查询，从而提高查询效率。
 
-	当一个SqlSession结束后，该SqlSession中的一级查询缓存也就不存在了，MyBatias默认一级查询缓存是开启状态的，且不能关闭。
+​	当一个SqlSession结束后，该SqlSession中的一级查询缓存也就不存在了，MyBatias默认一级查询缓存是开启状态的，且不能关闭。	
 
 ![一级缓存原理图](photo\一级缓存原理图.bmp)
 
 #### 一级缓存依据
 
-	一级缓存中缓存的是相同的Sql映射id的查询结果，而非相同Sql语句的查询结果。因为MyBatis内部对于查询缓存，无论是一级缓存还是二级缓存，其底层使用一个HashMap实现：key为Sql的id相关内容（**可理解为sql的id+查询参数**），value为从数据库中查询出的结果。
+​	一级缓存中缓存的是相同的Sql映射id的查询结果，而非相同Sql语句的查询结果。因为MyBatis内部对于查询缓存，无论是一级缓存还是二级缓存，其底层使用一个HashMap实现：key为Sql的id相关内容（**可理解为sql的id+查询参数**），value为从数据库中查询出的结果。
 
 #### 增删改对一级缓存的影响
 
-	增、删、改操作，无论是否进行事务的提交(sqlSession.commit())，均会清空一级查询缓存，将对应key上的value置为null。
+​	增、删、改操作，无论是否进行事务的提交(sqlSession.commit())，均会清空一级查询缓存，将对应key上的value置为null。
 
 使之下次进行查询时会查找数据库。
 
@@ -1720,11 +1720,11 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 #### 介绍
 
-	MyBatis查询缓存的作用域是根据映射文件mapper的namespace划分的，相同namaspace的mapper查询数据放在同一个缓存区域。不同namespace下的数据互不干扰。无论是一级缓存还是二级缓存，都是按照namespace进行分别存放的。
+​	MyBatis查询缓存的作用域是根据映射文件mapper的namespace划分的，相同namaspace的mapper查询数据放在同一个缓存区域。不同namespace下的数据互不干扰。无论是一级缓存还是二级缓存，都是按namespace进行分别存放的。
 
-	但一，二即缓存的不同之处在于，SqlSession一旦关闭，则SqlSession中的数据将不存在，即一级缓存就不覆存在。而二级缓存的生命周期会与整个应用同步，与SqlSession是否关闭无关。
+​	但一，二即缓存的不同之处在于，SqlSession一旦关闭，则SqlSession中的数据将不存在，即一级缓存就不覆存在。而二级缓存的生命周期会与整个应用同步，与SqlSession是否关闭无关。
 
-	使用二级缓存的目的，不是共享数据，因为MyBatis从缓存中读取数据的依据是SQL的id，而非查询出来的对象。所以，**二级缓存中的数据不是为了在多个查询之间共享**（所有查询中只要查询结果中存在该对象，就直接从缓存中读取，这就是数据的共享，Hibernate中的缓存就是为了共享，但是MyBatis不是），而**是为了延长该查询结果的保存时间**，提高系统性能
+​	使用二级缓存的目的，不是共享数据，因为MyBatis从缓存中读取数据的依据是SQL的id，而非查询出来的对象。所以，**二级缓存中的数据不是为了在多个查询之间共享**（所有查询中只要查询结果中存在该对象，就直接从缓存中读取，这就是数据的共享，Hibernate中的缓存就是为了共享，但是MyBatis不是），而**是为了延长该查询结果的保存时间**，提高系统性能
 
 
 
@@ -1732,7 +1732,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 1. 在mapper映射文件中的\<mapper/>标签中添加\<cache/>子标签
 
-```
+```xml
 <mapper namespace="com.jr.exmaple.dao.IStudentDao">
    <cache></cache>
 </mapper>   
@@ -1740,7 +1740,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 2. 二级缓存的配置
 
-```
+```xml
 <cache type="" eviction="" flushInterval="" readOnly="" size=""></cache>
 ```
 
@@ -1758,13 +1758,13 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 #### 增删改对二级缓存的影响
 
-	增删改操作，无论是否进行事务提交（sqlSession.cimmit()）,均会清空一级、二级查询缓存
+​	增删改操作，无论是否进行事务提交（sqlSession.cimmit()）,均会清空一级、二级查询缓存
 
 #### 设置增删改不刷新二级缓存
 
-	若要使某个增、删、改操作不清空二级缓存，则需要在其\<insert/>或\<delete/>或\<update/>中添加属性flushCache="false"，默认为true。
+​	若要使某个增、删、改操作不清空二级缓存，则需要在其\<insert/>或\<delete/>或\<update/>中添加属性flushCache="false"，默认为true。
 
-```
+```xml
     <insert id="" parameterType="" flushCache="false">
     </insert>
 ```
@@ -1773,9 +1773,9 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ##### 全局关闭
 
-	所谓全局关闭是指，整个应用的二级缓存全部关闭，所有查询均不使用二级缓存。全局开关设置在主配置文件的全局设置\<settings/>中，改属性为cacheEnabled，设置为false，则关闭；ture则开启。默认为true。即二级缓存默认时开启的。
+​	所谓全局关闭是指，整个应用的二级缓存全部关闭，所有查询均不使用二级缓存。全局开关设置在主配置文件的全局设置\<settings/>中，改属性为cacheEnabled，设置为false，则关闭；ture则开启。默认为true。即二级缓存默认时开启的。
 
-```
+```xml
 <configuration>
     <settings>
         <setting name="cacheEnabled" value="false"></setting>
@@ -1787,11 +1787,11 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ##### 局部关闭
 
-	所谓局部关闭是指，整个应用的二级缓存是开启的，但是针对某个\<select/>查询，不适用二级缓存。此时可以只单独关闭改\<select/>标签的二级缓存。
+​	所谓局部关闭是指，整个应用的二级缓存是开启的，但是针对某个\<select/>查询，不适用二级缓存。此时可以只单独关闭改\<select/>标签的二级缓存。
 
-	在改要关闭二级缓存的\<select/>标签中，将其属性useCahe设置为false，即可关闭改查询的二级缓存。改属性默认是true，即每个\<select/>查询的二级缓存默认是开启的。
+​	在改要关闭二级缓存的\<select/>标签中，将其属性useCahe设置为false，即可关闭改查询的二级缓存。改属性默认是true，即每个\<select/>查询的二级缓存默认是开启的。	
 
-```
+```xml
     <select id="" resultType="" useCache="false">
 
     </select>
@@ -1819,7 +1819,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 1. **依赖Jar包**
 
-```
+```xml
       <dependency>
             <groupId>org.mybatis.caches</groupId>
             <artifactId>mybatis-ehcache</artifactId>
@@ -1835,7 +1835,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 3. **配置文件参数**
 
-```
+```xml
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
 
 
@@ -1871,21 +1871,21 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 - LFU：Less Frequently Used 最少使用
 - LRU：Least Recently Used 未被使用时间最长的
 
-4. 启动ehcache缓存机制
+4. **启动ehcache缓存机制**
 
   	 在映射文件的mapper中的\<cache/>中通过type指定缓存机制为ehcache缓存，默认为MyBatis内置的二级缓存org.apache.ibatis.cache.impl.PerpetualCache。
 
-```
+```xml
 <mapper namespace="com.jr.exmaple.dao.ICourseDao">
     <cache type="org.mybatis.caches.ehcache.EhcacheCache">
 </mapper>
 ```
 
-5. ehcache在不同mapper中的个性化设置
+5. **ehcache在不同mapper中的个性化设置**
 
-       在ehcache.xml中设置的属性值，会对该项目中所有使用ehcache缓存机制的缓存区域起作用。一个项目可以有多个mapper，不同的mapper有不同的缓存区域，对于不同缓存区域也可以进行专门针对对于当前区域的个性化设置，可以通过指定mapper的\<cache>属性值来设置
+  ​	 在ehcache.xml中设置的属性值，会对该项目中所有使用ehcache缓存机制的缓存区域起作用。一个项目可以有多个mapper，不同的mapper有不同的缓存区域，对于不同缓存区域也可以进行专门针对对于当前区域的个性化设置，可以通过指定mapper的\<cache>属性值来设置
 
-```
+```xml
     <cache type="org.mybatis.caches.ehcache.EhcacheCache">
         <property name="maxElementsInMemory" value="10000"></property>
         <property name="eternal" value="false"></property>
@@ -1900,9 +1900,9 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ### 前言
 
-	MyBatis的注解，主要是用于替换映射文件。而映射文件中无非存放这增、删、改、查的SQL映射标签。所以，MyBatis注解，就是要替代映射文件中的个SQL标签。
+​	MyBatis的注解，主要是用于替换映射文件。而映射文件中无非存放这增、删、改、查的SQL映射标签。所以，MyBatis注解，就是要替代映射文件中的个SQL标签。
 
-	MyBatis官方文档指出，若要真正发挥MyBatis功能，还是要用映射文件。即MyBatis官方并不建议通过注解方法来使用MyBatis。
+​	MyBatis官方文档指出，若要真正发挥MyBatis功能，还是要用映射文件。即MyBatis官方并不建议通过注解方法来使用MyBatis。
 
 
 
@@ -1961,7 +1961,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 # 逆向工程
 
 	使用MyBatis最大的问题就是需要自己手动写Dao的接口，SQL的映射文件，和数据库对应的Bean类。
-
+	
 	有了MyBatis提供的逆向工厂后，这些将会通过该插件对应到数据库中的表结构自动生成。
 
 ### 使用步骤

@@ -2,17 +2,17 @@
 
 ### 简介
 
-​	Spring是于2003年兴起的一个轻量级的Java开发框架，它是为了解决企业应用开发的复杂性而创建的。Spring的核心是控制反转（IOC）和面向切面编程（AOP）。简单来说，Spring是一个分层的JavaSE/EE full-stack（一站式）轻量级开源项目。
+	Spring是于2003年兴起的一个轻量级的Java开发框架，它是为了解决企业应用开发的复杂性而创建的。Spring的核心是控制反转（IOC）和面向切面编程（AOP）。简单来说，Spring是一个分层的JavaSE/EE full-stack（一站式）轻量级开源项目。
 
-​	Spring 的主要作用是为了代码“解耦”，降低代码间的耦合度。
+	Spring 的主要作用是为了代码“解耦”，降低代码间的耦合度。
 
-​	根据功能的不同，可以将一个系统中的代码分为主业务逻辑两类。它们各自具有鲜明的特点：主业务代码间逻辑联系紧密，有具体的专业业务应用场景，复用性相对较低；系统级业务相对功能独立，没有具体的专业业务应用场景，主要是为主业务提供系统及服务，如日志，安全，事务等，复用性强。		
+	根据功能的不同，可以将一个系统中的代码分为主业务逻辑两类。它们各自具有鲜明的特点：主业务代码间逻辑联系紧密，有具体的专业业务应用场景，复用性相对较低；系统级业务相对功能独立，没有具体的专业业务应用场景，主要是为主业务提供系统及服务，如日志，安全，事务等，复用性强。		
 
-​	Spring根据代码的功能特点，将降低耦合度的方式分为两类，IOC和AOP。
+	Spring根据代码的功能特点，将降低耦合度的方式分为两类，IOC和AOP。
 
-​	IOC使得主业务在相互调用中，不用维护关系了，即不用再自己创建要使用得对象了。而是由Spring容器统一管理，自动“注入”。
+	IOC使得主业务在相互调用中，不用维护关系了，即不用再自己创建要使用得对象了。而是由Spring容器统一管理，自动“注入”。
 
-​	而AOP使得系统级服务得到最大复用，且不用再由程序员手工将系统级服务“混杂”到主业务逻辑中了，而是由Spring容器统一完成“织入”。
+	而AOP使得系统级服务得到最大复用，且不用再由程序员手工将系统级服务“混杂”到主业务逻辑中了，而是由Spring容器统一完成“织入”。
 
 
 
@@ -20,41 +20,41 @@
 
 ![Spring体系结构](photo\Spring体系结构.bmp)
 
-​	Spring由20多个模块组成，它们可以分为数据访问/继承（Data Access/Intergration）、Web、面向切面编程（AOP,Aspects）、应用服务器设备管理（Instrumentation）、信息发送（Messaging）、核心容器（Core Container）和测试（Test）。
+	Spring由20多个模块组成，它们可以分为数据访问/继承（Data Access/Intergration）、Web、面向切面编程（AOP,Aspects）、应用服务器设备管理（Instrumentation）、信息发送（Messaging）、核心容器（Core Container）和测试（Test）。
 
 ### Spring的特点
 
 > **非侵入式**
 
-​	所谓非侵入式是指，Spring框架的API不会在业务逻辑出现，即业务逻辑是POJO。由于业务逻辑中没有Spring 的API，所以物业逻辑可以从Spring框架快速地移植到其他框架，即与环境无关。
+	所谓非侵入式是指，Spring框架的API不会在业务逻辑出现，即业务逻辑是POJO。由于业务逻辑中没有Spring 的API，所以物业逻辑可以从Spring框架快速地移植到其他框架，即与环境无关。
 
-​	POJO（Plain Old Java Object）:最存粹的类，无需其他引用项目的API。
+	POJO（Plain Old Java Object）:最存粹的类，无需其他引用项目的API。
 
 > **容器**
 
-​	Spring作为一个容器，可以管理对象的生命周期、对象与对象之间的依赖关系。可以通过配置文件，来定义对象，一以及设置与其他对象的依赖关系。
+	Spring作为一个容器，可以管理对象的生命周期、对象与对象之间的依赖关系。可以通过配置文件，来定义对象，一以及设置与其他对象的依赖关系。
 
 > IOC
 
-​	控制反转（Inversion of Control），即创建被调者的实例不是由调用者完成，而是由Spring 容器完成，并注入给调用者。
+	控制反转（Inversion of Control），即创建被调者的实例不是由调用者完成，而是由Spring 容器完成，并注入给调用者。
 
-​	当应用了IOC，一个对象依赖的其他对象通过被动的方式传递进来，而不是这个对象自己创建或者查找依赖对象。即，不是对象从容器中查找依赖，而是容器在对象初始化时不等对象请求就主动将依赖传递给它。
+	当应用了IOC，一个对象依赖的其他对象通过被动的方式传递进来，而不是这个对象自己创建或者查找依赖对象。即，不是对象从容器中查找依赖，而是容器在对象初始化时不等对象请求就主动将依赖传递给它。
 
 > AOP
 
-​	面向切面编程（Aspect Orient Programming）,是一种编程思想，是面向对象编程OOP得补充。很多框架都实现了AOP编程思想得实现。Spring也提供了面向切面编程得丰富支持，允许通过分离应用得业务逻辑与系统级服务（例如日志和事务管理）进行开发。应用对象只实现它应该做得（完成业务逻辑）仅此而已。它们并不负责其他得系统级关注点，例如日志和事务支持。
+	面向切面编程（Aspect Orient Programming）,是一种编程思想，是面向对象编程OOP得补充。很多框架都实现了AOP编程思想得实现。Spring也提供了面向切面编程得丰富支持，允许通过分离应用得业务逻辑与系统级服务（例如日志和事务管理）进行开发。应用对象只实现它应该做得（完成业务逻辑）仅此而已。它们并不负责其他得系统级关注点，例如日志和事务支持。
 
-​	我们可以把日志、安全、事务管理等服务理解成一个“切面”，那么以前这些服务一直是直接写在业务逻辑得代码当中。
+	我们可以把日志、安全、事务管理等服务理解成一个“切面”，那么以前这些服务一直是直接写在业务逻辑得代码当中。
 
-​	这由两点不好，首先业务逻辑不纯净；其次这些服务被很多业务与逻辑反复使用，完全可以剥离出来做到服用。那么AOP就是解决这些问题的解决方案，可以把这些服务剥离出来形成一个“切面”，以期复用，然后将“切面”动态的“织入”到业务逻辑中，让业务逻辑能够享受到此“切面”的服务。
+	这由两点不好，首先业务逻辑不纯净；其次这些服务被很多业务与逻辑反复使用，完全可以剥离出来做到服用。那么AOP就是解决这些问题的解决方案，可以把这些服务剥离出来形成一个“切面”，以期复用，然后将“切面”动态的“织入”到业务逻辑中，让业务逻辑能够享受到此“切面”的服务。
 
 # IOC：控制反转
 
 ### 前言
 
-​	控制反转是一个概念，是一种思想。即将传统上由程序代码直接操控的对象调用权交给容器，通过容器来实现对象的装配和管理。控制反转就是对对象控制权的转移，从程序代码本身转到了外部容器。
+	控制反转是一个概念，是一种思想。即将传统上由程序代码直接操控的对象调用权交给容器，通过容器来实现对象的装配和管理。控制反转就是对对象控制权的转移，从程序代码本身转到了外部容器。
 
-​	控制反转的实现由多种方式，现在主要流行的方式由两种：**依赖注入**和**依赖查找**，依赖注入方式应用更为广泛。也是Spring采用的方式。
+	控制反转的实现由多种方式，现在主要流行的方式由两种：**依赖注入**和**依赖查找**，依赖注入方式应用更为广泛。也是Spring采用的方式。
 
 - **依赖查找：**容器提供回调接口和上下文环境给组件，程序代码则需要提供具体的查找方式。比较典型的是依赖于JNDI服务接口的查找。
 
@@ -70,9 +70,21 @@
 
 ![创建Spring项目01](photo\创建Spring项目01.bmp)
 
+- **IDEA会自动下载Spring框架所需的Jar包**
+
 ![Spring项目结构](photo\Spring项目结构.bmp)
 
-IDEA会自动下载Spring框架所需的Jar包
+
+
+
+
+- **其中基本Jar包**
+
+![Sprig基本Jar包01](/photo\Sprig基本Jar包01.bmp)
+
+![Sprig基本Jar包02](/photo\Sprig基本Jar包02.bmp)
+
+
 
 
 
@@ -86,7 +98,7 @@ IDEA会自动下载Spring框架所需的Jar包
 
 - 接口
 
-```
+```java
 public interface IServer {
     void print();
 }
@@ -95,7 +107,7 @@ public interface IServer {
 
 - 实现类
 
-```
+```java
 public class IServerImp implements IServer {
     @Override
     public void print() {
@@ -110,7 +122,7 @@ public class IServerImp implements IServer {
 
 4. 定义测试类
 
-```
+```java
 public class Test01 {
     ApplicationContext context;
     
@@ -138,7 +150,7 @@ public class Test01 {
 
 ### 配置文件解析
 
-```
+```java
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -154,15 +166,15 @@ public class Test01 {
 
 **id与name的区别**
 
-​	一般情况下，命名\<bean/>使用id属性，而不使用name属性。在没有id属性的情况下，name属性与id属性的作用是相同的，当\<bean/>中含有一些特殊字符时，就需要使用那么属性了。
+	一般情况下，命名\<bean/>使用id属性，而不使用name属性。在没有id属性的情况下，name属性与id属性的作用是相同的，当\<bean/>中含有一些特殊字符时，就需要使用那么属性了。
 
-​	id的命名需要满足XML对id属性命名规范：必须以字母开头名可以包含字母、数字、下划线、连字符、句号、冒号。
+	id的命名需要满足XML对id属性命名规范：必须以字母开头名可以包含字母、数字、下划线、连字符、句号、冒号。
 
-​	name属性值则可以包含各种符号。
+	name属性值则可以包含各种符号。
 
 ### 配置文件存放路径问题
 
-​	根据获取容器实例（ApplicationContext）的对象不同，配置文件可以存放到随意路径。
+	根据获取容器实例（ApplicationContext）的对象不同，配置文件可以存放到随意路径。
 
 > 存放到源代码根目录
 
@@ -170,7 +182,7 @@ public class Test01 {
 
 若存放到源代码根目录，那么创建容器实例对象必须为**ClassPathXmlApplictionContext**
 
-```
+```java
 ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 ```
 
@@ -186,8 +198,8 @@ ApplicationContext context = new ClassPathXmlApplicationContext("applicationCont
 
 若存放到项目根目录，那么创建容器实例对象必须为**FileSystemXmlApplictionContext**
 
-```
-ApplicationContext context = new FileSystemtXmlApplicationContext("applicationContext.xml");
+```java
+ApplicationContext context = new javaFileSystemtXmlApplicationContext("applicationContext.xml");
 ```
 
 [^FileSystemtXmlApplicationContext（String configPath）]: 项目根目录下的资源文件路径 或 磁盘空间下的文件路径
@@ -198,19 +210,19 @@ ApplicationContext context = new FileSystemtXmlApplicationContext("applicationCo
 
 ### BeanFactory接口容器
 
-​	BeanFactory接口对象也可以作为Spring容器出现。BeanFactory接口时ApplicationContxt接口的父类。
+	BeanFactory接口对象也可以作为Spring容器出现。BeanFactory接口是ApplicationContxt接口的父类。
 
-​	其中XmlBeanFactory作为其中的实现类之一。
+	其中XmlBeanFactory作为其中的实现类之一。
 
 1. 创建XmlBeanFactory实例
 
-```\
+```java
 public class Test02 {
     BeanFactory beanFactory;
 
     @Before
     public void init() {
-        beanFactory = new XmlBeanFactory(new ClassPathResource("applicationContext.xml"));
+        beanFactory =new  			    XmlBeanFactory(newClassPathResource("applicationContext.xml"));
     }
 
     @Test
@@ -221,9 +233,9 @@ public class Test02 {
 }
 ```
 
-​	而Spring配置文件以资源Resouce的形式出现XmlBeanFactory类的构造器参数中。
+	而Spring配置文件以资源Resouce的形式出现XmlBeanFactory类的构造器参数中。
 
-​	Resouce时一个接口，其具有两个实现类：
+	Resouce是一个接口，其具有两个实现类：
 
 - ClassPathResource：指定类路径下的资源文件
 - FileSystemResource：指定项目根路径或本地磁盘路径下的资源文件
@@ -234,9 +246,9 @@ public class Test02 {
 
 > **区别**
 
-​	BeanFactory容器，对容器中对象的装配与加载采用延迟加载策略，即在第一次调用getBean()时，才真正装配该对象
+	BeanFactory容器，对容器中对象的装配与加载采用延迟加载策略，即在第一次调用getBean()时，才真正装配该对象
 
-​	而ApplicationContext容器，在容器初始化时就已经装配该对象。
+	而ApplicationContext容器，在容器初始化时就已经装配该对象。
 
 **Bean的装配，即Bean对象的创建**
 
@@ -253,7 +265,7 @@ public class Test02 {
 
 **接口**
 
-```
+```java
 public interface IServer {
     void print();
 }
@@ -262,7 +274,7 @@ public interface IServer {
 
 **实现类**
 
-```
+```java
 public class IServerImp implements IServer {
     public IServerImp() {
         System.out.println("实例化IServerImp");
@@ -278,7 +290,7 @@ public class IServerImp implements IServer {
 
 **配置文件**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -290,7 +302,7 @@ public class IServerImp implements IServer {
 
 **测试类**
 
-```
+```java
 public class Test01 {
     ApplicationContext context;
 
@@ -307,7 +319,7 @@ public class Test01 {
 }
 ```
 
-​	**代码通过getBean()方法从容器获取指定的bean实例，容器首先会调用Bean类的无参构造器，创造空值的实例对象。**
+	**代码通过getBean()方法从容器获取指定的bean实例，容器首先会调用Bean类的无参构造器，创造空值的实例对象。**
 
 
 
@@ -317,11 +329,11 @@ public class Test01 {
 
 *代码举例test02*
 
-​	Spring对于使用动态工厂来创建的Bean，有专门的属性定义。factory-bean指定相应的工厂Bean，由factory-method指定创建所用方法。此时配置文件中至少有两个Bean的指定：工厂类的Bean，与工厂类所要创建的目标Bean。而测试类中不需要获取工厂Bean对象了，可以直接获取目标Bean对象。实现测试类与工厂类间的解耦。
+	Spring对于使用动态工厂来创建的Bean，有专门的属性定义。factory-bean指定相应的工厂Bean，由factory-method指定创建所用方法。此时配置文件中至少有两个Bean的指定：工厂类的Bean，与工厂类所要创建的目标Bean。而测试类中不需要获取工厂Bean对象了，可以直接获取目标Bean对象。实现测试类与工厂类间的解耦。
 
 **工厂类**
 
-```
+```java
 public class ServerFactory {
 
     public IServer getServer() {
@@ -332,7 +344,7 @@ public class ServerFactory {
 
 **配置文件**
 
-```
+```java
 <beans xmlns="http://www.springframework.org/schema/beans"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -352,15 +364,15 @@ public class ServerFactory {
 
 *代码举例test02*
 
-​	使用工厂模式中的静态工厂来创建实例Bean。
+	使用工厂模式中的静态工厂来创建实例Bean。
 
-​	此时需要注意，静态工厂无需工厂实例，所以不需要定义静态工厂\<bean/>。
+	此时需要注意，静态工厂无需工厂实例，所以不需要定义静态工厂\<bean/>。
 
-​	而对于工厂所要创建的Bean，其不是由自己的类创建的，所以无需指定自己的类。但其是由工厂类创建的，所以需要指定所用工厂类。股class属性指定的是工厂类而非自己的类。当然，还需要通常factory-method属性指定工厂方法。
+	而对于工厂所要创建的Bean，其不是由自己的类创建的，所以无需指定自己的类。但其是由工厂类创建的，所以需要指定所用工厂类。股class属性指定的是工厂类而非自己的类。当然，还需要通常factory-method属性指定工厂方法。
 
-​	**工厂类**
+	**工厂类**
 
-```
+```java
 public class ServerStaticFactory {
 
     public static IServer getServer() {
@@ -369,9 +381,9 @@ public class ServerStaticFactory {
 }
 ```
 
-​	**配置文件**
+	**配置文件**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -385,7 +397,7 @@ public class ServerStaticFactory {
 
 > 容器中Bean的作用域
 
-​	当通过Spring容器创建一个Bean实例时，不仅可以完成Bean的实例化，还可以通过**scope**属性，为Bean指定特定的作用域。Spring支持5种作用域。
+	当通过Spring容器创建一个Bean实例时，不仅可以完成Bean的实例化，还可以通过**scope**属性，为Bean指定特定的作用域。Spring支持5种作用域。
 
 1. **singleton**：单例模式。即每次使用getBean()方法获取的同一个\<bean/>的实例都是一个新的实例。
 2. **prototype**：原型模式。即每次使用getBean()方法获取的同一个\<bean/>的实例都是一个新的实例。
@@ -394,31 +406,31 @@ public class ServerStaticFactory {
 
 **注意：**
 
-​	1）.对于scope的值request，session与globle session，只有Web应用中使用Spring时，该作用域才有效。
+	1）.对于scope的值request，session与globle session，只有Web应用中使用Spring时，该作用域才有效。
 
-​	2）.对于scope为singleton的单例模式，该Bean是在容器被创建时即被装配好了。
+	2）.对于scope为singleton的单例模式，该Bean是在容器被创建时即被装配好了。
 
-​	3）.对于scope为protoype的原型模式，Bean实例时在代码使用Bean实例时才进行装配的。
+	3）.对于scope为protoype的原型模式，Bean实例时在代码使用Bean实例时才进行装配的。
 
 
 
 > Bean后处理器
 
-​	Bean后处理器是一种特殊的Bean，容器中所有的Bean在初始化时，均会自动执行该类的两个方法。由于该Bean是由其他Bean自动调用执行，而不是程序员手工调用，故此Bean无需id属性或name属性。
+	Bean后处理器是一种特殊的Bean，容器中所有的Bean在初始化时，均会自动执行该类的两个方法。由于该Bean是由其他Bean自动调用执行，而不是程序员手工调用，故此Bean无需id属性或name属性。
 
-​	需要做的是，在Bean后处理器类方法中，只要对Bean类与Bean类中的方法进行判断就可实现指定的Bean的指定方法进行功能扩展和增强。方法返回的Bean对象，即是增强过的对象。
+	需要做的是，在Bean后处理器类方法中，只要对Bean类与Bean类中的方法进行判断就可实现指定的Bean的指定方法进行功能扩展和增强。方法返回的Bean对象，即是增强过的对象。
 
 *举例test03*
 
-​	程序中由一个业务接口，其有两个业务方法，some（）与other（）。有两个Bean，StudentServicelmpl()和TeacherServicelmpl()，均实现了IService接口。
+	程序中由一个业务接口，其有两个业务方法，some（）与other（）。有两个Bean，StudentServicelmpl()和TeacherServicelmpl()，均实现了IService接口。
 
-​	要求：对StudentServiceImpl的some方法进行增强，输出其开始执行时间与执行结束时间。
+	要求：对StudentServiceImpl的some方法进行增强，输出其开始执行时间与执行结束时间。
 
 
 
 **接口**
 
-```
+```java
 public interface IServer {
     void some();
 
@@ -444,7 +456,7 @@ public class StudentServicelmp implements IServer {
 
 **Bean后处理器类**
 
-```
+```java
 public class MyBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String id) throws BeansException {
@@ -483,7 +495,7 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 
 **配置文件**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -495,21 +507,21 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 </beans>
 ```
 
-​	Bean初始化完毕有一个标志：在生命周期中的一个方法会被执行（下面会讲到Bean的生命周期），即当该方法被执行，表示该bean被初始化完毕。
+	Bean初始化完毕有一个标志：在生命周期中的一个方法会被执行（下面会讲到Bean的生命周期），即当该方法被执行，表示该bean被初始化完毕。
 
-​	所以Bean后处理器中两个方法的执行，是在这个方法之前和之后执行。
+	所以Bean后处理器中两个方法的执行，是在这个方法之前和之后执行。
 
 
 
 > 定制Bean的生命始末
 
-​	可以为Bean定制初始化后的生命行为，也可以为Bean定制销毁前的生命行为
+	可以为Bean定制初始化后的生命行为，也可以为Bean定制销毁前的生命行为
 
 *举例test04*
 
 **实现类**
 
-```
+```java
 public class StudentServicelmp implements IServer {
     @Override
     public void some() {
@@ -534,7 +546,7 @@ public class StudentServicelmp implements IServer {
 
 **配置文件**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -556,7 +568,7 @@ public class StudentServicelmp implements IServer {
 
 > Bean的生命周期
 
-​	Bean实例从创建到最后销毁，需要经常很多过程，执行很多生命周期方法。
+	Bean实例从创建到最后销毁，需要经常很多过程，执行很多生命周期方法。
 
 *举例test05*
 
@@ -578,19 +590,19 @@ public class StudentServicelmp implements IServer {
 
 ### 基于XML的DL
 
-​	Bean实例在调用无参构造器创建了空值对象后，就要对Bean对象的属性进行初始化。初始化是容器自动完成的，称为注入。根据注入方式的不同，常用的有两种：**设置注入**、**构造注入**。
+	Bean实例在调用无参构造器创建了空值对象后，就要对Bean对象的属性进行初始化。初始化是容器自动完成的，称为注入。根据注入方式的不同，常用的有两种：**设置注入**、**构造注入**。
 
-​	还有另外一种，实现特定接口注入。由于这种方式采用侵入式编程，污染了代码，所以几乎不用。
+	还有另外一种，实现特定接口注入。由于这种方式采用侵入式编程，污染了代码，所以几乎不用。
 
 ####**设值注入**
 
-​	设置注入是指，通过setter方法传入被调用者的实例。这种注入方式简单、直观、因而在Spring的依赖注入中大量使用。
+	设置注入是指，通过setter方法传入被调用者的实例。这种注入方式简单、直观、因而在Spring的依赖注入中大量使用。
 
 *举例test06*
 
 **实体类**
 
-```
+```java
 public class Student {
     private String name;
     private String age;
@@ -625,7 +637,7 @@ public class Student {
 
 **实现类**
 
-```
+```java
 public class StudentServicelmp implements IServer {
     private String name;
     private int age;
@@ -662,7 +674,7 @@ public class StudentServicelmp implements IServer {
 
 **配置文件**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -689,13 +701,13 @@ public class StudentServicelmp implements IServer {
 
 ####**构造注入**
 
-​	构造注入是指，在构造调用者实例的同时，完成被调用者的实例化。即，使用构造器设置依赖关系。
+	构造注入是指，在构造调用者实例的同时，完成被调用者的实例化。即，使用构造器设置依赖关系。
 
 *举例test07*
 
 **实体类**
 
-```
+```java
 public class School {
     private String name;
     private String adress;
@@ -717,7 +729,7 @@ public class School {
 
 **实现类**
 
-```
+```java
 public class StudentServicelmp implements IServer {
     private String name;
     private int age;
@@ -745,7 +757,7 @@ public class StudentServicelmp implements IServer {
 
 **配置文件**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -778,7 +790,7 @@ public class StudentServicelmp implements IServer {
 
 **实体类**
 
-```
+```java
 public class Student {
     private String name;
     private int age;
@@ -809,7 +821,7 @@ public class Student {
 }
 ```
 
-```
+```java
 public class School {
     private String[] dateArray;
     private List<String> dataList;
@@ -861,7 +873,7 @@ public class School {
 
 **配置文件**
 
-```
+```java
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -916,7 +928,7 @@ public class School {
 </beans>
 ```
 
-​	在\<property/>标签下，根据属性类型创建不同类型的嵌入类型标签。
+	在\<property/>标签下，根据属性类型创建不同类型的嵌入类型标签。
 
 - 数组类型： \<array/>
 
@@ -932,15 +944,14 @@ public class School {
 
   如果是普通类型用value，自定义类型用ref，若继续嵌套集合类型，可在创建嵌套的类型标签。
 
-  
 
 #### **抽象继承注入**
 
-​	如果多个Bean中相同成员变量拥有相同的值，那么我们可以将这些共同的属性值在放在统一一个Bean中，然后其他Bean继承这个Bean，进而拥有了该Bean中了属性值。
+	如果多个Bean中相同成员变量拥有相同的值，那么我们可以将这些共同的属性值在放在统一一个Bean中，然后其他Bean继承这个Bean，进而拥有了该Bean中了属性值。
 
 **实体类**
 
-```
+```java
 public class Student {
     private String name;
     private int age;
@@ -983,7 +994,7 @@ public class Student {
 
 **配置文件**
 
-```
+```java
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -1039,7 +1050,7 @@ public class Student {
 
   **实体类**
 
-  ```
+  ```java
   /**
   *调用者实体类
   */
@@ -1083,7 +1094,7 @@ public class Student {
   }
   ```
 
-  ```
+  ```java
   /**
   *被调用者实体类
   */
@@ -1119,7 +1130,7 @@ public class Student {
 
   **配置文件**
 
-  ```
+  ```java
   <beans xmlns="http://www.springframework.org/schema/beans"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -1139,7 +1150,7 @@ public class Student {
 
   被调用者的bean的id与调用者bean类中的属性名一致时，通过byName会自动注入该域对象。
 
-  
+
 
   2. **byType**：根据类型自动注入
 
@@ -1147,7 +1158,7 @@ public class Student {
 
   **调用者Bean实体类**
 
-  ```
+  ```java
   /**
   *调用者实体类
   */
@@ -1194,7 +1205,7 @@ public class Student {
 
   **配置文件**
 
-  ```
+  ```java
   <beans xmlns="http://www.springframework.org/schema/beans"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -1214,11 +1225,10 @@ public class Student {
 
   调用者bean实体类中的域属性名与定义的被调用者bean的id就算不一样。通过byType也可以自动注入
 
-  
 
 ####**使用SPEL注入**
 
-​	SPEL：Spring Expression Language，即Spring EL表达式语言。即，在Spring配置文件中为Bean的属性诸如之时，可直接使用SPEL表达式计算的结果。用法：\<bean id="abc" value=“#{...}”/>。
+	SPEL：Spring Expression Language，即Spring EL表达式语言。即，在Spring配置文件中为Bean的属性诸如之时，可直接使用SPEL表达式计算的结果。用法：\<bean id="abc" value=“#{...}”/>。
 
 *举例test11*
 
@@ -1244,7 +1254,7 @@ public class Student {
 
 
 
-```
+```java
 public class Person {
     private String name;
     private int age;
@@ -1279,7 +1289,7 @@ public class Person {
 }
 ```
 
-```
+```java
 public class Student {
     private String name;
     private int age;
@@ -1322,7 +1332,7 @@ public class Student {
 
 **配置文件**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -1352,11 +1362,11 @@ public class Student {
 
 ####使用内部Bean注入
 
-​	若不希望代码直接访问某个bean，即，在代码中通过getBean方法获取该Bean实例，则可将该Bean的定义放在调用者bean定义的内部。
+	若不希望代码直接访问某个bean，即，在代码中通过getBean方法获取该Bean实例，则可将该Bean的定义放在调用者bean定义的内部。
 
 *举例test12*
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -1379,7 +1389,7 @@ public class Student {
 
 #### 为应用指定多个Spring配值文件
 
-​	在实际应用例，随着应用规模的增加，系统中的Bean数量也大量增加，导致配置文件变得非常庞大、臃肿。为了避免这种情况的产生，提高配置文件的可读性与维护性，可以将Spring配置文件分解成多个配置文件。
+	在实际应用例，随着应用规模的增加，系统中的Bean数量也大量增加，导致配置文件变得非常庞大、臃肿。为了避免这种情况的产生，提高配置文件的可读性与维护性，可以将Spring配置文件分解成多个配置文件。
 
 > 平等关系的配置文件
 
@@ -1391,7 +1401,7 @@ public class Student {
 
 将所有配置文件的路径定义为一个String数组，将其作为容器初始化参数出现。
 
-```
+```java
     @Before
     public void init() {
      String [] path=new String[]{"com/jr/spring/test13/course.xml","com/jr/spring/test13/student.xml"};    
@@ -1401,7 +1411,7 @@ public class Student {
 
 > 包含关系的配置文件
 
-​	各配置文件中有一个总文件，总配置文件将各其它子文件通过\<import/>引入。在Java代码中只需要使用总配置文件对容器进行初始化即可。
+	各配置文件中有一个总文件，总配置文件将各其它子文件通过\<import/>引入。在Java代码中只需要使用总配置文件对容器进行初始化即可。
 
 *举例test14*
 
@@ -1409,7 +1419,7 @@ public class Student {
 
 **配置文件**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -1422,7 +1432,7 @@ public class Student {
 </beans>
 ```
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -1439,7 +1449,7 @@ public class Student {
 
 **引用上一个配置文件并使用定义id为course的bean**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -1453,7 +1463,7 @@ public class Student {
 
 **测试代码**
 
-```
+```java
 @Before
 public void init() {
     context = new ClassPathXmlApplicationContext("com/jr/spring/test14/applicationContext.xml");
@@ -1462,15 +1472,15 @@ public void init() {
 
 **初始化加载配置文件的时候只需要载入汇总的配置文件。**
 
-​	在导入其他配置文件时，也可以使用通配符。但要求父配置文件名不能满足*所能匹配的格式，否则将会出现循环递归包含。
+	在导入其他配置文件时，也可以使用通配符。但要求父配置文件名不能满足*所能匹配的格式，否则将会出现循环递归包含。
 
 
 
 ### 基于注解的DL
 
-​	对于DL使用注解，将不再需要在Spring配置文件中声明Bean实例。
+	对于DL使用注解，将不再需要在Spring配置文件中声明Bean实例。
 
-​	注解的后台实现用到了AOP编程，故需要用到AOP的Jar包。
+	注解的后台实现用到了AOP编程，故需要用到AOP的Jar包。
 
 #### 使用注解步骤
 
@@ -1479,17 +1489,16 @@ public void init() {
 
 2. **XML配置文件添加新的约束**
 
-   ```
+   ```xml
    xmlns:context="http://www.springframework.org/schema/context"
    ```
 
 3. **在配置文件中配置组建扫描器，用于在指定的基本包中扫描注解**
 
-   ```
+   ```xml
    <context:component-scan base-package="包路径"/>
    ```
 
-   
 
 
 
@@ -1506,17 +1515,17 @@ public void init() {
   }
   ```
 
-  ​	该注解用于指定该Bean的id，此外Spring还提供了3个功能基本和@Component等效的注解：
+  	该注解用于指定该Bean的id，此外Spring还提供了3个功能基本和@Component等效的注解：
 
   [^@Reponsitory]: 用于对DAO实现类进行注解
   [^@Service]: 用于对Service实现类进行注解
   [^@Controller]: 用于对Controller实现类进行注解
 
-  ​	之所以创建三个功能与@Component等效的注解，是为了以后对其进行功能上的扩展，式它们不在等效。
+  	之所以创建三个功能与@Component等效的注解，是为了以后对其进行功能上的扩展，式它们不在等效。
 
 - @Scope
 
-  ```
+  ```java
   @Component(value="student")
   @Scope(value="prototype")
   public class Student {
@@ -1527,11 +1536,9 @@ public void init() {
 
   其value属性用于指定该Bean作用域，默认为singleton。
 
-  
-
 - @Value
 
-  ```
+  ```java
   @Component(value="student")
   @Scope(value="prototype")
   public class Student {
@@ -1550,7 +1557,7 @@ public void init() {
 
   **调用者Bean**
 
-  ```
+  ```java
   @Component( "student")
   @Scope(value = "proptoype")
   public class Student {
@@ -1565,7 +1572,7 @@ public void init() {
 
   **被调用者bean**
 
-  ```
+  ```java
   @Component("course")
   public class Course {
       private String name;
@@ -1577,15 +1584,13 @@ public void init() {
 
   [^requeird]: 默认为true，表示当匹配失败后，会终止程序运行，若设置为false，则匹配失败后，将被忽略，未匹配的属性值为null。
 
-  
-
 - @Autowired与@Qualifier （byName）
 
   @Autowired与@Qualfier联合是使用，就是指定Bean的id进行注入。
 
   **调用者Bean**
 
-  ```
+  ```java
   @Component( "student")
   @Scope(value = "proptoype")
   public class Student {
@@ -1601,7 +1606,7 @@ public void init() {
 
   **被调用者bean**
 
-  ```
+  ```java
   @Component("course")
   public class Course {
       private String name;
@@ -1611,19 +1616,17 @@ public void init() {
 
   @Qualifier中的value属性用于指定注入Bean的id
 
-  
-
 - @Resource
 
   Spring提供了对JSR-250规范中定义@Resource标准注解的支持。@Resource注解即可以按名称匹配Bean，也可以按类型匹配Bean。但使用该注解，要求JDK版本必须是6及以上。
 
   1. 按类型注入域属性
 
-     
+      
 
      **调用者Bean**
 
-     ```
+     ```xml
      @Component("student")
      @Scope(value = "proptoype")
      public class Student {
@@ -1636,11 +1639,11 @@ public void init() {
      }
      ```
 
-     
+
 
      **被调用者bean**
 
-     ```
+     ```xml
      @Component("course")
      public class Course {
          private String name;
@@ -1650,13 +1653,11 @@ public void init() {
 
      若@Resource注解若不带任何参数，则会按照类型进行Bean的匹配注入。
 
-     
-
   2. 按名称注入域属性
 
      **被调用者bean**
 
-     ```
+     ```java
      @Component("course")
      public class Course {
          private String name;
@@ -1669,7 +1670,7 @@ public void init() {
 
      **调用者Bean**
 
-     ```
+     ```java
      @Component( "student")
      @Scope(value = "proptoype")
      public class Student {
@@ -1688,11 +1689,11 @@ public void init() {
 
 ####使用JUnit4测试Spring
 
-​	使用Spring的JUnit4对Spring代码进行测试，将不在需要在程序的代码中直接写出创建Spring的容器，及从Spring容器中通过getBean()获取对象了。这些工作将有JUnit4注解，配合者域属性的自动注入注解共同完成。
+	使用Spring的JUnit4对Spring代码进行测试，将不在需要在程序的代码中直接写出创建Spring的容器，及从Spring容器中通过getBean()获取对象了。这些工作将有JUnit4注解，配合者域属性的自动注入注解共同完成。
 
 **测试类**
 
-```
+```java
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:com/jr/spring/test16/applicationContext.xml")
 public class Test01 {
@@ -1711,7 +1712,7 @@ public class Test01 {
 
 > 出现找不到配置文件错误 java.io.FileNotFoundException: class path resource [com/jr/spring/test16/test/com/jr/spring/test16/applicationContext.xml] cannot be opened because it does not exist
 
-​       解决办法：记得在注解@ContextConfiguration的locations属性值前面加上classpath，声明在类路径下查找。
+       解决办法：记得在注解@ContextConfiguration的locations属性值前面加上classpath，声明在类路径下查找。
 
 > 如果出现Spring-test框架与JUnit框架整合问题，如：
 
@@ -1727,11 +1728,11 @@ public class Test01 {
 
 ### 注解与XML共同使用
 
-​	注解的好处是，配置方便、直观、但其弊端也显而易见，以硬编码的方式写入到了Java代码，其修改时需要重新编译代码的。
+	注解的好处是，配置方便、直观、但其弊端也显而易见，以硬编码的方式写入到了Java代码，其修改时需要重新编译代码的。
 
-​	XML配置方式的最大好处是，对其所修改，无需编译代码，只需要重启服务器即可将配置加载。
+	XML配置方式的最大好处是，对其所修改，无需编译代码，只需要重启服务器即可将配置加载。
 
-​	若注解与XML同用，**XML的优先级要高于注解**。
+	若注解与XML同用，**XML的优先级要高于注解**。
 
 
 
@@ -1744,7 +1745,7 @@ public class Test01 {
 
 1. 从上面使用的场景看，可以在路径上使用通配符*进行模糊查找。比如：
 
-```
+```xml
 <param-value>classpath:applicationContext-*.xml</param-value>  
 ```
 
@@ -1757,11 +1758,11 @@ public class Test01 {
 
 ### 简介
 
-​	AOP（Aspect Orient Programming）,面向切面编程，是面向对象编程OOP的一种补充。面向对象编程是从静态角度考虑程序的结构，而面向切面编程时从动态角度考虑程序运行过程。
+	AOP（Aspect Orient Programming）,面向切面编程，是面向对象编程OOP的一种补充。面向对象编程是从静态角度考虑程序的结构，而面向切面编程时从动态角度考虑程序运行过程。
 
-​	通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。也是Spring框架的一个重要内容，是函数式编程的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间耦合度降低，提高程序的可重用性，同时提高了开发的效率。
+	通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。也是Spring框架的一个重要内容，是函数式编程的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间耦合度降低，提高程序的可重用性，同时提高了开发的效率。
 
-​	AOP底层就是采用**动态代理模式**实现的。采用了JDK的动态代理和CGLIB的动态代理两种代理。
+	AOP底层就是采用**动态代理模式**实现的。采用了JDK的动态代理和CGLIB的动态代理两种代理。
 
 
 
@@ -1769,23 +1770,23 @@ public class Test01 {
 
 - 切面（Aspect）
 
-  ​	切面泛指交叉业务逻辑。实际就是对主业务逻辑的一种增强，如日志处理和事务处理就可以理解为切面。常用的切面有**通知**和**顾问**。
+  	切面泛指交叉业务逻辑。实际就是对主业务逻辑的一种增强，如日志处理和事务处理就可以理解为切面。常用的切面有**通知**和**顾问**。
 
 - 织入（Weaving）
 
-  ​	织入是指将切面代码插入到目标对象的过程。
+  	织入是指将切面代码插入到目标对象的过程。
 
 - 连接点（JoinPoint）
 
-  ​	连接点指**可以**被切面织入的方法。通常业务接口中的方法均为连接点。
+  	连接点指**可以**被切面织入的方法。通常业务接口中的方法均为连接点。
 
 - 切入点（Pointcut）
 
-  ​	切入点指切面**具体织入**的方法(已经织入了)。例如↓
+  	切入点指切面**具体织入**的方法(已经织入了)。例如↓
 
   **接口**
 
-  ```
+  ```java
   public interface IServuce{
       void doSome();
       void doOther();
@@ -1794,7 +1795,7 @@ public class Test01 {
 
   **实现类**
 
-  ```
+  ```java
   public class StudentServiceImp implements IService{
       pulic void doSome(){
           
@@ -1809,23 +1810,23 @@ public class Test01 {
 
 - 目标对象（Target）
 
-  ​	目标对象指将要被增强的对象。即包含主业务逻辑的对象。
+  	目标对象指将要被增强的对象。即包含主业务逻辑的对象。
 
 - 通知（Advice）
 
-  ​	通知是切面的一种实现，可以完成简单织入功能（织入功能就是在这里为基础完成的）。**通知定义了增强代码切入到目标代码的时间点**，是目标方法执行之前执行，还是之后执行等。同之类型不同，切入时间不同。
+  	通知是切面的一种实现，可以完成简单织入功能（织入功能就是在这里为基础完成的）。**通知定义了增强代码切入到目标代码的时间点**，是目标方法执行之前执行，还是之后执行等。同之类型不同，切入时间不同。
 
-  ​	切入点定义切入位置，同之定义切入时间。
+  	切入点定义切入位置，同之定义切入时间。
 
 - 顾问（Advisor）
 
-  ​	顾问是切面的另一种实现，能够将通知以更为复杂的方式织入到目标对象中，是将通知包装为复杂切面的装配器。
+  	顾问是切面的另一种实现，能够将通知以更为复杂的方式织入到目标对象中，是将通知包装为复杂切面的装配器。
 
 
 
 ### AOP编程环境的搭配
 
-​	AOP是由AOP联盟提出的一种编程思想，提出的一套编程规范。而Spring是这套AOP规范的一种实现。所以需要导入AOP联盟的规范（接口）包及Spring对其的兼容包。
+	AOP是由AOP联盟提出的一种编程思想，提出的一套编程规范。而Spring是这套AOP规范的一种实现。所以需要导入AOP联盟的规范（接口）包及Spring对其的兼容包。
 
 [^AOP联盟]: aopalliance-1.0.jar
 [^Spring对AOP联盟的兼容包]: spring-aop.jar
@@ -1834,11 +1835,11 @@ public class Test01 {
 
 ### 通知(Advice)
 
-​	通知（Advice），切面是一种实现，可以完成简单的织入功能。常用通知由前置通知，后置通知，环绕通知，异常处理通知。
+	通知（Advice），切面是一种实现，可以完成简单的织入功能。常用通知由前置通知，后置通知，环绕通知，异常处理通知。
 
 >  前置通知（MethodBeforeAdvice）
 
-​	定义前置通知，需要实现MethodBeforeAdvice接口。该接口中有一个方法before()，会在目标方法执行之前执行。前置通知的特点。
+	定义前置通知，需要实现MethodBeforeAdvice接口。该接口中有一个方法before()，会在目标方法执行之前执行。前置通知的特点。
 
 1. 在目标方法执行之前执行。
 2. 不改变目标方法的执行流程，前置通知代码不能阻止目标代码执行。
@@ -1848,7 +1849,7 @@ public class Test01 {
 
 **主业务接口**
 
-```
+```java
 public interface IService {
     //主业务方法
     void doSome();
@@ -1860,7 +1861,7 @@ public interface IService {
 
 **目标方法**
 
-```
+```java
 public class StudentServiceImp implements IService {
     //    目标方法
     @Override
@@ -1879,7 +1880,7 @@ public class StudentServiceImp implements IService {
 
 **前置通知**
 
-```
+```java
 public class MyMethodBeforeAdvice implements MethodBeforeAdvice{
     /**
      *
@@ -1897,7 +1898,7 @@ public class MyMethodBeforeAdvice implements MethodBeforeAdvice{
 
 **配置文件**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -1914,7 +1915,7 @@ public class MyMethodBeforeAdvice implements MethodBeforeAdvice{
 </beans>
 ```
 
-​	因为AOP底层原理是通过代理实现，那么最终切面和目标对象的联合也就是代理产生的对象。需要通过Spring的代理工厂（ProxyFactoryBean）对象进行加工产生代理对象。
+	因为AOP底层原理是通过代理实现，那么最终切面和目标对象的联合也就是代理产生的对象。需要通过Spring的代理工厂（ProxyFactoryBean）对象进行加工产生代理对象。
 
 [^target]: 目标对象
 [^interfaces]: 主业务接口
@@ -1924,7 +1925,7 @@ public class MyMethodBeforeAdvice implements MethodBeforeAdvice{
 
 > 后置通知（AfterReturningAdvice）
 
-​	定义后置通知，需要实现接口AfterReturningAdvice。该接口中有一个方法afterReturning()，会在目标方法执行后执行。后置通知的特点：
+	定义后置通知，需要实现接口AfterReturningAdvice。该接口中有一个方法afterReturning()，会在目标方法执行后执行。后置通知的特点：
 
 1. 在目标方法执行之后执行。
 2. 不改变目标方法的执行流程，后置通知代码不能阻止目标方法执行。
@@ -1934,7 +1935,7 @@ public class MyMethodBeforeAdvice implements MethodBeforeAdvice{
 
 **定义切面：通知**
 
-```
+```java
 public class MyAfterReturningAdvice implements AfterReturningAdvice {
 
 
@@ -1959,13 +1960,13 @@ public class MyAfterReturningAdvice implements AfterReturningAdvice {
 
 > 环绕通知（MethodInterceptor）
 
-​	定义环绕通知，需要实现MethodInterceptor接口。环绕通知，也叫方法拦截器。可以在目标方法调用之前及之后做处理，可以该改变目标方法的返回值，也可以改变程序执行流程。
+	定义环绕通知，需要实现MethodInterceptor接口。环绕通知，也叫方法拦截器。可以在目标方法调用之前及之后做处理，可以该改变目标方法的返回值，也可以改变程序执行流程。
 
 *举例：test03*
 
 **定义切面：通知**
 
-```
+```java
 public class MyMethodInterceptor implements MethodInterceptor {
 
     /**
@@ -1994,26 +1995,26 @@ public class MyMethodInterceptor implements MethodInterceptor {
 
 > 异常通知
 
-​	定义异常通知，需要实现ThrowsAdvice接口。该接口的主要作用是，在目标方法抛出异常后，根据异常的不同做出相应的处理。当该接口处理完异常后，会简单地将异常在次抛出给目标方法。
+	定义异常通知，需要实现ThrowsAdvice接口。该接口的主要作用是，在目标方法抛出异常后，根据异常的不同做出相应的处理。当该接口处理完异常后，会简单地将异常在次抛出给目标方法。
 
-​	不过，该接口较为特殊，从形式上看，该接口中没有必要实现的方法。但，这个接口确实有必须要实现的方法afterThrowing()。。这个方法重载了四种形式。由于使用时，一般只使用其中一种，若要都定义到接口中，则势必会使程序员在使用时必须要实现这四个方法。这是很麻烦的。所以将该接口定义为**标识接口（没有方法的接口）**
+	不过，该接口较为特殊，从形式上看，该接口中没有必要实现的方法。但，这个接口确实有必须要实现的方法afterThrowing()。。这个方法重载了四种形式。由于使用时，一般只使用其中一种，若要都定义到接口中，则势必会使程序员在使用时必须要实现这四个方法。这是很麻烦的。所以将该接口定义为**标识接口（没有方法的接口）**
 
-​	这四个方法在打开ThrowsAdvice源码后，上侧的注释部分可以看到![ThrowsAdvice的标识接口](photo\ThrowsAdvice的标识接口.bmp)
+	这四个方法在打开ThrowsAdvice源码后，上侧的注释部分可以看到![ThrowsAdvice的标识接口](photo\ThrowsAdvice的标识接口.bmp)
 	不过，在这四种形式中，常用的形式如下：
 
-```
+```java
 public void afterThrowing(自定义的异常类 e)
 ```
 
-​	这里的参数e为，与具体业务相关的用户自定义的异常类对象。容器会根据异常类型的不同，自动选择（根据重载方法中的异常参数与方法抛出的异常存在is-a关系的方法）不同的该方法执行。这些方法的执行实在目标方法执行结束后执行的。 
+	这里的参数e为，与具体业务相关的用户自定义的异常类对象。容器会根据异常类型的不同，自动选择（根据重载方法中的异常参数与方法抛出的异常存在is-a关系的方法）不同的该方法执行。这些方法的执行实在目标方法执行结束后执行的。 
 
-​	*举例test4：*
+	*举例test4：*
 
-​	本例实现用户身份验证。当用户名不正确时，抛出用户名有误异常：当密码不正确时，抛出密码有误异常。在然，在抛出这些异常处理后，都要做一些其他处理。
+	本例实现用户身份验证。当用户名不正确时，抛出用户名有误异常：当密码不正确时，抛出密码有误异常。在然，在抛出这些异常处理后，都要做一些其他处理。
 
 **定义异常处理类父类**
 
-```
+```java
 public class UserException extends Exception {
     public UserException() {
         super();
@@ -2027,7 +2028,7 @@ public class UserException extends Exception {
 
 **用户名错误异常类**
 
-```
+```java
 public class UserException extends Exception {
     public UserException() {
         super();
@@ -2041,7 +2042,7 @@ public class UserException extends Exception {
 
 **密码错误异常类**
 
-```
+```java
 public class UserPasswordException extends UserException {
     public UserPasswordException() {
         super();
@@ -2055,7 +2056,7 @@ public class UserPasswordException extends UserException {
 
 **主业务接口**
 
-```
+```java
 public interface IService {
     boolean check(String userName, String password) throws UserException;
 }
@@ -2063,7 +2064,7 @@ public interface IService {
 
 **目标对象**
 
-```
+```java
 public class UserService implements IService {
     @Override
     public boolean check(String userName, String password) throws UserException {
@@ -2080,7 +2081,7 @@ public class UserService implements IService {
 
 **切面：通知**
 
-```
+```java
 public class MyThrowsAdvice implements ThrowsAdvice {
     public void afterThrowing(UserNameException e) {
         System.out.println("异常通知捕捉到UserPasswordException异常，异常信息为:" + e.getMessage());
@@ -2103,7 +2104,7 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
   *举例：test5*
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -2131,11 +2132,11 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 > 无接口的CGLIB代理生成
 
-​	若不存在接口，则ProxyFactoryBean会自动采用CGLIB方式生成动态代理
+	若不存在接口，则ProxyFactoryBean会自动采用CGLIB方式生成动态代理
 
-​	*举例：test6*
+	*举例：test6*
 
-```
+```xml
 <bean id="studentServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
     <property name="target" ref="studentServiceTarget"></property>
     <property name="interceptorNames" value="myMethodBeforeAdvice"></property>
@@ -2150,13 +2151,13 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 > 有接口的CGLIB代理生成proxyTargetClass属性	
 
-​     若存在接口，但需要使用CGLIB生成代理对象，此时，需要在配置文件中增加一个proxyTargetclass属性设置，用于强制使用CGLIB代理机制
+     若存在接口，但需要使用CGLIB生成代理对象，此时，需要在配置文件中增加一个proxyTargetclass属性设置，用于强制使用CGLIB代理机制
 
-​	*举例：test7*
+	*举例：test7*
 
 **配置文件**
 
-```
+```xml
 <bean id="studentServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
     <property name="target" ref="studentServiceTarget"></property>
     <property name="interfaces" value="com.jr.spring.aop.test7.dao.IService"></property>
@@ -2169,7 +2170,7 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 **也可指定optimize（优化）的值为true，强制使用GBLIB代理机制**
 
-```
+```xml
 <bean id="studentServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
     <property name="target" ref="studentServiceTarget"></property>
     <property name="interfaces" value="com.jr.spring.aop.test7.dao.IService"></property>
@@ -2184,21 +2185,21 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 ### 顾问(Advisor)
 
-​	通知是Spring提供的一种切面。但其功能过于简单，只能将切面织入到目标类的所有目标方法中，无法完成将切面织入到指定目标方法中。
+	通知是Spring提供的一种切面。但其功能过于简单，只能将切面织入到目标类的所有目标方法中，无法完成将切面织入到指定目标方法中。
 
-​	顾问是Spring提供的另一种切面。其可以完成更为复杂的切面织入功能。
+	顾问是Spring提供的另一种切面。其可以完成更为复杂的切面织入功能。
 
-​	顾问将通知进行了包装，会根据不同的通知类型，在不同的时间点，将切面织入到不同的切入点。
+	顾问将通知进行了包装，会根据不同的通知类型，在不同的时间点，将切面织入到不同的切入点。
 
 > NameMatchMethodPointCutAdvisor
 
-​	NameMatchMethodPointcutAdvisor，即名称匹配方法切入点顾问。容器可以根据配置文件中指定的方法名来设置切入点。
+	NameMatchMethodPointcutAdvisor，即名称匹配方法切入点顾问。容器可以根据配置文件中指定的方法名来设置切入点。
 
-​	代码不用修改，只在配置文件中注册一个顾问，然后使用通知属性advice与切入点的方法名属性mappedName对其进行配置。代理中的切面，使用这个顾问即可。
+	代码不用修改，只在配置文件中注册一个顾问，然后使用通知属性advice与切入点的方法名属性mappedName对其进行配置。代理中的切面，使用这个顾问即可。
 
-​	*举例：test8*
+	*举例：test8*
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -2236,13 +2237,13 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 > RegexpMethodPointcutAdvisor
 
-​	RegexpMethodPointcutAdvisor，即正则表达式方法顾问，容器可根据正则表达式来设置切入点，注意，与正则表达式进行匹配的**对象是接口**中的方法名(全限定方法名)，而非目标类（接口中的实现类）的方法名。
+	RegexpMethodPointcutAdvisor，即正则表达式方法顾问，容器可根据正则表达式来设置切入点，注意，与正则表达式进行匹配的**对象是接口**中的方法名(全限定方法名)，而非目标类（接口中的实现类）的方法名。
 
 *举例test9*
 
 [^全限定方法名]: 包名+类名+方法名
 
-​	常用的正则表达式的运算符：
+	常用的正则表达式的运算符：
 
 | 运算符 | 名称 | 意义                           |
 | ------ | ---- | ------------------------------ |
@@ -2306,26 +2307,26 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 #### 注意
 
-​	NameMatchMethodPointCutAdvisor顾问根据匹配的**方法名**进行织入。
+	NameMatchMethodPointCutAdvisor顾问根据匹配的**方法名**进行织入。
 
-​	RegexpMethodPointcutAdvisor顾问匹配的是接口方法名而不是目标对象方法名。
+	RegexpMethodPointcutAdvisor顾问匹配的是接口方法名而不是目标对象方法名。
 
-​	RegexpMethodPointcutAdvisor顾问根据匹配的**全限定方法名（包名+接口名|类名+方法名）**进行织入。
+	RegexpMethodPointcutAdvisor顾问根据匹配的**全限定方法名（包名+接口名|类名+方法名）**进行织入。
 
 ### 自动代理生成器
 
-​	前面代码中使用的代理对象，均是又ProxyFactoryBean代理工具类生成的。而该代理工具存在如下缺点：
+	前面代码中使用的代理对象，均是又ProxyFactoryBean代理工具类生成的。而该代理工具存在如下缺点：
 
 1. 一个代理对象只能代理一个Bean，即如果有两个Bean同时都要织入同一个切面，这时，不仅要配置这两个Bean，即两个目标对象，同时还要配置两个代理对象。
 2. 在客户类中获取Bean时，使用的是代理类的id，而非我们定义的目标对象Bean的ID。我们真正想要执行的应该是目标对象。从形式上看，不符合正常的逻辑。
 
-​       Spring提供了自动代理生成器，用于解决ProxyFactoryBean的问题。自动代理生成器均继承来自Bean后处理器BeanPostProcessor。容器中所有Bean在初始化时均自动执行Bean后处理器中的方法，故其无需id属性。所以自动代理生成器的Bean也没有id属性，调用者类直接使用目标对象的ID。
+       Spring提供了自动代理生成器，用于解决ProxyFactoryBean的问题。自动代理生成器均继承来自Bean后处理器BeanPostProcessor。容器中所有Bean在初始化时均自动执行Bean后处理器中的方法，故其无需id属性。所以自动代理生成器的Bean也没有id属性，调用者类直接使用目标对象的ID。
 
-​	常用的自动代理生成器有两个：
+	常用的自动代理生成器有两个：
 
 > 默认的advisor自动代理生成器
 
-​	DefaultAdvisorAutoProxyCreator代理的生成方式是，将所有目标对象与Advisor自动结合，生成代理对象。无需给生成器做任何的注入配置。**注意，只能与Advisor（顾问）配置使用。**
+	DefaultAdvisorAutoProxyCreator代理的生成方式是，将所有目标对象与Advisor自动结合，生成代理对象。无需给生成器做任何的注入配置。**注意，只能与Advisor（顾问）配置使用。**
 
 *举例test10*
 
@@ -2351,7 +2352,7 @@ public class MyThrowsAdvice implements ThrowsAdvice {
 
 **测试类**
 
-```
+```java
 public class MyTest {
     ApplicationContext context;
 
@@ -2375,11 +2376,11 @@ public class MyTest {
 
 > Bean名称自动代理生成器
 
-​	DefaultAdvisorAutoProxyCreator会为每一个目标对象织入所有匹配的Advisor，不具有选择性，**且切面只能是顾问Advisor**。而BeanNameAutoProxyCreator的代理生成方式是，根据Bean的ID，来为符合相应名称的类生成相应代理对象，且切面既可以是顾问Advisor有可以是通知Adivice。
+	DefaultAdvisorAutoProxyCreator会为每一个目标对象织入所有匹配的Advisor，不具有选择性，**且切面只能是顾问Advisor**。而BeanNameAutoProxyCreator的代理生成方式是，根据Bean的ID，来为符合相应名称的类生成相应代理对象，且切面既可以是顾问Advisor有可以是通知Adivice。
 
 *举例test11*
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
@@ -2419,7 +2420,7 @@ public class MyTest {
 
 - 对于Bean的名称的指定，可以使用通配符“*”号
 
-  ```
+  ```xml
     <!--配置目标对象-->
       <bean id="studentServiceTarget" class="com.jr.spring.aop.test11.dao.StudentServiceImp"></bean>
       <bean id="teacherServiceTarget" class="com.jr.spring.aop.test11.dao.TeacherServiceImp"></bean>
@@ -2433,11 +2434,11 @@ public class MyTest {
 
 #### 简介
 
-​	对于AOP这种编程思想，很多框架都进行了实现。Spring就是其中之一，可以完成面向切面编程，然而，Aspectj也实现了AOP的功能，且其实现方法更为简捷，使用更为方便，而且还支持注解式开发。所以，Spring又将Aspectj的对于AOP的实现也引入到了自己的框架中。
+	对于AOP这种编程思想，很多框架都进行了实现。Spring就是其中之一，可以完成面向切面编程，然而，Aspectj也实现了AOP的功能，且其实现方法更为简捷，使用更为方便，而且还支持注解式开发。所以，Spring又将Aspectj的对于AOP的实现也引入到了自己的框架中。
 
-​	*在Spring中使用AOP开发时，一般使用Aspectj的实现方法。*
+	*在Spring中使用AOP开发时，一般使用Aspectj的实现方法。*
 
-​	AspectJ对于AOP的实现有两种方式：**注解方式**和**XML方式**
+	AspectJ对于AOP的实现有两种方式：**注解方式**和**XML方式**
 
 #### 开发环境
 
@@ -2451,11 +2452,11 @@ public class MyTest {
 
    在配置文件头部，要引入关于AOP的约束。
 
-​        在前面Spring实现AOP时，并未引入AOP的约束，而在AspectJ实现AOP时，才提出要引入AOP的约束。说明，配置文件中使用的AOP约束中的标签，均是AspectJ框架使用的，而非Spring框架本身在实现AOP时使用的。
+        在前面Spring实现AOP时，并未引入AOP的约束，而在AspectJ实现AOP时，才提出要引入AOP的约束。说明，配置文件中使用的AOP约束中的标签，均是AspectJ框架使用的，而非Spring框架本身在实现AOP时使用的。
 
 #### 通知类型
 
-​	Aspectj中常用的通知有五种类型：
+	Aspectj中常用的通知有五种类型：
 
 1. 前置通知
 2. 后置通知
@@ -2467,21 +2468,21 @@ public class MyTest {
 
 #### 切入点表达式
 
-​	AspectJ除了提供了五种通知外，还定义了专门的表达式，**功能类似与顾问**用于指定切入点。。表达式的原型是：
+	AspectJ除了提供了五种通知外，还定义了专门的表达式，**功能类似与顾问**用于指定切入点。。表达式的原型是：
 
 execution([modifiers-pattern]		访问权限类型
 
-​		   **ret-type-pattern**		返回值类型
+		   **ret-type-pattern**		返回值类型
 
-​		   [declaring-type-pattern]	全限定性类名
+		   [declaring-type-pattern]	全限定性类名
 
-​		   **name-pattern(param-pattern)** 	方法名(参数名)
+		   **name-pattern(param-pattern)** 	方法名(参数名)
 
-​		   [throws-pattern] 		抛出异常类型
+		   [throws-pattern] 		抛出异常类型
 
-​		)
+		)
 
-​	切入点表达式要匹配的对象就是目标方法的方法名。所以，execution表达式中明显就是方法的签名。注意，表达式中加【】的部分表示可省略部分，各部分间空格分开。在其中可以使用以下符号：
+	切入点表达式要匹配的对象就是目标方法的方法名。所以，execution表达式中明显就是方法的签名。注意，表达式中加【】的部分表示可省略部分，各部分间空格分开。在其中可以使用以下符号：
 
 | 符号 | 意义                                                         |
 | ---- | ------------------------------------------------------------ |
@@ -2547,7 +2548,7 @@ execution([modifiers-pattern]		访问权限类型
 
 - **Step1:定义业务接口与实现类**
 
-```
+```java
 public interface IService {
     //主业务方法
     void doSome();
@@ -2557,7 +2558,7 @@ public interface IService {
 }
 ```
 
-```
+```java
 public class StudentServiceImp implements IService {
     //    目标方法
     @Override
@@ -2577,7 +2578,7 @@ public class StudentServiceImp implements IService {
 
 		该类为一个POJO类，将作为切面出现。其中定义了若干个普通方法，将作为不同的通知方法。
 
-```
+```java
 public class MyAspect {
     public void before() {
         System.out.println("前置增强");
@@ -2594,7 +2595,7 @@ public class MyAspect {
 
 		在定义的POJO类上添加@Aspect注解，指定当前POJO类将作为切面。
 
-```
+```java
 @Aspect
 public class MyAspect {
     public void before() {
@@ -2612,7 +2613,7 @@ public class MyAspect {
 
 		切面类是用于定义增强代码的，即用于定义增强目标类中的目标方法的增强方法。这些增强方法使用不同的"通知"注解，会在不同的时间点完成织入。当然，对于增强代码，还要通过execution表达式指定具体应用的目标类于目标方法，即切入点。
 
-```
+```java
 @Aspect  
 public class MyAspect {
     @Before(value = "execution(* com.jr.spring.aop.test12.dao.IService.do*())")
@@ -2629,7 +2630,7 @@ public class MyAspect {
 
 - **Step5:注册目标对象与POJO切面类**
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
@@ -2644,7 +2645,7 @@ public class MyAspect {
 
 		在定义好切面Aspect后，需要通知Spring容器，让容器生成“目标类+切面”的代理对象。这个代理是由容器自动生成的。只需要在Spring配置文件中注册一个基于aspectj的自动代理生成器。其就会自动扫描到@Aspect注解，并按通知类型与切入点，将其织入，并生成代理
 
-```
+```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
@@ -2659,11 +2660,11 @@ public class MyAspect {
 
 ##### @Before方法由JoinPoint参数
 
-​	在目标方法执行之前执行。被注解为前置通知的方法，可以包含一个JoinPoint类型参数。该类型的对象本身就是切入点表达式，可以获取切入点表达式、方法签名、目标对象等。
+	在目标方法执行之前执行。被注解为前置通知的方法，可以包含一个JoinPoint类型参数。该类型的对象本身就是切入点表达式，可以获取切入点表达式、方法签名、目标对象等。
 
-​	不光前置通知的方法可以包含一个JoinPoint类型参数，所有的通知放啊均可以包含该参数
+	不光前置通知的方法可以包含一个JoinPoint类型参数，所有的通知放啊均可以包含该参数
 
-```
+```java
 @Before(value = "execution(* com.jr.spring.aop.test12.dao.IService.doOther(..))")
 public void beforeOther(JoinPoint joinPoint) {
     System.out.println("前置增强，切入点表达式为:"+joinPoint);
@@ -2682,7 +2683,7 @@ public void beforeOther(JoinPoint joinPoint) {
 
 ##### @AfterReturning注解有returning属性
 
-​	在目标方法执行之后在执行。由于是目标方法之后执行，所以可以获取到目标方法的返回值。该注解的returing属性就是用于指定接受方法返回值的变量名的。所以，被注解为后置通知的方法，除了可以包含JoinPoint参数外，还可以包含用于接收返回值的变量。该变量最好为Object类型，因为目标方法的返回值可能是任何类型。
+	在目标方法执行之后在执行。由于是目标方法之后执行，所以可以获取到目标方法的返回值。该注解的returing属性就是用于指定接受方法返回值的变量名的。所以，被注解为后置通知的方法，除了可以包含JoinPoint参数外，还可以包含用于接收返回值的变量。该变量最好为Object类型，因为目标方法的返回值可能是任何类型。
 
 ```
 @AfterReturning(value = "execution(* com.jr.spring.aop.test12.dao.IService.doThrid(int,int))", returning = "result")
@@ -2693,13 +2694,13 @@ public void afterReturning(int result) {
 
 ##### @Around增强方法有ProceedingJoinPoint参数
 
-​	在目标方法执行之前之后执行。被注解为环绕增强的方法要有返回值，Object类型。并且方法可以包含一个ProceedingJoinPoint类型的参数。
+	在目标方法执行之前之后执行。被注解为环绕增强的方法要有返回值，Object类型。并且方法可以包含一个ProceedingJoinPoint类型的参数。
 
-​	接口ProceedingJoinPoint其有一个proceed()方法，用于执行目标方法。若目标方法有返回值，则该方法的返回值就是目标方法的返回值。
+	接口ProceedingJoinPoint其有一个proceed()方法，用于执行目标方法。若目标方法有返回值，则该方法的返回值就是目标方法的返回值。
 
-​	最后，环绕增强方法将其返回值返回，该增强方法实际就是拦截了目标方法的执行。
+	最后，环绕增强方法将其返回值返回，该增强方法实际就是拦截了目标方法的执行。
 
-```
+```java
 @Around(value = "execution(* com.jr.spring.aop.test12.dao.IService.doThrid(int,int)))")
 public Object afterReturning(ProceedingJoinPoint proceedingJoinPoint) {
     System.out.println("环绕增强：前");
@@ -2717,9 +2718,9 @@ public Object afterReturning(ProceedingJoinPoint proceedingJoinPoint) {
 
 ##### @AfterThrowing注解中有throwing属性
 
-​	在目标方法抛出异常后执行。该注解的throwing属性用于指定所发生的异常类对象。当然，被注解为异常通知的方法可以包含一个参数Throwable，参数名称为throwing指定名称，表示发生的异常对象。
+	在目标方法抛出异常后执行。该注解的throwing属性用于指定所发生的异常类对象。当然，被注解为异常通知的方法可以包含一个参数Throwable，参数名称为throwing指定名称，表示发生的异常对象。
 
-```
+```java
 @After(value = "execution (* com.jr.spring.aop.test12.dao.IService.doAfter()))")
 public void after() {
     System.out.println("最终方法执行");
@@ -2728,11 +2729,11 @@ public void after() {
 
 ##### @Pointcut定义切入点
 
-​	当较多的通知增强方法使用相同的切入带你表达式时，编写，维护均较为麻烦。
+	当较多的通知增强方法使用相同的切入带你表达式时，编写，维护均较为麻烦。
 
-​	AspectJ提供了@Pointcut注解，同于定义execution切入点表达式。
+	AspectJ提供了@Pointcut注解，同于定义execution切入点表达式。
 
-```
+```java
 @Pointcut(value = "execution (* com.jr.spring.aop.test12.dao.IService.doPointcut()))")
 private void myExecution() {
 }//表示方法
@@ -2743,13 +2744,13 @@ public void doPointcut() {
 }
 ```
 
-​	其用法是，将@Pointcut注解在一个方法之上，以后所有的execution的value属性值均可使用该方法名作为切入点。代表的就是@Pointcut定义的切入点。这个使用@Pointcut注解的方法一般使用private的标识方法，即没有实际作用的方法。
+	其用法是，将@Pointcut注解在一个方法之上，以后所有的execution的value属性值均可使用该方法名作为切入点。代表的就是@Pointcut定义的切入点。这个使用@Pointcut注解的方法一般使用private的标识方法，即没有实际作用的方法。
 
 #### 基于XML的AOP实现
 
-​	AspectJ除了提供了基于注解的AOP的实现外，还提供了以XML方式的实现。
+	AspectJ除了提供了基于注解的AOP的实现外，还提供了以XML方式的实现。
 
-​	切面就是一个POJO类，而用于增强的方法就是普通的方法。通过配置文件，将切面中的功能增强织入到了目标类的目标方法中。
+	切面就是一个POJO类，而用于增强的方法就是普通的方法。通过配置文件，将切面中的功能增强织入到了目标类的目标方法中。
 
 *举例：test13*
 
@@ -2757,7 +2758,7 @@ public void doPointcut() {
 
 **Step1:定义业务接口与实现类**
 
-```
+```java
 public interface IService {
     void doBefore();
 
@@ -2773,7 +2774,7 @@ public interface IService {
 }
 ```
 
-```
+```java
 public class StudentServiceImp implements IService {
     @Override
     public void doBefore() {
@@ -2813,9 +2814,9 @@ public class StudentServiceImp implements IService {
 
 **Step2:定义切面POJO类**
 
-​	该类为一个POJO类，将作为切面出现。其中定义了若干普通方法，将作为不同的通知方法。
+	该类为一个POJO类，将作为切面出现。其中定义了若干普通方法，将作为不同的通知方法。
 
-```
+```java
 public class MyAspect {
 
     //定义前置通知的增强方法
@@ -2870,9 +2871,9 @@ public class MyAspect {
 
 **Step3:注册目标对象与POJO切面类**
 
-​	与使用注解实现AOP的方式不一样的是，此时注册切面时需要指定该切面的ID，在下面配置AOP时使用
+	与使用注解实现AOP的方式不一样的是，此时注册切面时需要指定该切面的ID，在下面配置AOP时使用
 
-```
+```java
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
@@ -2885,9 +2886,9 @@ public class MyAspect {
 
 **Step4:在容器中定义AOP配置**
 
-​	配置文件中，除了要定义目标类与切面的Bean外，最主要的是在\<aop-config/>中进行AOP的配置。而该标签的底层，会根据其子标签的配置，生成自动代理。
+	配置文件中，除了要定义目标类与切面的Bean外，最主要的是在\<aop-config/>中进行AOP的配置。而该标签的底层，会根据其子标签的配置，生成自动代理。
 
-```
+```java
 <aop:config>
     <!--定义切入点-->
     <aop:pointcut id="doBeforePointcut" expression="execution(* com.jr.spring.aop.test13.dao.IService.doBefore())"/>
@@ -2906,7 +2907,7 @@ public class MyAspect {
 [^method]: 根据切面中的方法名指定增强方法
 [^pointcut-ref]: 指定切入点，即在\<aop-pointcut/>中定义的id
 
-​	通过子标签\<aop-aspect/>定义具体的织入规则：根据不同的通知类型，确定不同织入时间。
+	通过子标签\<aop-aspect/>定义具体的织入规则：根据不同的通知类型，确定不同织入时间。
 
 [^<aop:before/>]: 前置通知
 [^<aop:after-returning/>]: 后置通知
@@ -2917,7 +2918,7 @@ public class MyAspect {
 
 **Step5:测试类中使用目标对象的ID**
 
-```
+```java
 @Test
 public void Test() {
     IService iService = (IService) context.getBean("studentServiceTarget");
@@ -2937,11 +2938,11 @@ public void Test() {
 
 ##### 后置通知
 
-​	在XML的配置中，有一个属性returning，指定用于接收目标方法的返回值所使用的变量名，其可作为增强方法的参数出现
+	在XML的配置中，有一个属性returning，指定用于接收目标方法的返回值所使用的变量名，其可作为增强方法的参数出现
 
 **AOP配置**
 
-```
+```java
 <aop:aspect ref="myAspect">
 	<!-- 定义切入点-->
     <aop:pointcut id="doAfterReturningPointcut"
@@ -2953,7 +2954,7 @@ public void Test() {
 
 **切面类**
 
-```
+```java
 public class MyAspect {
     //定义后置通知的增强方法
     public void afterReturning(int result) {
@@ -2962,13 +2963,13 @@ public class MyAspect {
 }
 ```
 
-​	增强方法的参数名必须和AOP配置后置通知的returning的属性值一致。
+	增强方法的参数名必须和AOP配置后置通知的returning的属性值一致。
 
 ##### 环绕通知
 
 **AOP配置**
 
-```
+```xml
 <aop:config>
     <!--定义切入点-->
     <aop:pointcut id="doAround"
@@ -2983,7 +2984,7 @@ public class MyAspect {
 
 **切面类**
 
-```
+```java
 public int around(ProceedingJoinPoint proceedingJoinPoint) {
     System.out.println("环绕增强：前");
     int result = 1;
@@ -2998,15 +2999,15 @@ public int around(ProceedingJoinPoint proceedingJoinPoint) {
 }
 ```
 
-​	环绕通知的增强方法一般返回类型为Object，是目标方法的返回值。并且可以包含一个参数ProceedingJoinPoint，其方法proceed()可执行目标方法。
+	环绕通知的增强方法一般返回类型为Object，是目标方法的返回值。并且可以包含一个参数ProceedingJoinPoint，其方法proceed()可执行目标方法。
 
 ##### 异常通知
 
-​	在XML的配置中，有一个属性throwing，指定用于接收目标方法所抛出异常的变量名。其可作为增强方法的参数出现，该参数为Throwable类型。
+	在XML的配置中，有一个属性throwing，指定用于接收目标方法所抛出异常的变量名。其可作为增强方法的参数出现，该参数为Throwable类型。
 
 **AOP配置**
 
-```
+```xml
     <aop:config>
         <!--定义切入点-->
         <aop:pointcut id="doThrowing"
@@ -3022,7 +3023,7 @@ public int around(ProceedingJoinPoint proceedingJoinPoint) {
 
 **切面类**
 
-```
+```java
 public class MyAspect {
 ```
 
@@ -3032,7 +3033,7 @@ public class MyAspect {
 
 **AOP配置**
 
-```
+```java
 <aop:config>
     <!--定义切入点-->
     <aop:pointcut id="doBeforePointcut" expression="execution(* com.jr.spring.aop.test13.dao.IService.doBefore())"/>
@@ -3067,7 +3068,7 @@ public class MyAspect {
 
 **切面类**
 
-```
+```java
 public void after() {
     System.out.println("最终增强通知方法执行");
 }
@@ -3078,11 +3079,11 @@ public void after() {
 
 ### 前言
 
-​	Spring与Dao部分，是Spring的两大核心技术IoC与AOP的典型应用体现。
+	Spring与Dao部分，是Spring的两大核心技术IoC与AOP的典型应用体现。
 
-​	对于JDBC模板的使用，是IoC的应用，是将JDBC模板对象注入给Dao层的实现类。
+	对于JDBC模板的使用，是IoC的应用，是将JDBC模板对象注入给Dao层的实现类。
 
-​	对于Spring的事务管理，是AOP的应用，将事务作为切面织入到了Service层的业务方法中。
+	对于Spring的事务管理，是AOP的应用，将事务作为切面织入到了Service层的业务方法中。
 
 ### Spring与JDBC模板
 
@@ -3092,7 +3093,7 @@ public void after() {
 
 #### 导入Jar包
 
-​	除了Spring的基本Jar包，数据库驱动Jar外，还需要导入两个Jar包。它们均在Spring框架解压目录下的libs目录中。
+	除了Spring的基本Jar包，数据库驱动Jar外，还需要导入两个Jar包。它们均在Spring框架解压目录下的libs目录中。
 
 - Spring的JDBC的Jar包
 
@@ -3108,17 +3109,17 @@ Spring-tx-4.2.1.RELEASE.jar
 
 **什么是数据库连接池**
 
-​	往往不同的的应用模块都会用不同服务器对其承载，如数据库有自己的数据库服务器，Web应用有Web服务器。
+	往往不同的的应用模块都会用不同服务器对其承载，如数据库有自己的数据库服务器，Web应用有Web服务器。
 
-​	而不同服务器之间进行的通信可能是跨区域的。那么当Web服务器需要对数据库进行操作是，首先需要进行的是就数据库进行连接，然后在进行操作，而有用功只是耗费在了数据库的操作当中，但在连接数据库时却浪费了其他时间。并且在完成数据库操作之后，关闭数据库也是需要耗费时间的，所以整个过程存在许多耗费时间的地方。
+	而不同服务器之间进行的通信可能是跨区域的。那么当Web服务器需要对数据库进行操作是，首先需要进行的是就数据库进行连接，然后在进行操作，而有用功只是耗费在了数据库的操作当中，但在连接数据库时却浪费了其他时间。并且在完成数据库操作之后，关闭数据库也是需要耗费时间的，所以整个过程存在许多耗费时间的地方。
 
-​	数据库连接池的出现主要就是解决操作数据库中的Connection(即连接)的问题 。连接对象（Connection）采用池化的原因：采用池化的本意是通过减少对象生成的次数，减少花在对象初始化上面的开销，从而提高整体性能。 
+	数据库连接池的出现主要就是解决操作数据库中的Connection(即连接)的问题 。连接对象（Connection）采用池化的原因：采用池化的本意是通过减少对象生成的次数，减少花在对象初始化上面的开销，从而提高整体性能。 
 
-​	一般Spring操作数据库使用到的数据源有三种：**Spring的数据源、DBCP、C3P0或其他的数据库框架**
+	一般Spring操作数据库使用到的数据源有三种：**Spring的数据源、DBCP、C3P0或其他的数据库框架**
 
 - 使用Spring默认的数据源
 
-  ```
+  ```xml
       <bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
           <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
           <property name="url" value="jdbc:mysql://localhost:3306/test"></property>
@@ -3131,7 +3132,7 @@ Spring-tx-4.2.1.RELEASE.jar
 
 - 使用DBCP框架的数据源
 
-  ```
+  ```xml
       <bean id="basicDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
           <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
           <property name="url" value="jdbc:mysql://localhost:3306/test"></property>
@@ -3142,7 +3143,7 @@ Spring-tx-4.2.1.RELEASE.jar
 
 - 使用C3P0框架的数据源
 
-  ```
+  ```xml
       <bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
           <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
           <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test"></property>
@@ -3153,19 +3154,18 @@ Spring-tx-4.2.1.RELEASE.jar
 
   **DBCP和C3P0才真正使用到了数据库连接池技术**
 
-  ​	数据源的配置其实有需要参数的配置，如数据源的创建时机、数据源创建的个数、销毁的时间和时机等。但一般程序源不配置这些，而交由经验丰富的管理员来配置。
+  	数据源的配置其实有需要参数的配置，如数据源的创建时机、数据源创建的个数、销毁的时间和时机等。但一般程序源不配置这些，而交由经验丰富的管理员来配置。
 
   不配置的话，默认采用框架的配置。
 
-  
 
 ###### **从配置文件中读取数据**
 
-​	为了便于维护，可以将数据库连接信息写入到属性文件中，使Spring配置文件从中读取数据。
+	为了便于维护，可以将数据库连接信息写入到属性文件中，使Spring配置文件从中读取数据。
 
-​	Spring配置文件从属性文件中读取数据时，需要在\<property/>的value属性中使用${},将属性文件中定义的key括起来，以引用指定属性的值。
+	Spring配置文件从属性文件中读取数据时，需要在\<property/>的value属性中使用${},将属性文件中定义的key括起来，以引用指定属性的值。
 
-```
+```xml
     <bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driver}"></property>
         <property name="url" value="${jdbc.url}"></property>
@@ -3174,35 +3174,35 @@ Spring-tx-4.2.1.RELEASE.jar
     </bean>
 ```
 
-​	该属性文件若要被Spring配置文件读取，其必须在配置文件中进行注册。注册方式有两种：
+	该属性文件若要被Spring配置文件读取，其必须在配置文件中进行注册。注册方式有两种：
 
 - \<bean/>方式
 
-```
+```xml
 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 <property name="location" value="classpath:com/jr/spring/spring_dao/jdbc"></property>
 </bean>
 ```
 
-​	以PropertyPlaceholderConfigurer类的bean实例的方式进行注册，该类有一个属性location，用于指定属性文件的位置。这种方式不常用。
+	以PropertyPlaceholderConfigurer类的bean实例的方式进行注册，该类有一个属性location，用于指定属性文件的位置。这种方式不常用。
 
 - 使用context方式
 
-```
+```xml
 <context:property-placeholder location="classpath:com/jr/spring/spring_dao/jdbc"></context:property-placeholder>
 ```
 
-​	该种方式省去了注册Bean的麻烦。只需要在location属性中声明配置文件的位置。
+	该种方式省去了注册Bean的麻烦。只需要在location属性中声明配置文件的位置。
 
 
 
 ##### 2.数据源与Jdbc模板进行连接
 
-​	在Jdbc模板中定义操作的数据源
+	在Jdbc模板中定义操作的数据源
 
 **接口实现类**
 
-```
+```java
 public class UserServiceImp extends JdbcTemplate implements IService {
     
 }
@@ -3212,7 +3212,7 @@ public class UserServiceImp extends JdbcTemplate implements IService {
 
 **注册实现类**
 
-```
+```xml
 <bean id="IService" class="com.jr.spring.spring_dao.dao.imp.UserServiceImp">
     <property name="dataSource" ref="driverManagerDataSource"></property>
 </bean>
@@ -3224,16 +3224,16 @@ public class UserServiceImp extends JdbcTemplate implements IService {
 
 #### 数据库操作
 
-​	对数据库的增、删、改都是通过update()方法实现的。该刚方法常用的重载方法有两个：
+	对数据库的增、删、改都是通过update()方法实现的。该刚方法常用的重载方法有两个：
 
-​	public int update(String sql);
+	public int update(String sql);
 
-​	public int update(String sql,Object...args);
+	public int update(String sql,Object...args);
 
 [^sql]: 需要执行的SQL语句。
 [^args]: sql语句中包含的动态参数。
 
-​	返回值为所影响的记录条数。
+	返回值为所影响的记录条数。
 
 
 
@@ -3271,13 +3271,13 @@ public void update(User user) {
 
 > 查
 
-​	需要关注的是JDBC模板对数据的查询操作。
+	需要关注的是JDBC模板对数据的查询操作。
 
-​	JDBC模板的查询结果均是以对象的形式返回。根据返回对象类型的不同，可以将查询分为两类：**简单对象查询**与**自定义对象查询。**
+	JDBC模板的查询结果均是以对象的形式返回。根据返回对象类型的不同，可以将查询分为两类：**简单对象查询**与**自定义对象查询。**
 
-​	简单对象查询：查询结果为String、Integer、等简单对象类型，或该类型做为元素的集合类型，如List\<String>等。
+	简单对象查询：查询结果为String、Integer、等简单对象类型，或该类型做为元素的集合类型，如List\<String>等。
 
-​	自定义对象查询：查询结果为自定义类型，如User等，或改类型作为元素的集合类型，如List\<User>等。
+	自定义对象查询：查询结果为自定义类型，如User等，或改类型作为元素的集合类型，如List\<User>等。
 
 - 简单对象查询
 
@@ -3294,8 +3294,6 @@ public void update(User user) {
 
      [^queryForObject(String sql,Class<T> elementType)]: sql：执行的SQL语句；elementType：查询返回值结果类型
 
-     
-
   2. 查询结果为分装了简单数据类型的List集合
 
      ```
@@ -3308,11 +3306,9 @@ public void update(User user) {
 
      [^queryForList(String sql,Class<T> elementType)]: sql：执行的SQL语句；elementType：查询结果分装到集合的泛型类型
 
-     
-
 - 自定义对象查询
 
-  ​	需要将查询结果分装成自定义对象的话，可以通过实现RowMapper接口，将查询的每列数据获取到并封装到自定义对象中。如：
+  	需要将查询结果分装成自定义对象的话，可以通过实现RowMapper接口，将查询的每列数据获取到并封装到自定义对象中。如：
 
   ```
   public class UserMapper implements RowMapper<User> {
@@ -3356,15 +3352,14 @@ public void update(User user) {
 
      [^query((String sql,RowMapper rp,Object...args)]: sql：执行的SQL语句；rp：实现自定义数据分装成对象的类；args：SQL语句中的动态参数。
 
-     
 
 #### 事务管理
 
-​	Spring的事务管理，主要用到了两个事务相关的接口。
+	Spring的事务管理，主要用到了两个事务相关的接口。
 
 ##### 事务管理器接口
 
-​	事务管理器是PlatformTransactionManager接口对象。其主要用于完成事务的提交，回滚，及获取事务的状态信息。
+	事务管理器是PlatformTransactionManager接口对象。其主要用于完成事务的提交，回滚，及获取事务的状态信息。
 
 > 常见的两个实现类
 
@@ -3377,19 +3372,19 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 ##### Spring的回滚方式
 
-​	Spring事务的默认回滚方式是：**发生运行时异常时回滚**，**发生受查异常时提交**。
+	Spring事务的默认回滚方式是：**发生运行时异常时回滚**，**发生受查异常时提交**。
 
-​	不过，对于受查异常，程序员也可以手工设置其回滚方式。通过 ” - “ 异常方式，可使发生指定的异常时事务回滚；通过 ” + “ 异常方式，可使发生指定的异常时事务提交。
+	不过，对于受查异常，程序员也可以手工设置其回滚方式。通过 ” - “ 异常方式，可使发生指定的异常时事务回滚；通过 ” + “ 异常方式，可使发生指定的异常时事务提交。
 
-​	
+	
 
 ##### 事务定义接口
 
-​	事务定义接口TransactionDefinition中定义了事务描述相关的三类常量：事务隔离级别、事务传播行为、事务默认超时时限，及对它们的操作。
+	事务定义接口TransactionDefinition中定义了事务描述相关的三类常量：事务隔离级别、事务传播行为、事务默认超时时限，及对它们的操作。
 
 > 事务隔离级别
 
-​	这些常量均是以 ISOLATION_开头。即形如：ISOLATION_DEFAULT。
+	这些常量均是以 ISOLATION_开头。即形如：ISOLATION_DEFAULT。
 
 - DEFAULT：采用数据库默认的事务隔离级别。Mysql的默认为REPEATABLE_READ;	Oracle默认为READ_COMMITTED。
 - READ_UNCOMMITTED：读未提交。未解决任何并发问题。
@@ -3401,9 +3396,9 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 > 事务传播行为
 
-​	所谓事务传播行为是指，处于不同事务中的方法在相互调用时，执行期间事务的维护情况。如，A事务中的方法doSome()调用B事务中的doOther()，在调用期间事务的维护情况，就成为事务传播行为。事务传播行为时加在方法上的。
+	所谓事务传播行为是指，处于不同事务中的方法在相互调用时，执行期间事务的维护情况。如，A事务中的方法doSome()调用B事务中的doOther()，在调用期间事务的维护情况，就成为事务传播行为。事务传播行为时加在方法上的。
 
-​	事务传播行为常量都是以PROPAGATION_开头，形如PROPAGATION_REQUIRED。
+	事务传播行为常量都是以PROPAGATION_开头，形如PROPAGATION_REQUIRED。
 
 - REQUIRED
 
@@ -3435,15 +3430,15 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 > 事务超时时限
 
-​	常量TIMEOUT_DEFAULT定义了事务底层默认的超时时限，及不支持事务超时时限设置的nono值。
+	常量TIMEOUT_DEFAULT定义了事务底层默认的超时时限，及不支持事务超时时限设置的nono值。
 
-​	注意，事务的超时时限起作用的条件比较多，且超时的时间点复杂。所以，该值一般就使用默认即可。
+	注意，事务的超时时限起作用的条件比较多，且超时的时间点复杂。所以，该值一般就使用默认即可。
 
 
 
 ##### Spring代理工厂管理事务
 
-​	该方式是，需要为目标类，即Service的实现类创建事务代理。事务代理使用的类是TranscationProxyFractoryBean，该类需要初始化如下一些属性：
+	该方式是，需要为目标类，即Service的实现类创建事务代理。事务代理使用的类是TranscationProxyFractoryBean，该类需要初始化如下一些属性：
 
 [^transactionManager]: 事务管理器
 [^targer]: 目标对象，即Service实现类对象
@@ -3451,7 +3446,7 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 - **配置事务管理器**
 
-  ```
+  ```xml
   <bean id="myTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
       <property name="dataSource" ref="basicDataSource"></property>
   </bean>
@@ -3463,9 +3458,9 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 - **配置事务代理**
 
-  ```
+  ```xml
   <bean id="IStockProcessServiceProxy"
-        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+     class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
       <property name="transactionManager" ref="myTransactionManager"></property>
       <property name="target" ref="IStockProcessService"></property>
       <property name="transactionAttributes">
@@ -3478,7 +3473,11 @@ PlatformTransactionManager接口有两个常用的实现类：
   </bean>
   ```
 
-  
+  [^transactionManager]: 注入事务管理器
+  [^target]: 开始事务管理的目标接口
+  [^transactionAttributes]: 设置接口方法的事务特性
+
+
 
   **配置解释：**	
 
@@ -3492,19 +3491,20 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 ##### Spring注解管理事务
 
-​	通过@Transactionl注解方式，也可将事务织入到相应方法中，而使用注解方式，只需要在配置文件中加一个tx标签，以告诉Spring使用注解来完成事务的织入。该标签只需指定一个属性，事务管理器。
+	通过@Transactionl注解方式，也可将事务织入到相应方法中，而使用注解方式，只需要在配置文件中加一个tx标签，以告诉Spring使用注解来完成事务的织入。该标签只需指定一个属性，事务管理器。
 
 - **开启事务注解驱动**
 
   ```
-      <tx:annotation-driven transaction-manager="myTransactionManager"></tx:annotation-driven>
+    <tx:annotation-driven transaction-manager="myTransactionManager">
+    </tx:annotation-driven>
   ```
 
   [^transaction-manager]: 指定事务管理器
 
 - **在Service实现类中添加事务注解**
 
-  ```
+  ```java
   public class StockProcessServiceImpl_Annotation implements IStockProcessService {
       private IAccount iAccount;
       private IStock iStock;
@@ -3564,15 +3564,13 @@ PlatformTransactionManager接口有两个常用的实现类：
   [^noRollbackFor]: 指定不需要回滚的异常类，因为事务执行期间遇到程序异常将进行事务的回滚。类型为Class[]
   [^noRollbackForClassName]: 指定不需要回滚的异常类类名。类型为String[]。
 
-  ​	需要注意的是，@Transcationl若用在方法上，只能用于public方法上。对于其他非public方法，如果加上@Transactionl，虽然Spring不会报错，但不会将指定事务织入到该方法中。因为Spring会忽略所有非public方法上的@Transactionl注解。
+  	需要注意的是，@Transcationl若用在方法上，只能用于public方法上。对于其他非public方法，如果加上@Transactionl，虽然Spring不会报错，但不会将指定事务织入到该方法中。因为Spring会忽略所有非public方法上的@Transactionl注解。
 
-  ​	若@Transaction注解在类上，则表示该类上的所有方法均将在执行期间织入事务。
-
-  
+  	若@Transaction注解在类上，则表示该类上的所有方法均将在执行期间织入事务。
 
 - **测试类中指定获取目标对象**
 
-  ```
+  ```java
   @Before
   public void before() {
       applicationContext = new ClassPathXmlApplicationContext("com/jr/spring/spring_dao/applicationContext.xml");
@@ -3587,15 +3585,15 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 ##### AspectJ管理事务
 
-​	使用XML的配置事务代理的方式的不足是，每个目标类都需要配置事务代理。当目标类较多，配置文件会表的非常臃肿。
+	使用XML的配置事务代理的方式的不足是，每个目标类都需要配置事务代理。当目标类较多，配置文件会表的非常臃肿。
 
-​	使用XML配置顾问方式可以自动为每个符合切入点表达式的类生成事务代理。
+	使用XML配置顾问方式可以自动为每个符合切入点表达式的类生成事务代理。
 
 - **配置事务通知**
 
   为事务通知设置相关属性。用于指定要将事务以什么方式织入给哪些方法。
 
-  ```
+  ```xml
       <tx:advice id="transactionAdvice" transaction-manager="myTransactionManager">
           <tx:attributes>
               <tx:method name="open*" propagation="REQUIRED"/>
@@ -3611,7 +3609,7 @@ PlatformTransactionManager接口有两个常用的实现类：
 
   指定将配置好的事务通知，织入给谁
 
-  ```
+  ```xml
   <aop:config>
       <aop:pointcut id="myPointcut"
                     expression="execution(* com.jr.spring.spring_dao.dao.imp.StockProcessServiceImpl_AspectJ.*(..))"></aop:pointcut>
@@ -3634,21 +3632,21 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 ### 前言
 
-​	将MyBatis与Spring进行整合，主要解决的问题就是将SqlSessionFactory对象交由Spring来管理。
+	将MyBatis与Spring进行整合，主要解决的问题就是将SqlSessionFactory对象交由Spring来管理。
 
-​	SqlSession不能够交由Spring进行管理，SqlSession对象在每次进行操作之后都需要进行关闭（进行事务的提交和关闭），关闭后的SqlSession相当与没用了。所以在每次操作Dao方法时都需要重新创建SqlSession。而交由Spring管理的话，只能在一个Dao对象中存在一个SqlSession对象实例。
+	SqlSession不能够交由Spring进行管理，SqlSession对象在每次进行操作之后都需要进行关闭（进行事务的提交和关闭），关闭后的SqlSession相当与没用了。所以在每次操作Dao方法时都需要重新创建SqlSession。而交由Spring管理的话，只能在一个Dao对象中存在一个SqlSession对象实例。
 
-​	所以，该整合，只需将SqlSessionFactory的对象生成器SqlSessionFactoryBean注册在Spring容器中，在将其注入给Dao的实现类即可完成整合。
+	所以，该整合，只需将SqlSessionFactory的对象生成器SqlSessionFactoryBean注册在Spring容器中，在将其注入给Dao的实现类即可完成整合。
 
 ### 操作步骤
 
 ​	除了Spribu'bu'zhoung基本的Jar包外，还需要从MyBatis官网中下在Spring与MyBatis真个整合的Jar
 
-[链接]: https://github.com/mybatis/spring/releases
+[链接](https://github.com/mybatis/spring/releases )
 
 > 定义Sql映射文件mapper
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -3674,11 +3672,11 @@ PlatformTransactionManager接口有两个常用的实现类：
 </mapper> 
 ```
 
-​	在Dao包下定义与接口名一致的SQL映射文件。
+	在Dao包下定义与接口名一致的SQL映射文件。
 
 > 定义MyBatis主配置文件
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -3694,7 +3692,7 @@ PlatformTransactionManager接口有两个常用的实现类：
 </configuration>
 ```
 
-​	因为数据源交给了Spring容器管理,主配置中不需要在配置数据源了
+	因为数据源交给了Spring容器管理,主配置中不需要在配置数据源了
 
 > 添加Log4j日志控制文件
 
@@ -3704,7 +3702,7 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 - **配置数据源**
 
-  ```
+  ```xml
   <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
       <property name="driverClassName" value="${jdbc.driver}"></property>
       <property name="url" value="${jdbc.url}"></property>
@@ -3715,7 +3713,7 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 - **注册SqlSessionFactoryBean**
 
-  ```
+  ```xml
       <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
           <property name="dataSource" ref="dataSource"></property>
           <property name="configLocation" value="classpath:com/jr/spring/spring_mybatis/mybatis.xml"></property>
@@ -3730,7 +3728,7 @@ PlatformTransactionManager接口有两个常用的实现类：
 
   ​       由于使用Mapper动态代理方式没有Dao实现类，所以Dao的实现类对象有代理工厂生成.
 
-  ```
+  ```xml
       <bean id="studentDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
           <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
           <property name="mapperInterface" value="com.jr.spring.spring_mybatis.dao.IStudent"></property>
@@ -3739,11 +3737,11 @@ PlatformTransactionManager接口有两个常用的实现类：
 
   2. 自动扫描的Mapper动态代理
 
-  ​       前面的方式在动态生成代理时存在一个缺点：MapperFactoryBean一次只能生成一个代理对象，即若有多个Dao接口需要代理对象，则需要配置多个Mapper动态代理。这样会使得配置文件变得臃肿。
+         前面的方式在动态生成代理时存在一个缺点：MapperFactoryBean一次只能生成一个代理对象，即若有多个Dao接口需要代理对象，则需要配置多个Mapper动态代理。这样会使得配置文件变得臃肿。
 
-  ​	而支持扫描的Mapper动态代理则会避免以上的缺点，其会对所配置的基础包所有的接口生成Mapper动态代理。在向Service注入Dao的实现类时，直接传入Dao的接口名即可。
+  	而支持扫描的Mapper动态代理则会避免以上的缺点，其会对所配置的基础包所有的接口生成Mapper动态代理。在向Service注入Dao的实现类时，直接传入Dao的接口名即可。
 
-  ```
+  ```xml
   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
       <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
       <property name="basePackage" value="com.jr.spring.spring_mybatis.dao"></property>
@@ -3753,11 +3751,9 @@ PlatformTransactionManager接口有两个常用的实现类：
   [^sqlSessionFactoryBeanName]: 定义的SqlSessionFactory的ID
   [^basePackage]: 指定基本扫描包，即Dao接口包
 
-  
-
 - **向Service注入接口名**
 
-  ```
+  ```java
   <bean id="studentService" class="com.jr.spring.spring_mybatis.service.imp.StudentServiceImp">
   
   <!--通过Mapper扫描配置器生成Mapper动态代理对象-->
@@ -3771,7 +3767,7 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 ### 注意
 
-​	如果通过Mapper扫描器自动生成Dao的代理实现类并注册给Spring，在注入给Service的时候，ref填写的对象需要注意的是：1.如果接口名前面两个都是大写字母的话，ref写的是接口的**简单类名**(即：接口名)；2.如果接口名开头只存在一个大写字母，那么ref写的是接口名的简单类名但**首字母小写**。
+	如果通过Mapper扫描器自动生成Dao的代理实现类并注册给Spring，在注入给Service的时候，ref填写的对象需要注意的是：1.如果接口名前面两个都是大写字母的话，ref写的是接口的**简单类名**(即：接口名)；2.如果接口名开头只存在一个大写字母，那么ref写的是接口名的简单类名但**首字母小写**。
 
 
 
@@ -3779,7 +3775,7 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 ### 前言
 
-​	在Web项目中使用Spring框架，首先要解决在Web层（这里值Servlet）中获取Spring容器的问题。只要在web层获取到了Spring容器，便可容器中获取到Service对象。
+	在Web项目中使用Spring框架，首先要解决在Web层（这里值Servlet）中获取Spring容器的问题。只要在web层获取到了Spring容器，便可容器中获取到Service对象。
 
 ### 获取Spring方式
 
@@ -3787,7 +3783,7 @@ PlatformTransactionManager接口有两个常用的实现类：
 
 **请求Servle**
 
-```
+```java
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -3801,19 +3797,19 @@ public class LoginServlet extends HttpServlet {
 }
 ```
 
-​	将Spring容器的创建语句放在Servlet的doGet()或doPost()方法中是有问题的，因为每次的请求都会创建一个新的Spring容器,对于一个应用来说，只需要一个Spring容器即可,多余的将会耗费环境的资源。
+	将Spring容器的创建语句放在Servlet的doGet()或doPost()方法中是有问题的，因为每次的请求都会创建一个新的Spring容器,对于一个应用来说，只需要一个Spring容器即可,多余的将会耗费环境的资源。
 
-​	此时，可以考虑将Spring容器的创建放在Servlet进行初始化进行，即执行init()方法时进行。并且，Servlet还是单例多线程的，即一个业务只有一个Servlet实例，所以执行该业务的用户执行的都是这一个Servlet实例。这样，Spring容器就具有了唯一性了。
+	此时，可以考虑将Spring容器的创建放在Servlet进行初始化进行，即执行init()方法时进行。并且，Servlet还是单例多线程的，即一个业务只有一个Servlet实例，所以执行该业务的用户执行的都是这一个Servlet实例。这样，Spring容器就具有了唯一性了。
 
-​	但是，Servlet是一个业务一个Servlet实例，即LoginServlet只有一个，但还会有StudentServlet，TeacherServlet等。每个业务都会有一个Servlet都会执行自己的init()方法，也就都会创建一个Spring容器，这样依赖，Spring容器就又不唯一了。
+	但是，Servlet是一个业务一个Servlet实例，即LoginServlet只有一个，但还会有StudentServlet，TeacherServlet等。每个业务都会有一个Servlet都会执行自己的init()方法，也就都会创建一个Spring容器，这样依赖，Spring容器就又不唯一了。
 
 
 
 > 使用Spring的Web插件
 
-​	对于Web应用来说，ServletContext对象是唯一的，一个Web应用只有一个ServletContext对象，该对象是在Web应用装载时初始化的。若将Spring容器的创建时机放在ServletContext初始化时，就可以保证Spring容器的创建只执行一次，也就保证了Spring容器在整个应用中的唯一性。
+	对于Web应用来说，ServletContext对象是唯一的，一个Web应用只有一个ServletContext对象，该对象是在Web应用装载时初始化的。若将Spring容器的创建时机放在ServletContext初始化时，就可以保证Spring容器的创建只执行一次，也就保证了Spring容器在整个应用中的唯一性。
 
-​	当Spring容器创建好后，在整个应用的生命周期过程中，Spring容器应该时随时可以被访问的。即，Spring容器应具有全局性。而ServletContext对象的域属性，就具有应用的全局性。所以，将创建好的Spring容器，以域属性的形式放入到ServletContext的域空间中，就保证了Spring容器的全局性。
+	当Spring容器创建好后，在整个应用的生命周期过程中，Spring容器应该时随时可以被访问的。即，Spring容器应具有全局性。而ServletContext对象的域属性，就具有应用的全局性。所以，将创建好的Spring容器，以域属性的形式放入到ServletContext的域空间中，就保证了Spring容器的全局性。
 
 
 
@@ -3827,23 +3823,23 @@ public class LoginServlet extends HttpServlet {
 
 		若要在ServletContext初始化时创建Spring容器，就需要使用监听器接口ServletContextListenner对ServletContext进行监听。在web.xml中注册该监听器。
 
-		Spring为该监听器接口定义了一个实现类ContextLoaderListenerm。
+	Spring为该监听器接口定义了一个实现类ContextLoaderListenerm。
 
-```
+```java
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 ```
 
-​	打开ContextLoaderLitener的源码。看到一共四个方法，两个构造方法，一个初始话方法，一个销毁方法。
+	打开ContextLoaderLitener的源码。看到一共四个方法，两个构造方法，一个初始话方法，一个销毁方法。
 
-​	![ContextLoaderListenre方法](photo\ContextLoaderListenre方法.bmp)
+	![ContextLoaderListenre方法](photo\ContextLoaderListenre方法.bmp)
 
-​	在这四个方法中较重要的方法应该就是contextInitialized()，context(Spring容器)初始化方法。![contextInitialized方法](photo\contextInitialized方法.bmp)
+	在这四个方法中较重要的方法应该就是contextInitialized()，context(Spring容器)初始化方法。![contextInitialized方法](photo\contextInitialized方法.bmp)
 
-​	跟踪initWebApplicationContext()方法，可以看到，在其中创建了容器对象![initWebApplicationContext方法创建Spring容器](photo\initWebApplicationContext方法创建Spring容器.bmp)
+	跟踪initWebApplicationContext()方法，可以看到，在其中创建了容器对象![initWebApplicationContext方法创建Spring容器](photo\initWebApplicationContext方法创建Spring容器.bmp)
 
-​	创建好的容器对象放入到了ServletContext的域属性空间中，Key为一个常量；WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE。![initWebApplicationContext方法存放Spring容器](photo\initWebApplicationContext方法存放Spring容器.bmp)
+	创建好的容器对象放入到了ServletContext的域属性空间中，Key为一个常量；WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE。![initWebApplicationContext方法存放Spring容器](photo\initWebApplicationContext方法存放Spring容器.bmp)
 
 
 
@@ -3855,17 +3851,17 @@ public class LoginServlet extends HttpServlet {
 
    但，一般会将配置文件放在项目的classpath下，即src下，所以需要在web.xml中对Spring配置文件的位置及名称进行指定。
 
-```
+```java
 <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:applicationContext.xml</param-value>
 </context-param>
 ```
-​	从监听器ContextLoaderListener的父类ContextLoader的源码中可以看到其要读取的配置文件参数名称contextConfigLocation。
+	从监听器ContextLoaderListener的父类ContextLoader的源码中可以看到其要读取的配置文件参数名称contextConfigLocation。
 
 ![ContextLoader读取的配置文件位置参数名称](photo\ContextLoader读取的配置文件位置参数名称.bmp)
 
-​	所以\<context-param/>的key必须指定为contextConfigLocation
+	所以\<context-param/>的key必须指定为contextConfigLocation
 
 
 
@@ -3875,7 +3871,7 @@ public class LoginServlet extends HttpServlet {
 
 1. 直接从ServletContext中获取
 
-   ```
+   ```java
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws 	ServletException, IOException {
        
@@ -3888,12 +3884,10 @@ public class LoginServlet extends HttpServlet {
 
 2. 通过WebApplicationContextUtils获取
 
-   ```
+   ```java
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
    
    	WebApplicationContext 	ac=WebApplicationContextUtils.getRequiredWebApplicationContext（this.getServletContext()）;
    }
    ```
-
-   
