@@ -5,9 +5,9 @@
 ### 介绍
 
 	JPA 的始作俑者就是 Hibernate 的作者，–Hibernate 从 3.2 开始兼容 JPA 
-
+	
 	JPA本质上是一种ORM规范，不是ORM框架，类似于JDBC和Mysql的JDBC驱动。
-
+	
 	因为JPA并未提供ORM实现，它只是制定了一些规范，提供了一些编程的API接口，但具体实现则由ORM厂商提供实现，现在流行的实现产品有Hibernate 3.2、TopLink 10.1、OpenJPA都提供了实现JPA的实现。	
 
 ### 优势
@@ -246,7 +246,7 @@ public class ClazzEntity {
 ### @GeneratedValue
 
 	用于标注主键的生成策略，通过strategy属性指定。默认情况下，JPA自动选择一个最合适底层数据库的主键生成策略。SQLServer对应identity、MySql对应auto increment。
-
+	
 	可选的主键生成策略有 :	
 
 - **identity**：采用数据库ID自增长的方式来自增主键字段，Oracle不支持这种方式。
@@ -304,11 +304,34 @@ public class ClazzEntity {
 
 
 
+### @JoinColum
+
+​	在关联关系表中，该注解用于添加关联键
+
+[^name]: 外键名
+
+
+
+### @JoinTable
+
+​	在关联关系表中，该注解用于添加中间表
+
+[^name]: 中间表名称
+[^joinColumns]: 添加本类在中间表中的外键@joinColumn(name="本类在中间表中的外键字段名",
+
+referencedColumnName="本类与外键对应的主键字段名")
+
+[^inversejoinColumns]: 添加关联类在中间表中的外键@JoinColumn(name="对方类在中间表中的外键字段名",
+
+referencedColunName="对方类与外键对应的主键字段名")
+
+
+
 # 相关类和API
 
 ###Persistence
 
-	用于获取EntityManagerFactory实例。
+​	用于获取EntityManagerFactory实例。
 
 [^createEntityManagerFactory（String  持久化单元名）]: 创建指定持久化单元名的EntityManagerFactory
 [^createEntityManagerFactory（String  持久化单元名)，Map JPA配置参数）]: 创建指定持久化单元名的EntityManagerFactory并覆盖或设置原有的JPA配置文件，Key为XML标签名，Value为设置值，如：
@@ -620,7 +643,7 @@ public class OrderEntity {//Many端
 ```
 
 	同理使用@OneToMany注解让单表维护关联关系，但不同的是，@JoinColumn注解是指定多表的外键列，而不是添加列。
-
+	
 	且在对所有关系表进行persist时，都会存在对多表进行update。
 
 
@@ -973,18 +996,6 @@ public class ItemEntity {
 }
 ```
 
-[^@JoinTable]: 创建中间表
-
-- name=中间表名称
-
-- joinColumns=@joinColumn(name="本类在中间表中的外键字段名",
-
-  referencedColumnName="本类与外键对应的主键字段名")
-
-- inversejoinColumns=@JoinColumn(name="对方类在中间表中的外键字段名",
-
-  referencedColunName="对方类与外键对应的主键字段名")
-
 
 
 ### 建议总结
@@ -1051,7 +1062,7 @@ public class ItemEntity {
 ### 介绍
 
 	JPQL语言，即 Java Persistence Query Language 的简称。JPQL 是一种和 SQL 非常类似的中间性和对象化查询语言，它最终会被编译成针对不同底层数据库的 SQL 查询，从而屏蔽不同数据库的差异。
-
+	
 	JPQL语言的语句可以是 select 语句、update 语句或delete语句，它们都通过 Query 接口封装执行。
 
 
@@ -1186,7 +1197,7 @@ public class ItemEntity {
 # 整合Spring
 
 	在MyBatis中整合Spring的过程是把SqlSessionFactory交由Spring管理，并且MyBatis也不设置数据源，让Spring创建SqlSession并导入数据源。
-
+	
 	同理，在JPA整合Spring中，实际就是将EntityManagerFactory交由Spring管理，当程序需要EntityManager时，让Spring管理的EntityManagerFactory去创建EntityManage。
 
 ### 使用步骤
@@ -1377,7 +1388,7 @@ public class ItemEntity {
 
 4. **事务管理**
 
-   ​	通过在Spring配置文件中配置JPA的事务管理器，随后注入给Spring的注解驱动，从而在service层可通过@Transactional声明该方法必须在事务下进行。
+   	通过在Spring配置文件中配置JPA的事务管理器，随后注入给Spring的注解驱动，从而在service层可通过@Transactional声明该方法必须在事务下进行。
 
    ```java
    @Service
