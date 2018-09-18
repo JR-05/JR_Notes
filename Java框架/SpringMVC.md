@@ -129,8 +129,6 @@
   </servlet-mapping>
   ```
 
-  
-
 - **使用\<mvc:default-servlet-handler/>**
 
   ​	\<mvc:default-servlet-handler/>会将对静态资源的访问请求添加到SimpleUrlHandlerMapping的urlMap中，key就是请求的URI，而value则为默认Servlet请求处理器DefaultServletHttpRequestHandler对象。而该处理器调用了Tomcat的DefaultServlet来处理静态资源的访问请求	
@@ -152,7 +150,6 @@
   [^mapping]: 资源映射路径，注意"**"，表示以/photo/开头的所有资源路径名
   [^location]: 静态资源所在的目录，当然，这里的目录还可以包含/WEB-INF/目录及其子目录
 
-  
 
 ### 调度组件
 
@@ -178,7 +175,6 @@
 
   ​	不仅可以设置访问该控制器的请求方式，而且同个控制器可有多个请求方法。通过注入不同的方法名解析器，可实现Url请求资源名匹配请求方法，Url请求携带参数匹配请求资源。
 
-  
 
 #### 处理器适配器
 
@@ -207,8 +203,6 @@
 - **XmlViewResolver**
 
   ​	注册的View可存在到另外的Beans注册XML文件中，随后可通过设置该解析器的属性指定文件路径
-
-  
 
 - **ResourceBundleViewResolver**
 
@@ -260,7 +254,6 @@
 
   ​	在请求路径上使用通配符，*表示必须存在随意名一级的路径，**表示可存在零级或以上随意名的路径
 
-  
 
 
 
@@ -335,7 +328,6 @@ modelAndView.setViewName("forward:/jsp/transpond.jsp");
 
 4. [^Model]: 将处理数据添加到request的属性中，可用过request.getAttribute(key)获取数据
 
-   
 
 #### 重定向
 
@@ -350,6 +342,14 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 1. 返回ModelAndView
 2. 返回String
 3. 返回Void，通过Respond
+
+
+
+### 异常处理
+
+​	**自己看讲义吧！！！**
+
+
 
 ##### 数据传递
 
@@ -367,7 +367,7 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
     
 
-#### 类型转换器
+### 类型转换器
 
 ##### 类型处理器的配置
 
@@ -404,9 +404,7 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 <mvc:annotation-driven conversion-service="myConversionService"></mvc:annotation-driven>
 ```
 
-
-
-#### 数据验证
+### 数据验证
 
 ##### 配置环境
 
@@ -510,7 +508,7 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 
 
-#### 文件上传
+### 文件上传
 
 ##### 配置环境
 
@@ -562,7 +560,7 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 
 
-#### 拦截器
+### 拦截器
 
 ##### 生命周期
 
@@ -591,3 +589,76 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 ![多个的拦截器的执行](photo\多个的拦截器的执行.bmp)
 
 ​	从上图可以看出，只要有一个preHandle()方法返回false，则上部的执行链将会断开。其后续的处理器方法与postHandle()方法将无法执行。但，无论执行链执行情况怎样，只要方法栈中有方法，即执行链中只要有preHandle()方法返回true，就会执行方法栈中的afterCompletion()方法。最终都会给出响应。
+
+
+
+
+
+# 配置总结
+
+> 中央处理器
+
+**DispatcherServlet**	
+
+
+
+> 　处理静态资源问题
+
+- **使用Servlet资源映射，映射到Tomaat的DefalutServelt去处理静态资源**
+
+```xml
+<servlet-mapping>
+	<servlet-name>default</servlet-name>
+    <url-pattern>*.jpg</url-pattern>
+</servlet-mapping>
+```
+
+- **资源请求先到DefaultServletHttpRequestHandler，而该处理器随后在调用DefalutServlet去处理**
+
+```xml
+<mvc:defalut-servlet-handler/>
+```
+
+- **使用Spring专门用于处理静态资源访问请求的处理器ResourceHttpRequestHandler**
+
+```xml
+<mvc:resources location="静态资源路径" mapping="映射路径"></mvc:resources>
+```
+
+
+
+> 处理器映射器
+
+- **BeanNameUrlHandlerMapping**
+
+  通过处理器注册ID来映射处理器
+
+- **SimpleUrlHandlerMapping**
+
+  自定义配置处理器映射
+
+
+
+> 处理器适配器
+
+- **SimpleControllerHandlerAdapter**
+
+  适配并执行所有实现了Controller接口的处理器Bean
+
+- **HttpRequestHandlerAdapter**
+
+  适配并执行所有实现了HttpRequestHandler接口的处理器Bean
+
+
+
+> 处理器
+
+
+
+
+
+> 视图解析器
+
+
+
+> 视图
