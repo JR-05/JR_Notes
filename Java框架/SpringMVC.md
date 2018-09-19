@@ -596,6 +596,8 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 # 配置总结
 
+### 类
+
 > 中央处理器
 
 **DispatcherServlet**	
@@ -627,6 +629,12 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 
 
+> 处理中文乱码
+
+CharacterEncodingFilter
+
+
+
 > 处理器映射器
 
 - **BeanNameUrlHandlerMapping**
@@ -653,12 +661,135 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 > 处理器
 
+- **Controller**
 
+  最原始的Controller，继承该类则表示该类是处理请求的类
 
+- **AbstractController**
+
+  继承自Controller，多了一个可以限定请求方式的方法
+
+- **MultiActionController**
+
+  继承自AbstractController，它不仅可以限定请求方式，而且可以定义多个处理请求方法，通过请求URL中写上方法名就可以访问到指定方法上。它的实现是通过内部的MethodNameResolver对象做到的。
+
+  **三种MethodNameResolver**
+
+  ![方法名解析器](/photo\方法名解析器.PNG)
+
+  - **InternalPathMethodNameResolver**
+
+    解析请求URL中的资源名称去映射方法名
+
+  - **ParameterMethodNameResolver**
+
+    注册ParameterMethodNameResolver时配置指定URL去映射请求方法
+
+    ```xml
+    配置方法名解析器
+    <bean id="propertiesMethodNameResolver" class="PropertiesMethodNameResolver">
+    	<Property name="mappings">
+        	<prop key="doFirst.do">doFirst</prop>
+        	<prop key="doSecond.do">doSecond</prop>
+        </Property>
+    </bean>
+    ```
+
+  - **ParameterMethodNameResolver**
+
+    解析指定URL参数内的值映射方法名
+
+    ```xml
+    配置方法名解析器
+    <bean id"parameterMethodNameResolver" class="ParameterMethodNameResolver">
+    	<Property name="paraName" value="method"></Property>
+    </bean>
+    ```
+
+    那么对应的doFirst()方法请求是
+
+    ```url
+    http://127.0.0.1:8080/controller/my.do?method=doFirst
+    ```
 
 
 > 视图解析器
 
+- **InternalResourceViewResolver**
+
+  内部资源视图解析
+
+- **BeanNameViewResolver**
+
+  视图对象名视图解析器
+
+- **XmlViewResolver**
+
+  解析指定XML文件内注册的视图对象的视图解析器
+
+- **ResourceBundleViewResolver**
+
+  解析指定Properties文件内注册的视图对象的视图解析器
+
+
+> 视图和数据
+
+ModelAndView
+
 
 
 > 视图
+
+- **RedirectView**
+
+  外部资源视图
+
+- **JstlView**
+
+  内部资源视图
+
+
+> 数据模型
+
+Model
+
+
+
+### 注解
+
+> 声明处理器注解
+
+@Controller
+
+
+
+> 指定请求URL映射处理器
+
+@RequestMapping
+
+
+
+> 校正请求参数名
+
+@RequestParam
+
+
+
+> 处理器方法形参映射路径变量
+
+@PathVariable
+
+
+
+> 声明处理方法返回值封装成JSON数据返回给客户端
+
+@ResponseBody
+
+
+
+> 将请求传递中Content-Type指定格式的数据封装成使用该注解的Bean
+
+@RequestBody
+
+
+
