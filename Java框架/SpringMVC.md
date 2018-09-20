@@ -596,7 +596,7 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 # 配置总结
 
-### 类
+### 类与接口
 
 > 中央处理器
 
@@ -749,47 +749,186 @@ ModelAndView
   内部资源视图
 
 
+
 > 数据模型
 
 Model
 
 
 
+> 专门用于携带重定向参数
+
+RedirectAttributes
+
+
+
+> 异常解析器接口
+
+HandlerExceptionResolver
+
+
+
+> 类型转换器接口
+
+Converter<Object source,Object target>
+
+
+
+> 数据验证信息封装对象
+
+BindingResult
+
+
+
+> 客户端文件上传数据封装对象
+
+MultipartFile
+
+
+
+> 自定义拦截器实现接口
+
+HandlerInterceptor
+
 ### 注解
 
 > 声明处理器注解
 
+```java
 @Controller
+```
 
 
 
 > 指定请求URL映射处理器
 
+```java
 @RequestMapping
+```
 
 
 
 > 校正请求参数名
 
+```java
 @RequestParam
+```
 
 
 
 > 处理器方法形参映射路径变量
 
+```java
 @PathVariable
+```
 
 
 
 > 声明处理方法返回值封装成JSON数据返回给客户端
 
+```java
 @ResponseBody
+```
 
 
 
 > 将请求传递中Content-Type指定格式的数据封装成使用该注解的Bean
 
+```java
 @RequestBody
+```
 
 
+
+>异常处理注解
+
+```java
+@ExcetionHandler
+```
+
+
+
+> 声明进行数据验证
+
+```java
+@Validated
+```
+
+
+
+
+
+### 配置组件
+
+> 注册MVC注解驱动
+
+```xml
+<mvc:annotation-driver/>
+```
+
+-  属性
+
+  [^conversion-service]: 配置转换服务
+
+
+
+> 自定义配置异常映射解析器
+
+```xml
+<bean class="SimpleMappingExceptionResolver">
+	<property name="exceptionMappings">
+        <props>
+        	<prop key="拦截异常类路径">异常处理页面路径</prop>
+        </props>
+    </property>
+    <property name="defaluErrorView" value="默认异常处理页面路径" />
+	<property name="exception" value="异常对象引用名"/>             
+</bean>
+```
+
+
+
+
+
+> 注册转换服务
+
+```xml
+<bean id="conversionService" class="ConversionServiceFactoryBean">
+    <property name="converters" ref="注册类型转换器ID"></property>
+</bean>
+```
+
+
+
+> 注册验证器
+
+```xml
+<bean id="myValidate" class="org.Springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+    <property name="providerClass" value="数据验证产品实现类"></property><!--可以使用Hibernate的数据验证产品org.hibernate.validator.HibernateValidator-->
+</bean>
+```
+
+
+
+> 文件上传处理器
+
+```xml
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<property name="defalutEncoding" value="编码格式"></property>
+    <property name="maxUploadSiez" value="最大上传数据大小"></property>
+</bean>
+```
+
+
+
+> 注册拦截器
+
+```xml
+<mvc:interceptors>
+	<mvc:interceptor>
+    	<mvc:mapping path="拦截请求URL"/><!--/**表示拦截所有请求-->
+        <bean class="拦截器类路径"></bean>
+    </mvc:interceptor>
+</mvc:interceptors>
+```
 
