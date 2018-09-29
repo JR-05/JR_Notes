@@ -2,11 +2,11 @@
 
 # 简介
 
-​	SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框架的一部分，是在Spring3.0后发布的。			
+SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框架的一部分，是在Spring3.0后发布的。			
 
-​					![Spring大体架构](photo\Spring大体架构.bmp)
+​			![Spring大体架构](photo\Spring大体架构.bmp)
 
-​	由以上Spring的结构图可以看出，Spring由四大部分组成：Dao部分（Dao与ORM）、AOP部分、Web部分（JEE与Web）、及IoC容器部分（Core）。
+由以上Spring的结构图可以看出，Spring由四大部分组成：Dao部分（Dao与ORM）、AOP部分、Web部分（JEE与Web）、及IoC容器部分（Core）。
 
 
 
@@ -62,9 +62,9 @@
 
 ### 前言
 
-​	所谓配置式开发是指，“处理器类是程序员手工定义的”、实现了特定接口的类，然后在SpringMVC配置文件进行显式的、明确的注册的开发方式。
-
-​	在SpringMVC配置文件中如未明确的定义SpringMVC中的组件，如：处理器映射器、处理器适配器、视图解析器。将会自动采用DispatcherServlet默认的组件。在SpringMVC中查看DispatcherServlet.properties可知：
+	所谓配置式开发是指，“处理器类是程序员手工定义的”、实现了特定接口的类，然后在SpringMVC配置文件进行显式的、明确的注册的开发方式。
+	
+	在SpringMVC配置文件中如未明确的定义SpringMVC中的组件，如：处理器映射器、处理器适配器、视图解析器。将会自动采用DispatcherServlet默认的组件。在SpringMVC中查看DispatcherServlet.properties可知：
 
 ![DispatchServlet默认组件](photo\DispatchServlet默认组件.bmp)
 
@@ -76,9 +76,10 @@
 | 处理器适配器 | HttpRequestHandlerAdapter、HttpRequestHandlerAdapt、AnnotationMethodHandlerAdapter |
 |  视图解析器  |                 InternalResourceViewResolver                 |
 
-​	如果在SpringMVC的配置文件中自定义配置DispatcherServlet的组件的话，将采用自定义的组件进行运作。
+	如果在SpringMVC的配置文件中自定义配置DispatcherServlet的组件的话，将采用自定义的组件进行运作。
 
  
+
 
 
 
@@ -100,27 +101,27 @@
 </servlet-mapping>
 ```
 
-​	需要注意的是，在映射路径上最好使用后缀匹配方式，如写成*.do
+	需要注意的是，在映射路径上最好使用后缀匹配方式，如写成*.do
 
 - **不能写成/***
 
-  ​	这里的url-pattern不能写成/*，因为DispatcherServlet会将动态页面的跳转请求，及向JSP页面的跳转也当做是一个普通的Controller请求。将被中央调度器拦截并会调用处理器映射器为其查找相应的处理器。当然是找不到的，所以在这种情况下，所有的JSP页面跳转均会报404错误
+  	这里的url-pattern不能写成/*，因为DispatcherServlet会将动态页面的跳转请求，及向JSP页面的跳转也当做是一个普通的Controller请求。将被中央调度器拦截并会调用处理器映射器为其查找相应的处理器。当然是找不到的，所以在这种情况下，所有的JSP页面跳转均会报404错误
 
 - **最好也不要写成/**
 
-  ​	最好也不要写成 / ，因为DispatcherServlet会将向静态资源的获取请求，例如：css、js、jpg、png等资源的获取，当作是一个普通的Controller请求。中央调度器同样将会进行拦截并调用处理器映射器为其进行查找相应的处理器。
+  	最好也不要写成 / ，因为DispatcherServlet会将向静态资源的获取请求，例如：css、js、jpg、png等资源的获取，当作是一个普通的Controller请求。中央调度器同样将会进行拦截并调用处理器映射器为其进行查找相应的处理器。
 
 
 
 > 静态资源访问
 
-​	\<url-pattern/>的值并不是说写为/后，静态资源就无法访问了。经过一些配置，该问题也是可以解决的。
+	\<url-pattern/>的值并不是说写为/后，静态资源就无法访问了。经过一些配置，该问题也是可以解决的。
 
 - **使用Tomcat中的default的Servlet**
 
-  ​	在Tomcat中，有一个专门用于处理器静态资源访问的Servlet-DefaultServlet。其\<servlet-name/>为defalut。可以处理各种静态资源访问请求，该Servlet注册在Tomcat服务器的web.xml中。
+  	在Tomcat中，有一个专门用于处理器静态资源访问的Servlet-DefaultServlet。其\<servlet-name/>为defalut。可以处理各种静态资源访问请求，该Servlet注册在Tomcat服务器的web.xml中。
 
-  ​	我们需要做的就是直接使用它即可，即直接在项目的web.xml中注册\<servlet-mapping/>即可。
+  	我们需要做的就是直接使用它即可，即直接在项目的web.xml中注册\<servlet-mapping/>即可。
 
   ```
   <servlet-mapping>
@@ -131,7 +132,7 @@
 
 - **使用\<mvc:default-servlet-handler/>**
 
-  ​	\<mvc:default-servlet-handler/>会将对静态资源的访问请求添加到SimpleUrlHandlerMapping的urlMap中，key就是请求的URI，而value则为默认Servlet请求处理器DefaultServletHttpRequestHandler对象。而该处理器调用了Tomcat的DefaultServlet来处理静态资源的访问请求	
+  	\<mvc:default-servlet-handler/>会将对静态资源的访问请求添加到SimpleUrlHandlerMapping的urlMap中，key就是请求的URI，而value则为默认Servlet请求处理器DefaultServletHttpRequestHandler对象。而该处理器调用了Tomcat的DefaultServlet来处理静态资源的访问请求	
 
 ```
 <beans>
@@ -141,14 +142,14 @@
 
 - **使用\<mvc:resources/>**
 
-  ​	在Spring3.0.4版本后，Spring中定义了专门用于处理静态资源访问请求的处理器ResourceHttpRequestHandler。并且添加了\<mvc:resource/>标签，专门用于解决静态资源无法访问问题。
+  	在Spring3.0.4版本后，Spring中定义了专门用于处理静态资源访问请求的处理器ResourceHttpRequestHandler。并且添加了\<mvc:resource/>标签，专门用于解决静态资源无法访问问题。
 
   ```
   <mvc:resources mapping="/photo/**" location="/photo/"></mvc:resources>
   ```
 
-  [^mapping]: 资源映射路径，注意"**"，表示以/photo/开头的所有资源路径名
-  [^location]: 静态资源所在的目录，当然，这里的目录还可以包含/WEB-INF/目录及其子目录
+[^mapping]: 资源映射路径，注意"**"，表示以/photo/开头的所有资源路径名
+[^location]: 静态资源所在的目录，当然，这里的目录还可以包含/WEB-INF/目录及其子目录
 
 
 ### 调度组件
@@ -157,11 +158,11 @@
 
 - **BeanNameUrlHandlerMapping**
 
-  ​	根据注册处理器id进行适配
+  	根据注册处理器id进行适配
 
 - **SimpleUrlHandlerMapping**
 
-  ​	可通过设置属性对不同请求Url请求同一个处理器
+  	可通过设置属性对不同请求Url请求同一个处理器
 
 
 
@@ -169,22 +170,22 @@
 
 - **继承AbstractControler**
 
-  ​	可设置访问该控制器的请求方式
+  	可设置访问该控制器的请求方式
 
 - **继承MultiActionControler**
 
-  ​	不仅可以设置访问该控制器的请求方式，而且同个控制器可有多个请求方法。通过注入不同的方法名解析器，可实现Url请求资源名匹配请求方法，Url请求携带参数匹配请求资源。
+  	不仅可以设置访问该控制器的请求方式，而且同个控制器可有多个请求方法。通过注入不同的方法名解析器，可实现Url请求资源名匹配请求方法，Url请求携带参数匹配请求资源。
 
 
 #### 处理器适配器
 
 - **SimpleControllerHandlerAdapter**
 
-  ​	所有实现了Controller接口的处理器Bean，均是通过此适配器进行适配，执行的。
+  	所有实现了Controller接口的处理器Bean，均是通过此适配器进行适配，执行的。
 
 - **HttpRequestHandlerAdapter**
 
-  ​	所有实现了HttpRequestHandler接口的处理器Bean，均是通过此适配器进行适配、执行的。
+  	所有实现了HttpRequestHandler接口的处理器Bean，均是通过此适配器进行适配、执行的。
 
 
 
@@ -194,19 +195,19 @@
 
 - **InternalResourceViewResolver**
 
-  ​	该视图解析器可设置解析视图名的前缀和后置，那么ModleAndView指定待转发的视图的逻辑路径时可对其进行简写，但缺点就是不可访问外部资源、存在程序冗余
+  	该视图解析器可设置解析视图名的前缀和后置，那么ModleAndView指定待转发的视图的逻辑路径时可对其进行简写，但缺点就是不可访问外部资源、存在程序冗余
 
 - **BeanNameViewResolver**
 
-  ​	可解析外部资源View，在ModleAndView中通过指定注册的View的ID确定跳转资源的路径
+  	可解析外部资源View，在ModleAndView中通过指定注册的View的ID确定跳转资源的路径
 
 - **XmlViewResolver**
 
-  ​	注册的View可存在到另外的Beans注册XML文件中，随后可通过设置该解析器的属性指定文件路径
+  	注册的View可存在到另外的Beans注册XML文件中，随后可通过设置该解析器的属性指定文件路径
 
 - **ResourceBundleViewResolver**
 
-  ​	注册的View可存在到另外的Beans注册properties文件中，随后可通过设置该解析器的属性指定文件路径
+  	注册的View可存在到另外的Beans注册properties文件中，随后可通过设置该解析器的属性指定文件路径
 
 
 
@@ -214,17 +215,17 @@
 
 - **JstlView**
 
-  ​	定义内部资源视图对象
+  	定义内部资源视图对象
 
 - **RedirectView**
 
-  ​	定义外部资源视图对象
+  	定义外部资源视图对象
 
 
 
 #### ModelAndView
 
-​	处理器在处理请求之后可将处理的数据存到到ModleAndView中的Model中，在通过View指定跳转显示的页面，将数据传递到页面中。
+	处理器在处理请求之后可将处理的数据存到到ModleAndView中的Model中，在通过View指定跳转显示的页面，将数据传递到页面中。
 
 
 
@@ -234,17 +235,17 @@
 
 ### 前言
 
-​	注解式开发是SpringMVC开发Web应用最重要的方式，相比配置式开发，注解式开发简单许多，并写相对灵活很多。
+	注解式开发是SpringMVC开发Web应用最重要的方式，相比配置式开发，注解式开发简单许多，并写相对灵活很多。
 
 
 
 ### 请求方法映射
 
-​	在每个请求方法都必须添加@RequestMapping注解，告知SpringMVC该方法为接收请求处理的方法。
-
-​	若将@RequestMapping注解到Class上，那么该类中的所有请求方法都共享该注解上的参数值。
-
-​	在该注解上可以设置**请求方法的请求方式**、**矫正请求参数**、**接收路径的变量**、**指定请求Url的参数**
+	在每个请求方法都必须添加@RequestMapping注解，告知SpringMVC该方法为接收请求处理的方法。
+	
+	若将@RequestMapping注解到Class上，那么该类中的所有请求方法都共享该注解上的参数值。
+	
+	在该注解上可以设置**请求方法的请求方式**、**矫正请求参数**、**接收路径的变量**、**指定请求Url的参数**
 
 
 
@@ -252,14 +253,14 @@
 
 - **\*与\*\*的区别**
 
-  ​	在请求路径上使用通配符，*表示必须存在随意名一级的路径，**表示可存在零级或以上随意名的路径
+  	在请求路径上使用通配符，*表示必须存在随意名一级的路径，**表示可存在零级或以上随意名的路径
 
 
 
 
 ### 请求方法形参
 
-​	注解式开发中的请求方法可以存在五种类型的参数，并且可以有不同的重载方式，这也就是注解式开发相对配置式开发的灵活之处。
+	注解式开发中的请求方法可以存在五种类型的参数，并且可以有不同的重载方式，这也就是注解式开发相对配置式开发的灵活之处。
 
 1. [^HttpServletResponse]: 不多解释
 
@@ -271,7 +272,7 @@
 
 5. [^Model]: 封装传递数据的对象，如果是重定向的话，传递的数据将会由视图解析器直接拼接到Url路径上，如果是转载的话将存放到request域中的属性中
 
-6. [^接收请求参数的形参类型]: 
+6. [^接收的请求参数]: 如类似接收 url？参数=参数值 
 
 7. [^MultipartFile]: 如果是处理图片上传的Controller还可以有封装上传数据的MultipartFile对象
 
@@ -287,7 +288,7 @@
 
 ### 请求方法返回值
 
-​	根据处理请求的需求，请求方法返回值可以为；
+	根据处理请求的需求，请求方法返回值可以为；
 
 [^ModelAndView]: 分装处理数据和转发的页面view，如果是重定向的话，传递的数据将会由视图解析器直接拼接到Url路径上，如果是转载的话将存放到request域中的属性中
 [^String]: 直视图解析器会解析该字符串，随后将转发和重定向的解析的页面，
@@ -302,13 +303,13 @@
 
 #### 转载
 
-​	默认情况下，当处理器方法返回ModelAndView时，跳转到指定的View，使用的是请求转发。但也可显示的进行指出。此时，需在setViewName()指定的视图前添加forward，且此时的视图不会再与InternalResourceViewResolver视图解析器中的前缀和后缀进行拼接。即必须写出相对于项目根的路径。如：
+	默认情况下，当处理器方法返回ModelAndView时，跳转到指定的View，使用的是请求转发。但也可显示的进行指出。此时，需在setViewName()指定的视图前添加forward，且此时的视图不会再与InternalResourceViewResolver视图解析器中的前缀和后缀进行拼接。即必须写出相对于项目根的路径。如：
 
 ```
 modelAndView.setViewName("forward:/jsp/transpond.jsp");
 ```
 
-​	需要注意的是，此时如果DispatcherServlet默认的视图解析器组件InternalResourceViewResolver被其他自定的视图解析器所替代的话，将会报无法解析该视图的错误，此时应该再配置InternalResourceViewResolver解析器。
+	需要注意的是，此时如果DispatcherServlet默认的视图解析器组件InternalResourceViewResolver被其他自定的视图解析器所替代的话，将会报无法解析该视图的错误，此时应该再配置InternalResourceViewResolver解析器。
 
 ##### 转载的方式
 
@@ -318,7 +319,7 @@ modelAndView.setViewName("forward:/jsp/transpond.jsp");
 
 ##### 数据传递
 
-​	向下传递数据的方式有以下：
+	向下传递数据的方式有以下：
 
 1. [^ModelAndView]: 通过addObject，将数据封装到ModelAndView进行传递，最后将处理数据添加到request的属性中，可用过request.getAttribute(key)获取数据
 
@@ -331,7 +332,7 @@ modelAndView.setViewName("forward:/jsp/transpond.jsp");
 
 #### 重定向
 
-​	重定向时需指定的视图前添加redirect，且此时的视图不会再与InternalResourceViewResolver视图解析器中的前缀和后缀进行拼接。即必须写出相对于项目根的路径。如：
+	重定向时需指定的视图前添加redirect，且此时的视图不会再与InternalResourceViewResolver视图解析器中的前缀和后缀进行拼接。即必须写出相对于项目根的路径。如：
 
 ```转载的方式  1. 返回ModelAndView 2. 返回String 3. 返回View
 modelAndView.setViewName("redirect:/jsp/transpond.jsp");
@@ -347,13 +348,13 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
 ### 异常处理
 
-​	**自己看讲义吧！！！**
+	**自己看讲义吧！！！**
 
 
 
 ##### 数据传递
 
-​	再重定向时，请求参数是无法通过request的属性向下级资源中传递的，但可以通过以下方式将请求参数向下传递
+	再重定向时，请求参数是无法通过request的属性向下级资源中传递的，但可以通过以下方式将请求参数向下传递
 
 1. [^ModelAndView]: 通过addObject，将数据封装到ModelAndView进行传递，最后将处理数据添加到重定向资源的Uri参数中中。通过request.getParams(key)获取到传递的数据
 
@@ -371,7 +372,7 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
 ##### 类型处理器的配置
 
-​	类型转换器定义完毕后，需要在SpringMVC的配置文件中对类型转换进行配置。首先要注册类型转换器，然后再注册一个转换服务Bean，将类型转换服务注入给该转换服务Bean，最后由处理器适配器来使用该转换服务Bean。
+	类型转换器定义完毕后，需要在SpringMVC的配置文件中对类型转换进行配置。首先要注册类型转换器，然后再注册一个转换服务Bean，将类型转换服务注入给该转换服务Bean，最后由处理器适配器来使用该转换服务Bean。
 
 1. **注册类型转换器**
 
@@ -398,7 +399,7 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
 3. **使用转换服务Bean**
 
-   ​	采用MVC的注解驱动注册方式，可以将转换服务直接诸如给处理器适配器。
+   	采用MVC的注解驱动注册方式，可以将转换服务直接诸如给处理器适配器。
 
 ```
 <mvc:annotation-driven conversion-service="myConversionService"></mvc:annotation-driven>
@@ -512,7 +513,7 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 ##### 配置环境
 
-​	SpringMVC实现文件上传，需要在添加两个Jar包，一个是文件上传的Jar包，一个是其所依赖的IO包。
+	SpringMVC实现文件上传，需要在添加两个Jar包，一个是文件上传的Jar包，一个是其所依赖的IO包。
 
 ```
 <!-- 上传组件包 -->
@@ -533,9 +534,9 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 ##### 配置上传处理器
 
-​	处理器方法中的形参MultipartFile对象需要由上传处理器生成。
-
-​	在SpringMVC的配置文件中注册MultipartFile接口的实现类CommonsMultipartResolver的Bean，要求该Bean的**id必须为multipartResolver**。因为中央调度器会自动在SpringMVC的组件配置中自动查找才id的对象，并装配到自身的属性中。
+	处理器方法中的形参MultipartFile对象需要由上传处理器生成。
+	
+	在SpringMVC的配置文件中注册MultipartFile接口的实现类CommonsMultipartResolver的Bean，要求该Bean的**id必须为multipartResolver**。因为中央调度器会自动在SpringMVC的组件配置中自动查找才id的对象，并装配到自身的属性中。
 
 ```
 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -550,13 +551,13 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 ##### 上传多个文件问题
 
-​	用于接收表单元素所提交的处理器方法的形参类型为MultipartFile[]数组，且必须使用@RequestParam修饰。
-
-​	为什么上传单个文件时MultipartFile参数不用使用@RequestParams修饰，而上传多个文件时MutipartFile[]需要使用@RequestParam修饰呢？
-
-​	因为在上传单个文件时，每个表单中的文件对象，框架均会将其转换为MultipartFile类型这是与上传单个文件是相同的，不需要@ReqeustParam修饰。但上传多个文件时，处理器方法需要的不是MultipartFile类型参数，而是MultipartFile[]数组类型。默认情况下框架只会将一个一个的表单元素转换为一个一个的对象，但并不会将这多个对象创建为一个数组对象。	
-
-​	此时，需要使用@RequestParam来修饰这个数据参数，向框架表明，表单传来的参数与处理器方法接收的参数名称与类型相同，需要框架调用相应的转换器将请求参数转换为方法参数类型。所以，对于上传多个文件，处理器方法的MultipartFile[]数组参数必须使用注解@RequestParam修饰。
+	用于接收表单元素所提交的处理器方法的形参类型为MultipartFile[]数组，且必须使用@RequestParam修饰。
+	
+	为什么上传单个文件时MultipartFile参数不用使用@RequestParams修饰，而上传多个文件时MutipartFile[]需要使用@RequestParam修饰呢？
+	
+	因为在上传单个文件时，每个表单中的文件对象，框架均会将其转换为MultipartFile类型这是与上传单个文件是相同的，不需要@ReqeustParam修饰。但上传多个文件时，处理器方法需要的不是MultipartFile类型参数，而是MultipartFile[]数组类型。默认情况下框架只会将一个一个的表单元素转换为一个一个的对象，但并不会将这多个对象创建为一个数组对象。	
+	
+	此时，需要使用@RequestParam来修饰这个数据参数，向框架表明，表单传来的参数与处理器方法接收的参数名称与类型相同，需要框架调用相应的转换器将请求参数转换为方法参数类型。所以，对于上传多个文件，处理器方法的MultipartFile[]数组参数必须使用注解@RequestParam修饰。
 
 
 
@@ -588,7 +589,7 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 ![多个的拦截器的执行](photo\多个的拦截器的执行.bmp)
 
-​	从上图可以看出，只要有一个preHandle()方法返回false，则上部的执行链将会断开。其后续的处理器方法与postHandle()方法将无法执行。但，无论执行链执行情况怎样，只要方法栈中有方法，即执行链中只要有preHandle()方法返回true，就会执行方法栈中的afterCompletion()方法。最终都会给出响应。
+	从上图可以看出，只要有一个preHandle()方法返回false，则上部的执行链将会断开。其后续的处理器方法与postHandle()方法将无法执行。但，无论执行链执行情况怎样，只要方法栈中有方法，即执行链中只要有preHandle()方法返回true，就会执行方法栈中的afterCompletion()方法。最终都会给出响应。
 
 
 
