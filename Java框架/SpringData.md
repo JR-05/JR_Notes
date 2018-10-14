@@ -1,8 +1,8 @@
-SpringData前言
+# SpringData前言
 
 ###介绍
 
-	Spring Data : Spring 的一个子项目。用于简化数据库访问，支持NoSQL 和 关系数据存储。其主要目标是使数据库的访问变得方便快捷。
+​	Spring Data : Spring 的一个子项目。用于简化数据库访问，支持NoSQL 和 关系数据存储。其主要目标是使数据库的访问变得方便快捷。
 
 - SpringData 项目所支持 NoSQL 存储：
 
@@ -26,9 +26,9 @@ SpringData前言
 
 ### 作用
 
-	JPA Spring Data : 致力于减少数据访问层 (DAO) 的开发量. 开发者唯一要做的，就只是声明持久层的接口，其他都交给 Spring Data JPA 来帮你完成！
-	
-	框架怎么可能代替开发者实现业务逻辑呢？比如：当有一个 UserDao.findUserById()  这样一个方法声明，大致应该能判断出这是根据给定条件的 ID 查询出满足条件的 User  对象。Spring Data JPA 做的便是规范方法的名字，根据符合规范的名字来确定方法需要实现什么样的逻辑。
+​	JPA Spring Data : 致力于减少数据访问层 (DAO) 的开发量. 开发者唯一要做的，就只是声明持久层的接口，其他都交给 Spring Data JPA 来帮你完成！
+
+​	框架怎么可能代替开发者实现业务逻辑呢？比如：当有一个 UserDao.findUserById()  这样一个方法声明，大致应该能判断出这是根据给定条件的 ID 查询出满足条件的 User  对象。Spring Data JPA 做的便是规范方法的名字，根据符合规范的名字来确定方法需要实现什么样的逻辑。
 
 
 
@@ -60,17 +60,17 @@ SpringData前言
 
 ###概述
 
-	Repository 接口是SpringData 的一个核心接口，它不提供任何方法，开发者需要在自己定义的接口中声明需要的方法。
-	
-	SpringData的主要亮点就是开发者定义操作数据库Dao层接口时，无需再写出实现类，而是根据SpringData给出的接口方法名策略，根据它命名的要求，再按照开发者的需求写出接口方法即可。如：
-	
-	`UserDao.findUserById()`
-	
-	这样一个方法声明，大致应该能判断出这是根据给定条件的ID查询出满足条件的User对象。SpringData JPA做的便是规范方法的名字，根据符合规范的名字来确定方法需要实现什么样的逻辑。	
+​	Repository 接口是SpringData 的一个核心接口，它不提供任何方法，开发者需要在自己定义的接口中声明需要的方法。
+
+​	SpringData的主要亮点就是开发者定义操作数据库Dao层接口时，无需再写出实现类，而是根据SpringData给出的接口方法名策略，根据它命名的要求，再按照开发者的需求写出接口方法即可。如：
+
+`UserDao.findUserById()`
+
+​	这样一个方法声明，大致应该能判断出这是根据给定条件的ID查询出满足条件的User对象。SpringData JPA做的便是规范方法的名字，根据符合规范的名字来确定方法需要实现什么样的逻辑。		
 
 ### 声明为SpringData的Dao接口
 
-	与继承 Repository 等价的一种方式，就是在持久层接口上使用 @RepositoryDefinition 注解，并为其指定 domainClass 和 idClass 属性。如下两种方式是完全等价的
+​	与继承 Repository 等价的一种方式，就是在持久层接口上使用 @RepositoryDefinition 注解，并为其指定 domainClass 和 idClass 属性。如下两种方式是完全等价的
 
 - **继承Repository接口**
 
@@ -92,31 +92,31 @@ SpringData前言
 
 ### Repository的继承体系
 
-	基础的 Repository提供了最基本的数据访问功能，其几个子接口则扩展了一些功能。它们的继承关系如下：
+​	基础的 Repository提供了最基本的数据访问功能，其几个子接口则扩展了一些功能。它们的继承关系如下：
 
 #### Repository
 
-	仅仅是一个标识，表明任何继承它的均为仓库接口类。
+​	仅仅是一个标识，表明任何继承它的均为仓库接口类。
 
 #### CrudRepository
 
-	 继承 Repository，实现了一组 CRUD 相关的方法 
+​	继承 Repository，实现了一组 CRUD 相关的方法 
 
 #### PagingAndSortingRepository
 
-	继承 CrudRepository，实现了一组分页排序相关的方法 ，但不能进行条件筛选。
+​	继承 CrudRepository，实现了一组分页排序相关的方法 ，但不能进行条件筛选。
 
 #### JpaRepository
 
-	继承 PagingAndSortingRepository，实现一组 JPA 规范相关的方法 
+​	继承 PagingAndSortingRepository，实现一组 JPA 规范相关的方法 
 
 #### 自定义的 XxxxRepository
 
-	需要继承 JpaRepository，这样的 XxxxRepository 接口就具备了通用的数据访问控制层的能力。
+​	需要继承 JpaRepository，这样的 XxxxRepository 接口就具备了通用的数据访问控制层的能力。
 
 #### JpaSpecificationExecutor
 
-	不属于Repository体系，实现一组 JPA Criteria 查询相关的方法，如先进行条件判断后再进行分页或排序。 
+​	不属于Repository体系，实现一组 JPA Criteria 查询相关的方法，如先进行条件判断后再进行分页或排序。 
 
 
 
@@ -124,7 +124,7 @@ SpringData前言
 
 ### 概述
 
-	SpringData中查询实体类方式有多种，其中比较能突出SpringData操作数据能力的有以下一些功能。
+​	SpringData中查询实体类方式有多种，其中比较能突出SpringData操作数据能力的有以下一些功能。
 
 ### SpringData 方法定义规范
 
@@ -132,7 +132,7 @@ SpringData前言
 
 **规范**
 
-	按照Spring Data 的规范，查询方法以`find` | `read` | `get` 开头， 涉及条件查询时，条件的属性用条件关键字连接，要注意的是：条件属性以首字母大写。 
+​	按照Spring Data 的规范，查询方法以`find` | `read` | `get` 开头， 涉及条件查询时，条件的属性用条件关键字连接，要注意的是：条件属性以首字母大写。 
 
 **举例：**
 
@@ -151,7 +151,7 @@ classUser｛
 
 #### 查询方法解析流程
 
-	假如创建如下的查询：findByUserDepUuid()，框架在解析该方法时，首先剔除 findBy，然后对剩下的属性进行解析，假设查询实体为Doc。
+​	假如创建如下的查询：findByUserDepUuid()，框架在解析该方法时，首先剔除 findBy，然后对剩下的属性进行解析，假设查询实体为Doc。
 
 1. SpringData方法解析中对每个条件参数进行层次划分优先条件有`1.以参数名中的出现的大写字母`  `2.'_'：明确声明为级联属性`
 
@@ -194,7 +194,7 @@ classUser｛
 
 ### @Query注解
 
-	有时候SpringData的方法规范让人确实不好记，且有些方法命名长度觉得稍长了些的话，可以通过@Query注解让开发者自己写查询数据的SQL语法。
+​	有时候SpringData的方法规范让人确实不好记，且有些方法命名长度觉得稍长了些的话，可以通过@Query注解让开发者自己写查询数据的SQL语法。
 
 #### 简单条件查询
 
@@ -246,11 +246,11 @@ public void 查询指定年龄的Teacher(@Param("age")Interge age, @Param("name"
 
 ### 继承Repository子接口
 
-	Repository子接口中封装了大量平常使用的查询操作，其中包括：
+​	Repository子接口中封装了大量平常使用的查询操作，其中包括：
 
 #### CurdRepository
 
-	接口提供了最基本的对实体类的添删改查操作
+​	接口提供了最基本的对实体类的添删改查操作
 
 [^T save(T entity)]: 保存单个实体 
 [^Iterable<T> save(Iterable<? extends T> entities)]: 保存集合
@@ -266,7 +266,7 @@ public void 查询指定年龄的Teacher(@Param("age")Interge age, @Param("name"
 
 #### PagingAndSortingRepository
 
-	该接口提供了分页与排序功能
+​	该接口提供了分页与排序功能
 
 [^Iterable<T>findAll(Sort sort)]: 排序，Sort为排序规则对象
 [^Page<T> findAll(Pageable pageable)]: 分页查询，Pageable为排序规则接口（含排序功能），
@@ -307,7 +307,7 @@ public void 查询指定年龄的Teacher(@Param("age")Interge age, @Param("name"
 
 #### JpaRepository
 
-	该接口提供了JPA的相关功能   
+​	该接口提供了JPA的相关功能   
 
 [^List<T> findAll()]: –查找所有实体     
 [^List<T> findAll(Sort sort);]: 排序、查找所有实体
@@ -322,7 +322,7 @@ public void 查询指定年龄的Teacher(@Param("age")Interge age, @Param("name"
 
 #### 自定义Repository
 
-	可根据需求自己实现查询方法
+​	可根据需求自己实现查询方法
 
 > 步骤
 
@@ -338,7 +338,7 @@ public void 查询指定年龄的Teacher(@Param("age")Interge age, @Param("name"
 
 #### JpaSpecificationExecutor
 
-	不属于Repository体系，实现一组JPA Criteria 查询相关的方法。
+​	不属于Repository体系，实现一组JPA Criteria 查询相关的方法。
 
 [^findOne(Specification<T> specification)]: 有条件查询一个
 [^findAll(Specification<T> specification)]: 有条件查询全部
@@ -347,7 +347,7 @@ public void 查询指定年龄的Teacher(@Param("age")Interge age, @Param("name"
 
 > Specification对象
 
-	封装JPA Criteria查询的查询条件
+​	封装JPA Criteria查询的查询条件
 
 ```java
         Specification<Student> studentSpecification = new Specification<Student>() {
@@ -372,9 +372,7 @@ public void 查询指定年龄的Teacher(@Param("age")Interge age, @Param("name"
 
 # 删改
 
-	**@Quer**y 与 **@Modifying**这两个annotation一起声明，可定义个性化更新操作，注意JPQL不支持INSERT
-
-	示例如下：
+​	![1539353568631](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1539353568631.png)
 
 ```java
 @Modifying
@@ -404,7 +402,7 @@ int updateCustomerName(String cn)
 
 # HelloSpringData
 
-	使用 SpringData JPA 进行持久层开发需要的三个步骤：
+​	使用 SpringData JPA 进行持久层开发需要的三个步骤：
 
 1. **在 Spring的配置文件中配置SpringData**
 

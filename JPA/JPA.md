@@ -4,11 +4,11 @@
 
 ### 介绍
 
-	JPA 的始作俑者就是 Hibernate 的作者，–Hibernate 从 3.2 开始兼容 JPA 
-	
-	JPA本质上是一种ORM规范，不是ORM框架，类似于JDBC和Mysql的JDBC驱动。
-	
-	因为JPA并未提供ORM实现，它只是制定了一些规范，提供了一些编程的API接口，但具体实现则由ORM厂商提供实现，现在流行的实现产品有Hibernate 3.2、TopLink 10.1、OpenJPA都提供了实现JPA的实现。	
+​	JPA 的始作俑者就是 Hibernate 的作者，–Hibernate 从 3.2 开始兼容 JPA 
+
+​	JPA本质上是一种ORM规范，不是ORM框架，类似于JDBC和Mysql的JDBC驱动。
+
+​	因为JPA并未提供ORM实现，它只是制定了一些规范，提供了一些编程的API接口，但具体实现则由ORM厂商提供实现，现在流行的实现产品有Hibernate 3.2、TopLink 10.1、OpenJPA都提供了实现JPA的实现。	
 
 ### 优势
 
@@ -224,13 +224,13 @@ public class ClazzEntity {
 
 ### @Entity
 
-	@Entity注解用于实体类声明之前，指定该Java类为实体类，将映射到指定的数据库表。如声明一个实体类Customer，它将映射到数据库中的customer表上。
+​	@Entity注解用于实体类声明之前，指定该Java类为实体类，将映射到指定的数据库表。如声明一个实体类Customer，它将映射到数据库中的customer表上。
 
 
 
 ### @Table
 
-	当实体类与其映射的数据库表名不同名时需要使用@Table标注说明，该注解与@Entity注解并列使用，置于实体类声明语句之前，可写于单独语句行，也可与声明语句同行。
+​	当实体类与其映射的数据库表名不同名时需要使用@Table标注说明，该注解与@Entity注解并列使用，置于实体类声明语句之前，可写于单独语句行，也可与声明语句同行。
 
 [^name]: 指明数据库的表名
 [^catalog和schema]: 设置表所属的数据库目录或模式，通常为数据库名。
@@ -239,15 +239,15 @@ public class ClazzEntity {
 
 ### @Id
 
-	用于声明一个实体类的属性映射为数据库的主键列。该注释亦可置于属性的getter方法之前。
+​	用于声明一个实体类的属性映射为数据库的主键列。该注释亦可置于属性的getter方法之前。
 
 
 
 ### @GeneratedValue
 
-	用于标注主键的生成策略，通过strategy属性指定。默认情况下，JPA自动选择一个最合适底层数据库的主键生成策略。SQLServer对应identity、MySql对应auto increment。
-	
-	可选的主键生成策略有 :	
+​	用于标注主键的生成策略，通过strategy属性指定。默认情况下，JPA自动选择一个最合适底层数据库的主键生成策略。SQLServer对应identity、MySql对应auto increment。
+
+可选的主键生成策略有 :	
 
 - **identity**：采用数据库ID自增长的方式来自增主键字段，Oracle不支持这种方式。
 - **auto**：JPA自动选择合适的策略，是默认的选择。
@@ -258,21 +258,21 @@ public class ClazzEntity {
 
 ### 用table来生成主键
 
-	将当前主键的值单独保存到一个数据库的表中，主键的值每次都是从指定的表中查询后经过一定的算法后来获得。
-	
-	这种方法生成主键的策略可以适用于任何数据库，不必担心不同数据库兼容造成的问题。	
+将当前主键的值单独保存到一个数据库的表中，主键的值每次都是从指定的表中查询后经过一定的算法后来获得。
+
+这种方法生成主键的策略可以适用于任何数据库，不必担心不同数据库兼容造成的问题。	
 
 ![用table来生成主键](/photo\用table来生成主键.bmp)
 
 ![用table来生成主键1](/photo\用table来生成主键1.bmp)
 
-	通过pkColumnName和pkColumnValue确定ID表中的一行，再通过valueColumnName确定主键列。随即每次实体表	生成主键时都会查询该ID表中的主键列，再通过一定的算法后插入到实体表的主键列，而ID表中主键列也会自增长。	
+​	通过pkColumnName和pkColumnValue确定ID表中的一行，再通过valueColumnName确定主键列。随即每次实体表生成主键时都会查询该ID表中的主键列，再通过一定的算法后插入到实体表的主键列，而ID表中主键列也会自增长。	
 
 
 
 ### @Column
 
-	该实体的属性与其映射的数据库的列不同名时需要使用该注解。该属性通常置于实体的属性声明语句之前，还可与@Id注解一起使用。
+​	该实体的属性与其映射的数据库的列不同名时需要使用该注解。该属性通常置于实体的属性声明语句之前，还可与@Id注解一起使用。
 
 [^name]: 设置映射数据库表的列名
 [^unique]: 设置该字段是否唯一
@@ -284,7 +284,7 @@ public class ClazzEntity {
 
 ### @Basic
 
-	用于设置一个简单的属性到数据库表的字段的映射，对于没有任何标注的getXxx()方法，默认即为@Basic
+​	用于设置一个简单的属性到数据库表的字段的映射，对于没有任何标注的getXxx()方法，默认即为@Basic
 
 [^fetch]: 设置该属性的读取策略，由eager和lazy两种，分别表示饥渴加载和懒加载，默认为eager。
 [^optional]: 设置该属性是否允许为null，默认为true。
@@ -293,14 +293,14 @@ public class ClazzEntity {
 
 ### @Transient
 
-表示该属性并非一个到数据库表的字段的映射，ORM框架将会忽略该属性。
+​	表示该属性并非一个到数据库表的字段的映射，ORM框架将会忽略该属性。
 
 
-	
+​	
 
 ### @Temporal
 
-	在核心的	Java API中并没有定义Date类型的精度，而在数据库中，表示Date类型的数据由DATE、TIME、TIMESTAMP三种精度。在进行时间属性映射时可使用@Temporal注解来调整精度。
+​	在核心的	Java API中并没有定义Date类型的精度，而在数据库中，表示Date类型的数据由DATE、TIME、TIMESTAMP三种精度。在进行时间属性映射时可使用@Temporal注解来调整精度。
 
 
 
@@ -347,7 +347,7 @@ referencedColunName="对方类与外键对应的主键字段名")
 
 ###EntityManagerFactory
 
-	主要用来创建EntityManager实例
+​	主要用来创建EntityManager实例
 
 [^createEntityManager()]: 创建实体管理器对象实例
 [^createEntityManager（Map map）]: 创建实体管理器对象实例，Map参数提供EntityManager的属性
@@ -358,7 +358,7 @@ referencedColunName="对方类与外键对应的主键字段名")
 
 ###EntityManager
 
-	再JPA规范中，EntityManager是完成持久化操作的核心对象。实体作为普通Java对象，只有在调用EntityManager将其持久化后才会变成持久化对象。EntityManager对象在一组实体类与底层数据源之间进行O/R映射的管理。它可以用来管理和更新EntityBean，根据主键查找Entity Bean，还可以通过JPQL语句查询实体。
+​	再JPA规范中，EntityManager是完成持久化操作的核心对象。实体作为普通Java对象，只有在调用EntityManager将其持久化后才会变成持久化对象。EntityManager对象在一组实体类与底层数据源之间进行O/R映射的管理。它可以用来管理和更新EntityBean，根据主键查找Entity Bean，还可以通过JPQL语句查询实体。
 
 - 实体的状态：
   1. **新建状态**：新创建的对象，尚未拥有持久性主键且并未与持久化建立上下文环境，可看作一个普通的Entity Bean实体，对该对象进行变化再提交不会影响到底层数据库数据。
@@ -456,7 +456,7 @@ referencedColunName="对方类与外键对应的主键字段名")
 
 ###EntityTransaction
 
-	用来管理资源层实体管理器的事务操作。
+​	用来管理资源层实体管理器的事务操作。
 
 [^begin()]: 用于启动一个事务，此后的多个数据库操作将作为整体被提交或撤消。若这时事务已启动则会抛出 IllegalStateException 异常。
 
@@ -642,9 +642,9 @@ public class OrderEntity {//Many端
 }
 ```
 
-	同理使用@OneToMany注解让单表维护关联关系，但不同的是，@JoinColumn注解是指定多表的外键列，而不是添加列。
-	
-	且在对所有关系表进行persist时，都会存在对多表进行update。
+​	同理使用@OneToMany注解让单表维护关联关系，但不同的是，@JoinColumn注解是指定多表的外键列，而不是添加列。
+
+​	且在对所有关系表进行persist时，都会存在对多表进行update。
 
 
 
@@ -719,7 +719,7 @@ public class OrderEntity {
 }
 ```
 
-	若两端同时维护关联关系的话，在对新建对象进行persiste时可能会出现的情况。
+​	若两端同时维护关联关系的话，在对新建对象进行persiste时可能会出现的情况。
 
 - **先persiste单表对象**
 
@@ -812,7 +812,7 @@ public class OrderEntity {
 
 ### 双向一对一
 
-	基于外键的 1-1 关联关系：在双向的一对一关联中，需要在关系被维护端中的 @OneToOne 注释中指定 mappedBy，以指定是这一关联中的被维护端。同时需要在关系维护端使用@JoinColumn建立外键列指向关系被维护端的主键列。
+​	基于外键的 1-1 关联关系：在双向的一对一关联中，需要在关系被维护端中的 @OneToOne 注释中指定 mappedBy，以指定是这一关联中的被维护端。同时需要在关系维护端使用@JoinColumn建立外键列指向关系被维护端的主键列。
 
 **维持关联关系一方**
 
@@ -908,7 +908,7 @@ public class ManagerEntity {
 
 ### 双向多对多
 
-	在双向多对多关系中，我们必须指定一个关系维护端,可以通过 @ManyToMany注释中指定mappedBy属性来标识其为关系维护端。	
+​	在双向多对多关系中，我们必须指定一个关系维护端,可以通过 @ManyToMany注释中指定mappedBy属性来标识其为关系维护端。	
 
 **维持关联关系对象**
 
@@ -1008,11 +1008,11 @@ public class ItemEntity {
 
 ### 介绍
 
-	在JPA中，EntityManager会对每次查询都保存在一级缓存，那么当查询数据时，首先会从一级缓存中查询是否存在，如果不存在再其访问数据库去拉去数据。
-	
-	而当关闭EntityManager时就会清空所有一级缓存数据，故会重新访问数据库拉去数据。
-	
-	所以二级缓存的存在就是为了跨EntityManager，将所有查询数据的生命周期同步到应用程序的生命周期，伴随程序的终结而终结，即便EntityManager关闭了，仍能再从二级缓存中去获取到数据。
+​	在JPA中，EntityManager会对每次查询都保存在一级缓存，那么当查询数据时，首先会从一级缓存中查询是否存在，如果不存在再其访问数据库去拉去数据。
+
+​	而当关闭EntityManager时就会清空所有一级缓存数据，故会重新访问数据库拉去数据。
+
+​	所以二级缓存的存在就是为了跨EntityManager，将所有查询数据的生命周期同步到应用程序的生命周期，伴随程序的终结而终结，即便EntityManager关闭了，仍能再从二级缓存中去获取到数据。
 
 ### 使用
 
@@ -1061,15 +1061,15 @@ public class ItemEntity {
 
 ### 介绍
 
-	JPQL语言，即 Java Persistence Query Language 的简称。JPQL 是一种和 SQL 非常类似的中间性和对象化查询语言，它最终会被编译成针对不同底层数据库的 SQL 查询，从而屏蔽不同数据库的差异。
-	
-	JPQL语言的语句可以是 select 语句、update 语句或delete语句，它们都通过 Query 接口封装执行。
+​	JPQL语言，即 Java Persistence Query Language 的简称。JPQL 是一种和 SQL 非常类似的中间性和对象化查询语言，它最终会被编译成针对不同底层数据库的 SQL 查询，从而屏蔽不同数据库的差异。
+
+​	JPQL语言的语句可以是 select 语句、update 语句或delete语句，它们都通过 Query 接口封装执行。
 
 
 
 ### Hibernate的SQL语法与原生的SQL语法区别
 
-	由于Hibernate是面向对象操作底层数据，所以再SQL语法上也是基于对象属性，再有些地方与原生的SQL有些许区别。
+​	由于Hibernate是面向对象操作底层数据，所以再SQL语法上也是基于对象属性，再有些地方与原生的SQL有些许区别。
 
 1. 查询所有实体属性，如：
 
@@ -1106,7 +1106,7 @@ public class ItemEntity {
 
 ### API
 
-	Query接口封装了执行数据库查询的相关方法。调用EntityManager的createQuery、createNamedQuery及createNativeQuery方法可以获得查询对象，进而可调用Query接口的相关方法来执行查询操作。	
+​	Query接口封装了执行数据库查询的相关方法。调用EntityManager的createQuery、createNamedQuery及createNativeQuery方法可以获得查询对象，进而可调用Query接口的相关方法来执行查询操作。	
 
 > 创建Query对象
 
@@ -1196,9 +1196,9 @@ public class ItemEntity {
 
 # 整合Spring
 
-	在MyBatis中整合Spring的过程是把SqlSessionFactory交由Spring管理，并且MyBatis也不设置数据源，让Spring创建SqlSession并导入数据源。
-	
-	同理，在JPA整合Spring中，实际就是将EntityManagerFactory交由Spring管理，当程序需要EntityManager时，让Spring管理的EntityManagerFactory去创建EntityManage。
+​	在MyBatis中整合Spring的过程是把SqlSessionFactory交由Spring管理，并且MyBatis也不设置数据源，让Spring创建SqlSession并导入数据源。
+
+​	同理，在JPA整合Spring中，实际就是将EntityManagerFactory交由Spring管理，当程序需要EntityManager时，让Spring管理的EntityManagerFactory去创建EntityManage。
 
 ### 使用步骤
 

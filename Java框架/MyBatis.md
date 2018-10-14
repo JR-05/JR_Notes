@@ -1,18 +1,18 @@
 #  介绍
 
-	MyBatis是一个优秀的基于Java的持久层框架，它内部封装了JDBC，使开发者只需要关注SQL语句本身，而不用在花费精力去处理诸如注册驱动，创建Connection，配置Statement等过程。
-	
-	MyBatis通过xml或注解的方式将要执行的各种statement（statement，preparedStatement）配置起来，并通过Java对象和Statement中的SQL的动态参数进行映射生成最终执行的SQL语句，最后有MyBatis框架执行SQL并将结果映射成Java对象并返回
+​	MyBatis是一个优秀的基于Java的持久层框架，它内部封装了JDBC，使开发者只需要关注SQL语句本身，而不用在花费精力去处理诸如注册驱动，创建Connection，配置Statement等过程。
+
+​	MyBatis通过xml或注解的方式将要执行的各种statement（statement，preparedStatement）配置起来，并通过Java对象和Statement中的SQL的动态参数进行映射生成最终执行的SQL语句，最后有MyBatis框架执行SQL并将结果映射成Java对象并返回
 
 
 
 ### 与Hibernate的对比
 
-	Hibernate框架是提供了全面的数据库封装机制的”全自动“ORM，即实现了POJO和数据库表之间的映射，以及SQL的自动生成和执行
-	
-	相对于此，MyBatis只能算是”半自动“ORM。其着力点，实在POJO类，与SQL语句之间的映射关系。也就是说，MyBatis并不会为程序员自动生成SQL语句，具体的SQL语句需要程序员自己编写，然后通过SQL语句映射文件，将SQL所需的参数，以及返回的结果字段映射到只当的POJO。因此，MyBatis成为了”全自动“ORM的一种有益补充
-	
-	与Hibernate相比，MyBatis具有以下几个特点
+​	Hibernate框架是提供了全面的数据库封装机制的”全自动“ORM，即实现了POJO和数据库表之间的映射，以及SQL的自动生成和执行
+
+​	相对于此，MyBatis只能算是”半自动“ORM。其着力点，实在POJO类，与SQL语句之间的映射关系。也就是说，MyBatis并不会为程序员自动生成SQL语句，具体的SQL语句需要程序员自己编写，然后通过SQL语句映射文件，将SQL所需的参数，以及返回的结果字段映射到只当的POJO。因此，MyBatis成为了”全自动“ORM的一种有益补充
+
+与Hibernate相比，MyBatis具有以下几个特点	
 
 （1）在XML文件中配置SQL语句，实现了SQL语句与代码的分离，给程序员的维护带来了很大的遍历
 
@@ -74,7 +74,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 </mapper> 
 ```
 
-[^namespace]: 由于一条sql语句的id可能会出现一样的情况，所以可通过命名空间名更加精确到该条sql语句。一般情况下，一个mapper.xml文件中写的所有sql语句，只对应一张表的操作。所以命名空间名一般对应该bean类的类名
+[^namespace]: 由于一条sql语句的id可能会出现一样的情况，所以可通过命名空间名更加精确到该条sql语句。一般情况下，一个mapper.xml文件中写的所有sql语句，只对应一张表的操作。所以命名空间名一般对应该bean类的全路径类名
 [^id]: 在dao中可通过MyBatis提供的API，根据指定ID操作数据库指令
 [^parameterType]: 对应封装了数据库表字段的信息对象
 [^成员变量名]: 通过反射，将信息对象中的成员变量值映射到对应字段
@@ -82,7 +82,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 5. **创建配置文件（config.xml）**
 6. **配置连接参数和注册mapper.xml文件**
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -131,15 +131,15 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 **什么是连接池技术**
 
-	通常WEB应用在进行数据库连接时，往往数据库并不是跟WEB应用在同一个服务器，所以每次在进行数据库连接操作是，都是一个相当消耗资源的操作。
-	
-	所以连接池技术是一个将连接数据库的所有对象保存在WEB服务器缓存中，下次要想再次连接数据库就不需要重新连接数据库，而是直接拿到该连接对象进行数据库操作，从而节省了耗费的时间。
+​	通常WEB应用在进行数据库连接时，往往数据库并不是跟WEB应用在同一个服务器，所以每次在进行数据库连接操作是，都是一个相当消耗资源的操作。
+
+​	所以连接池技术是一个将连接数据库的所有对象保存在WEB服务器缓存中，下次要想再次连接数据库就不需要重新连接数据库，而是直接拿到该连接对象进行数据库操作，从而节省了耗费的时间。
 
 7. **添加log4j日志框架**
 
 如果需要查看到MyBatis对数据进行的操作的日志的话，需要添加log4j的jar包，否则查看不到任何操作的信息
 
-```
+```xml
 <dependency>
 	<groupId>log4j</groupId>
 	<artifactId>log4j</artifactId>
@@ -228,7 +228,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 1. 创建SQL映射文件
 
-   ```
+   ```hxml
    <?xml version="1.0" encoding="UTF-8" ?>
    <!DOCTYPE mapper
            PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -240,7 +240,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 2. 创建SQL映射语句
 
-   ```
+   ```xml
    <insert id="">
    	insert into Student(name,age) values(#{},#{});
    </insert>
@@ -248,7 +248,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 3. 创建MyBatis配置文件
 
-   ```
+   ```xml
    <?xml version="1.0" encoding="UTF-8" ?>
    <!DOCTYPE configuration
            PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -260,7 +260,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 4. 配置环境和注册SQL映射文件
 
-   ```
+   ```xml
        <!--添加配置参数信息-->
        <properties resource="properties/jdbc_mysql">
            <!--<property name="jdbc.mysql.drive" value="com.mysql.jdbc.Driver"></property>-->
@@ -296,13 +296,13 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 5. 初始化载入log4j配置文件
 
-   ```
+   ```java
         PropertyConfigurator.configure("src/main/java/resources/properties/log4j");
    ```
 
 6. 获取SqlSession对象
 
-   ```
+   ```java
        public static SqlSession getSqlSession() {
            if (sqlSession == null) {
                synchronized (SqlSessionUtil.class) {
@@ -327,7 +327,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 > 在进行数据库操作时，携带的参数或者产生的数据有时需要封装成对象，那么\<resultMap/>就是将数据封装成映射对象的标签
 
-```
+```xml
 <resultMap id="resultMapID" type="对象类型">
 	<id column="id" property="id" javaType="int" jdbcType="INTEGER"></id>
 	<result column="name" property="name" javaType="String" jdbcType="CHAR"></result>
@@ -346,7 +346,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 >  有时不希望将参数封装成对象类型，而是直接将参数封装成Map集合，那么可以通过parameterMap自定义参数映射关系
 
-```
+```xml
 <parameterMap id="studentMap" type="java.util.Map">
 <!--property:对应在上面封装数据映射的property   ;   resultMap:映射数据对象的id-->
 <parameter property="name" resultMap="map"></parameter>
@@ -368,7 +368,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 **\<insert/>标签**
 
-```
+```xml
 <insert id="" parameterType="">
     insert into Student(name,age) values(#{},#{});
 </insert>
@@ -383,7 +383,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 **SQL映射文件**
 
-```
+```xml
 <insert id="insert_bean" parameterType="com.jr.exmaple.bean.Student">
     insert into Student(name,age) values(#{name},#{age});
 </insert>
@@ -393,7 +393,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 **接口实现方法**
 
-```
+```java
     @Override
     public void insert_bean(Student student) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -413,7 +413,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 **SQL映射文件**
 
-```
+```xml
 <insert id="insert_map" parameterType="java.util.Map">
 	insert into Student(name,age) values(#{name},#{age});
 </insert>
@@ -425,7 +425,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 **接口实现方法**
 
-```
+```java
     @Override
     public void insert_map(Map studentMap) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -443,7 +443,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 **SQL映射文件**
 
-```
+```xml
 <insert id="inser_array" >
     insert into Student(name,age) values(#{array[0]},#{array[1]});
 </insert>
@@ -455,7 +455,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 **接口实现方法**
 
-```
+```java
     @Override
     public void insert_array(String[] data) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -471,11 +471,11 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 
 >  获取到Mysql分配的id字段值
 
-	有时候添加一条字段数据是不需要自定该字段的ID，而是由数据库系统自动生成。那么在添加数据到数据库之后想要获取到获取到该ID并封装到之前的Bean对象的话。可通过\<selectKey/>标签实现
+​	有时候添加一条字段数据是不需要自定该字段的ID，而是由数据库系统自动生成。那么在添加数据到数据库之后想要获取到获取到该ID并封装到之前的Bean对象的话。可通过\<selectKey/>标签实现
 
 **SQL映射文件**
 
-```
+```xml
 <insert id="insert_get_id" parameterType="Student">
 	insert into Student(name,age) values(#{name},#{age});
 	<selectKey resultType="int" keyProperty="id" order="AFTER">
@@ -488,7 +488,7 @@ MyBatis通过反射将实体类中的成员变量中的值映射到对应的SQL�
 [^keyProperty]: 映射到封装对象的成员变量名
 [^order]: 生成id时在插入数据之前还是之后，不同数据库系统不一样
 
-```
+```xml
 insert into student(name,age) value('SB',18);
 select @@identity;
 ```
@@ -499,7 +499,7 @@ select @@identity;
 
 **接口实现方法**
 
-```
+```java
     @Override
     public void inser_get_id(Student student) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -523,7 +523,7 @@ select @@identity;
 
 **\<delete/>标签**
 
-```
+```xml
 <delete id="" parameterType="">
         delete from Student where id=#{};
 </delete>
@@ -538,7 +538,7 @@ select @@identity;
 
 **SQL映射文件**
 
-```
+```xml
 <delete id="deleteByID" parameterType="int">
 	delete from Student where id=#{id};
 </delete>
@@ -550,7 +550,7 @@ select @@identity;
 
 **接口实现方法**
 
-```
+```java
     @Override
     public void deleteByid(int id) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -570,7 +570,7 @@ select @@identity;
 
 **SQL映射文件**
 
-```
+```xml
 <delete id="deleteByBean" parameterType="Student">
     delete from Student where id=#{id}
 </delete>
@@ -582,7 +582,7 @@ select @@identity;
 
 **接口实现方法**
 
-```
+```java
     @Override
     public void deleteByBean(Student student) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -608,7 +608,7 @@ select @@identity;
 
 **SQL映射文件**
 
-```
+```xml
 <update id="updataByBean" parameterType="Student">
     update Student SET name=#{name},age=#{age} where id=#{id};
 </update>
@@ -620,7 +620,7 @@ select @@identity;
 
 **接口实现方法**
 
-```
+```java
     @Override
     public void updata(Student student) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -642,7 +642,7 @@ select @@identity;
 
 **\<select/>标签**
 
-```
+```xml
 <select id="selectStudentByArgs" resultType="Student" >
 	select * from student where id=#{0};
 </select>
@@ -657,7 +657,7 @@ select @@identity;
 
 **SQL映射文件**
 
-```
+```xml
 <select id="selectAllStudentList" resultType="Student">
 	select * from student
 </select>
@@ -665,7 +665,7 @@ select @@identity;
 
 **接口实现方法**
 
-```
+```java
     @Override
     public List<Student> selectAllStudentList() {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -688,7 +688,7 @@ select @@identity;
 
 **SQL映射文件**
 
-```
+```xml
 <select id="selectAllStudentMap" resultType="Student">
 	select * from student
 </select>
@@ -698,7 +698,7 @@ select @@identity;
 
 **接口实现方法**
 
-```
+```java
     @Override
     public Map<Object, Student> selectAllStudentMap() {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -719,7 +719,7 @@ select @@identity;
 
 **SQL映射文件**
 
-```
+```java
 <select id="selectStudentByMap" parameterType="java.util.Map" resultType="Student">
 	select * from student where id=#{id} and age >#{age};
 </select>
@@ -731,7 +731,7 @@ select @@identity;
 
 **接口实现方法**
 
-```
+```java
     @Override
     public List<Student> selectStudentByMap(Map studentMap) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -775,7 +775,7 @@ select @@identity;
 
 3. 再注解式开发中的多个方法参数：在方法参数中使用@Param("key"),后通过#{key}获取方法参数值
 
-   ```
+   ```java
        @Delete("delete from student where id=#{myId}")
        void delete(@Param("myId") int id);
    ```
@@ -788,23 +788,23 @@ select @@identity;
 
 ### 数据查询和提交到数据库乱码问题
 
-	有时候数据查询的结果与数据库内的不一致，或者数据提交到数据库也可能出现乱码不一致的现象。
-	
-	如果出现乱码的现象，解决方法是在连接数据库的url上添加参数，如：
+​	有时候数据查询的结果与数据库内的不一致，或者数据提交到数据库也可能出现乱码不一致的现象。
 
-```
+​	如果出现乱码的现象，解决方法是在连接数据库的url上添加参数，如：	
+
+```xml
 jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 ```
 
 
 
-	
+​	
 
 # Mapper代理
 
 ### 前言
 
-```
+```java
     @Override
     public void insert_bean(Student student) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -814,7 +814,7 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
     }
 ```
 
-我们观察到，dao的接口实现类并没有实际实现了什么方法，都是MyBatis实现了数据操作的方法
+​	我们观察到，dao的接口实现类并没有实际实现了什么方法，都是MyBatis实现了数据操作的方法。
 
 所以，MyBatis想到或许自己可以直接创建接口实现类。这就是通过Mapper动态代理生成接口实现对象。
 
@@ -822,7 +822,7 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
 1. SQL映射文件中的namespace属性必须是实现接口的完整路径
 
-```
+```xml
 <mapper namespace="com.jr.exmaple.dao.IStudentDao">
 </mapper>
 ```
@@ -833,7 +833,7 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
 **接口实现方法**
 
-```
+```java
     @Override
     public List<Student> selectStudentByMap(Map studentMap) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -846,7 +846,7 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
 **SQL映射文件**
 
-```
+```xml
 <select id="selectStudentByMap" parameterType="java.util.Map" resultType="Student">
 	select * from student where id=#{id} and age >#{age};
 </select>
@@ -856,7 +856,7 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
 ### 原理
 
-	底层通过动态代理然后通过指定class文件反射生成实例对象并，根据id中的方法名，在通过方法获取接口中的方法并实现该方法。
+​	底层通过动态代理然后通过指定class文件反射生成实例对象并，根据id中的方法名，在通过方法获取接口中的方法并实现该方法。
 
 
 
@@ -864,15 +864,15 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
 ### 前言
 
-	动态SQL，主要用于解决查询条件不确定的情况。在程序运行期间，根据用户提交的查询条件进行查询。提交的查询条件不同，执行的SQL语句不同。若将每种可能的情况均逐一列出，将所有条件进行排列组合，将会出现大量的SQL语句。此时，可使用动态SQL来解决这样的问题。
-	
-	动态SQL，即通过MyBatis提供的各种标签对条件做出判断以实现动态拼接SQL语句。
+​	动态SQL，主要用于解决查询条件不确定的情况。在程序运行期间，根据用户提交的查询条件进行查询。提交的查询条件不同，执行的SQL语句不同。若将每种可能的情况均逐一列出，将所有条件进行排列组合，将会出现大量的SQL语句。此时，可使用动态SQL来解决这样的问题。
+
+​	动态SQL，即通过MyBatis提供的各种标签对条件做出判断以实现动态拼接SQL语句。
 
 ![动态SQL](photo\动态SQL.bmp)
 
 ### if
 
-	判断传入参数的条件，若不为空的等条件下拼接SQL条件语句。
+判断传入参数的条件，若不为空的等条件下拼接SQL条件语句。
 
 ```
     <select id="selectStudentByMap" resultType="Student">
@@ -895,11 +895,11 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
 ### where
 
-	在单独使用\<if/>动态SQL标签时，会存在一个问题。假如上面参数传入时，id为null的情况下，则where条件判断语句直接拼接成**where and Student.name like '%' #{name} '%' ** ，这样的SQL语句无疑时错误的。
-	
-	所以，\<where/>动态SQL标签也就解决了这个问题
+​	在单独使用\<if/>动态SQL标签时，会存在一个问题。假如上面参数传入时，id为null的情况下，则where条件判断语句直接拼接成**where and Student.name like '%' #{name} '%' ** ，这样的SQL语句无疑时错误的。
 
-```
+​	所以，\<where/>动态SQL标签也就解决了这个问题
+
+```xml
     <select id="selectStudentByWhere" resultType="Student" parameterType="Student">
         SELECT * from Student
         <where>
@@ -916,15 +916,15 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
     </select>
 ```
 
-	在不满足条件时，如果直接拼接**and**条件语句，那么\<where/>动态标签会自动将**and**去除，
+​	此时where标签的作用就是在不满足条件时，如果直接拼接**and**条件语句，那么\<where/>动态标签会自动将**and**去除。
 
 
 
 ### choose
 
-	对于\<choose/>标签，其会从第一个\<when/>开始逐个向后进行条件判断。若出现\<when/>中的test属性为true的情况下，则直接结果\<choose/>标签，不再向后进行判断查找，若所有\<when/>的test判断结果均为false，则最后会执行\<otherwise/>标签
+​	对于\<choose/>标签，其会从第一个\<when/>开始逐个向后进行条件判断。若出现\<when/>中的test属性为true的情况下，则直接结果\<choose/>标签，不再向后进行判断查找，若所有\<when/>的test判断结果均为false，则最后会执行\<otherwise/>标签
 
-```
+```xml
     <select id="selectStudentByChoose" resultType="Student" parameterType="Student">
         SELECT * from Student
         <where>
@@ -949,11 +949,11 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
 ### foreach	
 
-	有一种情形，就是查询在该id范围集合内的数据，也就是id in （？，？）这种SQL语句拼接情况。
+​	有一种情形，就是查询在该id范围集合内的数据，也就是id in （？，？）这种SQL语句拼接情况。
 
-那么\<foreach/>标签也就能满足该拼接条件
+​	那么\<foreach/>标签也就能满足该拼接条件
 
-```
+```xml
 <select id="selectStudentByForeach" resultType="Student" parameterType="java.util.List">
     SELECT * from Student
     <where>
@@ -984,9 +984,9 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
 ### Set
 
-	MyBatis在生成update语句时若使用if标签，如果前面的if没有执行，则可能导致有多余逗号的错误。 如：
+​	MyBatis在生成update语句时若使用if标签，如果前面的if没有执行，则可能导致有多余逗号的错误。 如：
 
-```
+```xml
 
 <update <upda id="updateByPrimaryKeySelective" parameterType="RecruitmentConfBanner">
         UPDATE conf_banner 
@@ -1001,9 +1001,9 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 </update>
 ```
 
-	**使用set标签可以将动态的配置SET 关键字，和剔除追加到条件末尾的任何不相关的逗号** 
+**使用set标签可以将动态的配置SET 关键字，和剔除追加到条件末尾的任何不相关的逗号** 
 
-```
+```xml
 
 <update <upda id="updateByPrimaryKeySelective" parameterType="RecruitmentConfBanner">
         UPDATE conf_banner 
@@ -1023,7 +1023,7 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
 ### trim
 
-	trim元素的主要功能是:
+trim元素的主要功能是:
 
  1. 在自己包含的内容前加上某些前缀。与之对应的属性是prefix
 
@@ -1035,7 +1035,7 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
     正因为trim有这样的功能，所以我们也可以非常简单的利用trim来代替where元素等其它标签元素的功能。如：
 
-```
+```xml
 <select id="selectUsersTrim" resultMap="resultListUsers" parameterType="Users">
       select * from users
       <trim prefix="where" prefixOverrides="and">
@@ -1051,13 +1051,13 @@ jdbc:mysql://localhost:3306/数据库名？useUicode=true&characterEncoding=utf8
 
 **执行SQL语句**
 
-```
+```sql
 select *  from users where name=xxx and address=xxx;
 ```
 
 或
 
-```
+```sql
 select *  from users where address=xxx;
 ```
 
@@ -1069,7 +1069,7 @@ prefixOverrides设置定义拼接的SQL语句内容的省略and前缀
 
 ### 注意事项
 
-	在mappre的动态SQL中若出现大于号（>）、小于号（<）、大于等于号（>=）、小于等于号（<=）、最好将其转换成事宜符号。否则，xml可能出现解析出错问题。
+​	在mappre的动态SQL中若出现大于号（>）、小于号（<）、大于等于号（>=）、小于等于号（<=）、最好将其转换成事宜符号。否则，xml可能出现解析出错问题。
 
 特别是对于小于号（<），在XML中是绝对不能出现的。否则，一定出现错误。
 
@@ -1081,7 +1081,7 @@ prefixOverrides设置定义拼接的SQL语句内容的省略and前缀
 
 ### 前言
 
-	当査询内容涉及到具有关联关系的多个表时.就浠要使用关联査询< 根据表与表间的关 联关系的不同，关联査询分为四种： 
+​	当査询内容涉及到具有关联关系的多个表时.就浠要使用关联査询< 根据表与表间的关 联关系的不同，关联査询分为四种： 
 
 (1) —对一关联査询 
 
@@ -1091,15 +1091,15 @@ prefixOverrides设置定义拼接的SQL语句内容的省略and前缀
 
 (4) 多对多关联査询 由子日常工作中最常见的关联关系是一对多、多对一与多对多，所以这里就不专门至讲解一对一关联査询了，其解决方案与多对一解决方案是相同的。
 
-	
+​	
 
 ### 一对多
 
 #### 介绍
 
-	这里的一对多关联查询是指，在查询一方对象的时候，同时将其所关联的多方对象也都查询出来。
-	
-	这里以国家Cuntry与部长Minister间的一对多关系进行演示。
+​	这里的一对多关联查询是指，在查询一方对象的时候，同时将其所关联的多方对象也都查询出来。
+
+​	这里以国家Cuntry与部长Minister间的一对多关系进行演示。
 
 #### 定义实体
 
@@ -1115,7 +1115,7 @@ prefixOverrides设置定义拼接的SQL语句内容的省略and前缀
 
 #### 定义Dao层接口
 
-```
+```java
 public interface ICuntryDao {
     void insertCuntry(Cuntry cuntry);
 
@@ -1132,7 +1132,7 @@ public interface ICuntryDao {
 
 #### 定义测试类
 
-```
+```java
 public class Associsational {
     SqlSession sqlSession;
     ICuntryDao iCuntryDao;
@@ -1176,9 +1176,9 @@ public class Associsational {
 
 >  多表连接查询方式
 
-	多表连接查询方式是将多张表进行连接，连为一张表后进行查询。其查询的本事一张表。
+​	多表连接查询方式是将多张表进行连接，连为一张表后进行查询。其查询的本事一张表。
 
-```
+```xml
     <resultMap id="cuntry1" type="Cuntry">
         <id column="cid" property="cId"/>
         <result column="cname" property="cName"/>
@@ -1218,9 +1218,9 @@ public class Associsational {
 
 #### 介绍
 
-	多对一关联查询是指，在查询多方对象的时候，同时将其所关联的一方对象也查询出来
-	
-	由于在查询多方对象是也是一个一个查询，所以多对一关联查询，其实也就是一对一关联查询。**即一对一关联查询的实现方式与多对一方式是相同的**
+​	多对一关联查询是指，在查询多方对象的时候，同时将其所关联的一方对象也查询出来
+
+​	由于在查询多方对象是也是一个一个查询，所以多对一关联查询，其实也就是一对一关联查询。**即一对一关联查询的实现方式与多对一方式是相同的**
 
 #### 定义实体
 
@@ -1238,7 +1238,7 @@ public class Associsational {
 
 
 
-```
+```java
 public interface IMinistorDao {
     void insert_minister(Minister ministor);
 
@@ -1254,7 +1254,7 @@ public interface IMinistorDao {
 
 #### 定义测试类
 
-```
+```java
 
 public class Associsational {
     SqlSession sqlSession;
@@ -1307,7 +1307,7 @@ public class Associsational {
 
 > 多表连接查询方式
 
-```
+```xml
     <resultMap id="minister1" type="Minister">
         <id column="mid" property="mId"></id>
         <result column="mname" property="mName"></result>
@@ -1343,7 +1343,7 @@ public class Associsational {
 
 #### 介绍
 
-	什么是多对多关联关系？一个学生可以选多门课程，而一门课程可以由多个学生选。这就是典型的多对多关联关系。多以，所谓多对多关系，其实是由两个互反的一对多关系组成。一般情况下，多对多关系都会通过一个中间表来建立。例如选课表。
+​	什么是多对多关联关系？一个学生可以选多门课程，而一门课程可以由多个学生选。这就是典型的多对多关联关系。多以，所谓多对多关系，其实是由两个互反的一对多关系组成。一般情况下，多对多关系都会通过一个中间表来建立。例如选课表。
 
 #### 定义实体
 
@@ -1359,7 +1359,7 @@ public class Associsational {
 
 #### 定义Dao层接口
 
-```
+```java
 public interface IStudentDao {
     //多对多关联连接查询
     List<Student> selectStudentAndCourse1(int id);
@@ -1369,7 +1369,7 @@ public interface IStudentDao {
 
 #### 定义测试类
 
-```
+```java
     @Test
     public void selectStudentAndCourse() {
         List<Student> students = studentDao.selectStudentAndCourse1(1);
@@ -1385,7 +1385,7 @@ public interface IStudentDao {
 
 #### 定义映射文件
 
-```
+```xml
 <resultMap id="StudentMapper" type="Student">
     <id column="id" property="id"></id>
     <result column="name" property="name"></result>
@@ -1415,11 +1415,11 @@ public interface IStudentDao {
 
 ### 前言
 
-	MyBatis中的延迟加载，也称为懒加载，是指在进行关联查询时，按照设置延迟规则推迟对关联对象的select查询。延迟加载可以有效的减少数据库压力。
-	
-	需要注意的时，MyBatis的延迟加载只是对关联对象的查询有迟延设置，对主加载对象都是直接执行查询语句的。
+​	MyBatis中的延迟加载，也称为懒加载，是指在进行关联查询时，按照设置延迟规则推迟对关联对象的select查询。延迟加载可以有效的减少数据库压力。
 
-MyBatis根据关联对象查询的select语句的执行时机，分为三种类型：**直接加载、侵入式延迟加载、与深度延迟加载**
+​	需要注意的时，MyBatis的延迟加载只是对关联对象的查询有迟延设置，对主加载对象都是直接执行查询语句的。
+
+​	MyBatis根据关联对象查询的select语句的执行时机，分为三种类型：**直接加载、侵入式延迟加载、与深度延迟加载**
 
 ### 测试环境
 
@@ -1427,7 +1427,7 @@ MyBatis根据关联对象查询的select语句的执行时机，分为三种类�
 
 #### 2.定义映射文件
 
-```
+```xml
   	关联查询
   	<select id="selectAllMinisterByCid" resultType="Minister">
         select mid,mname,cid
@@ -1452,7 +1452,7 @@ MyBatis根据关联对象查询的select语句的执行时机，分为三种类�
 
 #### 3.定义Dao层
 
-```
+```java
 public interface ICuntryDao {
     List<Cuntry> selectAllCountryTwoSelect();
 }
@@ -1465,13 +1465,13 @@ public interface ICuntryDao {
 
 #### 解释
 
-	执行完对主加载对象的select语句，马上执行对关联对象的select查询。
-	
-	若不开启延迟加载，默认采用直接加载查询
+​	执行完对主加载对象的select语句，马上执行对关联对象的select查询。
+
+​	若不开启延迟加载，默认采用直接加载查询
 
 如下面中的SQL查询语句。
 
-```
+```xml
     <resultMap id="minister1" type="Minister">
         <id column="mid" property="mId"></id>
         <result column="mname" property="mName"></result>
@@ -1487,11 +1487,11 @@ public interface ICuntryDao {
     </select>
 ```
 
-	可观察到查询语句中只有一条select语句，一次直接查询主加载对象和关联对象中的数据。
+​	可观察到查询语句中只有一条select语句，一次直接查询主加载对象和关联对象中的数据。
 
 **测试类**
 
-```
+```java
     @Test
     public void selectAllCountryTwoSelect() {
         List<Cuntry> cuntrys = iCuntryDao.selectAllCountryTwoSelect();
@@ -1500,7 +1500,7 @@ public interface ICuntryDao {
 
 **查询结构log**
 
-```
+```verilog
 15:10:18,554 DEBUG selectAllCountryTwoSelect:139 - ==>  Preparing: select cuntry.cid,cuntry.cname from cuntry 
 15:10:18,602 DEBUG selectAllCountryTwoSelect:139 - ==> Parameters: 
 15:10:18,628 DEBUG selectAllMinisterByCid:139 - ====>  Preparing: select mid,mname,cid from minister where cid =?; 
@@ -1523,11 +1523,11 @@ public interface ICuntryDao {
 
 #### 解释
 
-	执行完对主加载对象的查询时，不会执行对关联对象的查询，但当要访问主加载对象的详情时，就会马上执行关联对象的select查询。即对关联对象的查询执行，侵入到了主加载对象的详情访问中。也可以这样理解：将关联对象的详情侵入到了主加载对象的详情中，即将关联对象的详情作为主加载对象的详情的一部分出现了
+​	执行完对主加载对象的查询时，不会执行对关联对象的查询，但当要访问主加载对象的详情时，就会马上执行关联对象的select查询。即对关联对象的查询执行，侵入到了主加载对象的详情访问中。也可以这样理解：将关联对象的详情侵入到了主加载对象的详情中，即将关联对象的详情作为主加载对象的详情的一部分出现了
 
 **测试类**
 
-```
+```java
     @Test
     public void selectAllCountryTwoSelect() {
         List<Cuntry> cuntrys = iCuntryDao.selectAllCountryTwoSelect();
@@ -1536,7 +1536,7 @@ public interface ICuntryDao {
 
 **查询结构log**
 
-```
+```verilog
 15:12:30,088 DEBUG JdbcTransaction:98 - Setting autocommit to false on JDBC Connection [com.mysql.jdbc.JDBC4Connection@3234e239]
 15:12:30,091 DEBUG selectAllCountryTwoSelect:139 - ==>  Preparing: select cuntry.cid,cuntry.cname from cuntry 
 15:12:30,127 DEBUG selectAllCountryTwoSelect:139 - ==> Parameters: 
@@ -1549,7 +1549,7 @@ public interface ICuntryDao {
 
 **测试类**
 
-```
+```java
     @Test
     public void selectAllCountryTwoSelect() {
         List<Cuntry> cuntrys = iCuntryDao.selectAllCountryTwoSelect();
@@ -1559,7 +1559,7 @@ public interface ICuntryDao {
 
 **查询结果log**
 
-```
+```verilog
 15:15:59,383 DEBUG selectAllCountryTwoSelect:139 - ==>  Preparing: select cuntry.cid,cuntry.cname from cuntry 
 15:15:59,418 DEBUG selectAllCountryTwoSelect:139 - ==> Parameters: 
 15:15:59,539 DEBUG selectAllCountryTwoSelect:139 - <==      Total: 3
@@ -1577,11 +1577,11 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 #### 解释
 
-	执行对主加载对象的查询时，不会执行对关联对象的查询。访问主加载对象的详情时也不会执行关联对象的select查询。只有当真正访问关联对象的详情时，才会执行对关联对象的select查询。
+​	执行对主加载对象的查询时，不会执行对关联对象的查询。访问主加载对象的详情时也不会执行关联对象的select查询。只有当真正访问关联对象的详情时，才会执行对关联对象的select查询。
 
 **测试类**
 
-```
+```java
     @Test
     public void selectAllCountryTwoSelect() {
         List<Cuntry> cuntrys = iCuntryDao.selectAllCountryTwoSelect();
@@ -1591,7 +1591,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 **查询结果log**
 
-```
+```verilog
 15:23:48,699 DEBUG selectAllCountryTwoSelect:139 - ==>  Preparing: select cuntry.cid,cuntry.cname from cuntry 
 15:23:48,733 DEBUG selectAllCountryTwoSelect:139 - ==> Parameters: 
 15:23:48,833 DEBUG selectAllCountryTwoSelect:139 - <==      Total: 3
@@ -1604,7 +1604,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 **测试类**
 
-```
+```java
     @Test
     public void selectAllCountryTwoSelect() {
         List<Cuntry> cuntrys = iCuntryDao.selectAllCountryTwoSelect();
@@ -1614,7 +1614,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 **查询结果log**
 
-```
+```verilog
 15:25:41,499 DEBUG selectAllCountryTwoSelect:139 - ==>  Preparing: select cuntry.cid,cuntry.cname from cuntry 
 15:25:41,549 DEBUG selectAllCountryTwoSelect:139 - ==> Parameters: 
 15:25:41,678 DEBUG selectAllCountryTwoSelect:139 - <==      Total: 3
@@ -1631,15 +1631,15 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ### 注意
 
-	延迟加载的应用要求，关联对象的查询与主加载对象的查询必须是分别进行的select语句，不能是使用多表连接所进行的select 查询。因为，多表连接查询，其实质是对一张表的查询，对由多张表连接后形成的一张表的查询。会一次性将多张表的所有信息查询出来
-	
-	MyBatis中对延迟加载设置，可以应用到一对一、一对多、多对一、多对多的所有关系查询中
+​	延迟加载的应用要求，关联对象的查询与主加载对象的查询必须是分别进行的select语句，不能是使用多表连接所进行的select 查询。因为，多表连接查询，其实质是对一张表的查询，对由多张表连接后形成的一张表的查询。会一次性将多张表的所有信息查询出来
+
+​	MyBatis中对延迟加载设置，可以应用到一对一、一对多、多对一、多对多的所有关系查询中
 
 ### 应用
 
 1. 导入GBLIB动态代理框架
 
-```
+```xml
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
@@ -1649,7 +1649,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 2. 在MyBatis配置文件中的\<properties/>和\<typeAliases/>标签之间配置\<setting/>设置全局参数
 
-```
+```xml
 <configuration>
     <!--添加配置参数信息-->
     <properties resource="properties/jdbc_mysql">
@@ -1813,7 +1813,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ### 使用第三方缓存
 
-	MyBatis的特长时SQL操作，缓存数据管理不是其特长，为了提高缓存的性能，MyBatis允许使用第三方缓存产品。ehCache就是其中的一种，它是Hiberate旗下的一款二级缓存产品。
+​	MyBatis的特长时SQL操作，缓存数据管理不是其特长，为了提高缓存的性能，MyBatis允许使用第三方缓存产品。ehCache就是其中的一种，它是Hiberate旗下的一款二级缓存产品。
 
 #### 应用ehcache
 
@@ -1908,7 +1908,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ### 增
 
-```
+```java
     @Insert(value = "insert into Student(name,age) values(#{name},#{age})")
     @SelectKey(statement = "select @@identity", keyProperty = "id", before = false, resultType = Integer.class)
     void insert(Student student);
@@ -1918,7 +1918,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ### 删
 
-```
+```java
     @Delete("delete from student where id=#{id}")
     void delete(int id);
 ```
@@ -1929,7 +1929,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ### 改
 
-```
+```java
    @Update(value = "update student set name=#{name},age=#{age} where id=#{id}")
     void update(Student student);
 ```
@@ -1938,16 +1938,16 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 ### 查
 
-```
+```java
     @Select(value = "select * from student where id=#{id}")
     Student select(int id);
 ```
 
-                                                                                                                                                                                                                                                                                                                                        
+​                                                                                                                                                                                                                                                                                                                                        
 
 ### 注册注解Dao
 
-```
+```java
 <!-- mapping 文件路径配置 -->
 <mappers>
     <mapper class="com.jr.exmaple.dao.IStudentDao_Annotation"></mapper>
@@ -1958,17 +1958,23 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 
 
+# 添加日志打印
+
+https://blog.csdn.net/qq_33733799/article/details/79899929
+
+
+
 # 逆向工程
 
-	使用MyBatis最大的问题就是需要自己手动写Dao的接口，SQL的映射文件，和数据库对应的Bean类。
-	
-	有了MyBatis提供的逆向工厂后，这些将会通过该插件对应到数据库中的表结构自动生成。
+​	使用MyBatis最大的问题就是需要自己手动写Dao的接口，SQL的映射文件，和数据库对应的Bean类。
+
+​	有了MyBatis提供的逆向工厂后，这些将会通过该插件对应到数据库中的表结构自动生成。
 
 ### 使用步骤
 
 1. **配置Maven的配置文件**
 
-   ```
+   ```xml
    //添加逆向工厂插件
    <build>
      <finalName>zsxt</finalName>
@@ -1992,7 +1998,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
    需要注意的是，该配置文件需要放在resources资源目录下，并取名generaterConfiguration，否则执行该插件时会出现找不到文件错误。
 
-   ```
+   ```xml
    <?xml version="1.0" encoding="UTF-8"?>
    <!DOCTYPE generatorConfiguration
            PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
@@ -2092,7 +2098,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 1. **注册SQL映射文件**
 
-   ```
+   ```xml
        <mappers>
            <!--注册逆向工厂产生的映射文件-->
            <mapper resource="dao/StudentMapper.xml"></mapper>
@@ -2105,11 +2111,11 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
    > **Selective**
 
-   	在insert和update的操作中都有出现Selective后缀的方法，该方法的区别在于拼接SQL语句的时候，会对实体类中的每个属性值进行判断是否为null(这也就是为什么逆向工程的实体类中的变量类型是每种基本数据类型对应的包装对象的原因)，如果为null的话该属性对应的字段将不拼接到SQL语句当中。如：
+   ​	在insert和update的操作中都有出现Selective后缀的方法，该方法的区别在于拼接SQL语句的时候，会对实体类中的每个属性值进行判断是否为null(这也就是为什么逆向工程的实体类中的变量类型是每种基本数据类型对应的包装对象的原因)，如果为null的话该属性对应的字段将不拼接到SQL语句当中。如：
 
    **updateByPrimaryKey**
 
-   ```
+   ```java
    @Test
    public void updateByPrimaryKey() {
        Student student = new Student();
@@ -2127,7 +2133,7 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
    **updateByPrimaryKeySelective**
 
-   ```
+   ```java
    @Test
    public void updateByPrimaryKeySelective() {
        Student student = new Student();
@@ -2149,11 +2155,11 @@ Cuntry{cId=3, cName='中国', ministers=[Minister{mId=1, mName='陈锦荣', cId=
 
 > Exmaple	
 
-	在生成数据库表结构对应的实体类时都附带生成一个xxxExmaple类，有时逆向工程生成的SQL文件并不能满足实际的需求，如需要进行高级的查询操作。这时xxxExmaple类就能够满足这类需求。
+​	在生成数据库表结构对应的实体类时都附带生成一个xxxExmaple类，有时逆向工程生成的SQL文件并不能满足实际的需求，如需要进行高级的查询操作。这时xxxExmaple类就能够满足这类需求。
 
 **模糊查询**
 
-```
+```java
 @Test
 public void selectByExample() {
 	StudentExample studentExample = new StudentExample();
@@ -2180,9 +2186,9 @@ public void selectByExample() {
 
  。。。
 
-	每个查询条件都有一个Criteria对象，如果where条件中出现or，那么就需要有两个Criteria对象进行条件进行包装，最后在通过xxxExmaple对象进行串联，如：
+​	每个查询条件都有一个Criteria对象，如果where条件中出现or，那么就需要有两个Criteria对象进行条件进行包装，最后在通过xxxExmaple对象进行串联，如：
 
-```
+```java
 @Test
 public void selectByExample() {
     StudentExample studentExample = new StudentExample();
@@ -2197,3 +2203,4 @@ public void selectByExample() {
     }
 }
 ```
+

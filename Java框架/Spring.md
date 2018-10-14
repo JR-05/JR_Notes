@@ -153,7 +153,7 @@ public class Test01 {
 **id与name的区别**
 
 一般情况下，命名\<bean/>使用id属性，而不使用name属性。在没有id属性的情况下，name属性与id属性的作用是相同的，当\<bean/>中含有一些特殊字符时，就需要使用那么属性了。
-	id的命名需要满足XML对id属性命名规范：必须以字母开头名可以包含字母、数字、下划线、连字符、句号、冒号。
+​	id的命名需要满足XML对id属性命名规范：必须以字母开头名可以包含字母、数字、下划线、连字符、句号、冒号。
 name属性值则可以包含各种符号。	
 
 ### 配置文件存放路径问题
@@ -3346,7 +3346,7 @@ Spring事务的默认回滚方式是：**发生运行时异常时回滚**，**�
 不过，对于受查异常，程序员也可以手工设置其回滚方式。通过 ” - “ 异常方式，可使发生指定的异常时事务回滚；通过 ” + “ 异常方式，可使发生指定的异常时事务提交。
 
 
-	
+​	
 
 ##### 事务定义接口
 
@@ -3615,7 +3615,7 @@ StudentService studentServiceImp = application=application.getBean("studentServi
 
 ### 前言
 
-将MyBatis与Spring进行整合，主要解决的问题就是将SqlSessionFactory对象交由Spring来管理。
+​	将MyBatis与Spring进行整合，主要解决的问题就是将SqlSessionFactory对象交由Spring来管理。
 SqlSession不能够交由Spring进行管理，SqlSession对象在每次进行操作之后都需要进行关闭（进行事务的提交和关闭），关闭后的SqlSession相当与没用了。所以在每次操作Dao方法时都需要重新创建SqlSession。而交由Spring管理的话，只能在一个Dao对象中存在一个SqlSession对象实例。
 所以，该整合，只需将SqlSessionFactory的对象生成器SqlSessionFactoryBean注册在Spring容器中，在将其注入给Dao的实现类即可完成整合。
 

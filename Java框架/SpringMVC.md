@@ -1,5 +1,3 @@
-
-
 # 简介
 
 SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框架的一部分，是在Spring3.0后发布的。			
@@ -62,9 +60,9 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
 ### 前言
 
-	所谓配置式开发是指，“处理器类是程序员手工定义的”、实现了特定接口的类，然后在SpringMVC配置文件进行显式的、明确的注册的开发方式。
-	
-	在SpringMVC配置文件中如未明确的定义SpringMVC中的组件，如：处理器映射器、处理器适配器、视图解析器。将会自动采用DispatcherServlet默认的组件。在SpringMVC中查看DispatcherServlet.properties可知：
+​	所谓配置式开发是指，“处理器类是程序员手工定义的”、实现了特定接口的类，然后在SpringMVC配置文件进行显式的、明确的注册的开发方式。
+
+​	在SpringMVC配置文件中如未明确的定义SpringMVC中的组件，如：处理器映射器、处理器适配器、视图解析器。将会自动采用DispatcherServlet默认的组件。在SpringMVC中查看DispatcherServlet.properties可知：
 
 ![DispatchServlet默认组件](photo\DispatchServlet默认组件.bmp)
 
@@ -76,16 +74,17 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 | 处理器适配器 | HttpRequestHandlerAdapter、HttpRequestHandlerAdapt、AnnotationMethodHandlerAdapter |
 |  视图解析器  |                 InternalResourceViewResolver                 |
 
-	如果在SpringMVC的配置文件中自定义配置DispatcherServlet的组件的话，将采用自定义的组件进行运作。
+如果在SpringMVC的配置文件中自定义配置DispatcherServlet的组件的话，将采用自定义的组件进行运作。
 
  
 
 
 
 
+
 ### DispatchServlet映射路径问题
 
-```
+```xml
 <servlet>
     <servlet-name>spring_dispathcer</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -101,7 +100,7 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 </servlet-mapping>
 ```
 
-	需要注意的是，在映射路径上最好使用后缀匹配方式，如写成*.do
+​	需要注意的是，在映射路径上最好使用后缀匹配方式，如写成*.do
 
 - **不能写成/***
 
@@ -115,7 +114,7 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
 > 静态资源访问
 
-	\<url-pattern/>的值并不是说写为/后，静态资源就无法访问了。经过一些配置，该问题也是可以解决的。
+\<url-pattern/>的值并不是说写为/后，静态资源就无法访问了。经过一些配置，该问题也是可以解决的。
 
 - **使用Tomcat中的default的Servlet**
 
@@ -123,7 +122,7 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
   	我们需要做的就是直接使用它即可，即直接在项目的web.xml中注册\<servlet-mapping/>即可。
 
-  ```
+  ```xml
   <servlet-mapping>
       <servlet-name>default</servlet-name>
       <url-pattern>*.jpg</url-pattern>
@@ -134,7 +133,7 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
   	\<mvc:default-servlet-handler/>会将对静态资源的访问请求添加到SimpleUrlHandlerMapping的urlMap中，key就是请求的URI，而value则为默认Servlet请求处理器DefaultServletHttpRequestHandler对象。而该处理器调用了Tomcat的DefaultServlet来处理静态资源的访问请求	
 
-```
+```xml
 <beans>
 <mvc:default-servlet-handler></mvc:default-servlet-handler>
 </beans>
@@ -144,7 +143,7 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
   	在Spring3.0.4版本后，Spring中定义了专门用于处理静态资源访问请求的处理器ResourceHttpRequestHandler。并且添加了\<mvc:resource/>标签，专门用于解决静态资源无法访问问题。
 
-  ```
+  ```xml
   <mvc:resources mapping="/photo/**" location="/photo/"></mvc:resources>
   ```
 
@@ -225,7 +224,7 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
 #### ModelAndView
 
-	处理器在处理请求之后可将处理的数据存到到ModleAndView中的Model中，在通过View指定跳转显示的页面，将数据传递到页面中。
+​	处理器在处理请求之后可将处理的数据存到到ModleAndView中的Model中，在通过View指定跳转显示的页面，将数据传递到页面中。
 
 
 
@@ -235,17 +234,17 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
 ### 前言
 
-	注解式开发是SpringMVC开发Web应用最重要的方式，相比配置式开发，注解式开发简单许多，并写相对灵活很多。
+​	注解式开发是SpringMVC开发Web应用最重要的方式，相比配置式开发，注解式开发简单许多，并写相对灵活很多。
 
 
 
 ### 请求方法映射
 
-	在每个请求方法都必须添加@RequestMapping注解，告知SpringMVC该方法为接收请求处理的方法。
-	
-	若将@RequestMapping注解到Class上，那么该类中的所有请求方法都共享该注解上的参数值。
-	
-	在该注解上可以设置**请求方法的请求方式**、**矫正请求参数**、**接收路径的变量**、**指定请求Url的参数**
+​	在每个请求方法都必须添加@RequestMapping注解，告知SpringMVC该方法为接收请求处理的方法。
+
+​	若将@RequestMapping注解到Class上，那么该类中的所有请求方法都共享该注解上的参数值。
+
+​	在该注解上可以设置**请求方法的请求方式**、**矫正请求参数**、**接收路径的变量**、**指定请求Url的参数**
 
 
 
@@ -260,7 +259,7 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
 ### 请求方法形参
 
-	注解式开发中的请求方法可以存在五种类型的参数，并且可以有不同的重载方式，这也就是注解式开发相对配置式开发的灵活之处。
+​	注解式开发中的请求方法可以存在五种类型的参数，并且可以有不同的重载方式，这也就是注解式开发相对配置式开发的灵活之处。
 
 1. [^HttpServletResponse]: 不多解释
 
@@ -272,13 +271,11 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
 5. [^Model]: 封装传递数据的对象，如果是重定向的话，传递的数据将会由视图解析器直接拼接到Url路径上，如果是转载的话将存放到request域中的属性中
 
-6. [^接收的请求参数]: 如类似接收 url？参数=参数值 
+6. [^接收的请求参数]: 如：类似接收 url？参数=参数值 
 
 7. [^MultipartFile]: 如果是处理图片上传的Controller还可以有封装上传数据的MultipartFile对象
 
 8. [^BindingResult]: 如果是验证数据Controller还可以有封装错误信息的BinddingResult对象
-
-     
 
    除了使用ModelAndView方式外。还可以使用Map、Model和ModelMap来向前台页面创造
 
@@ -288,7 +285,7 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
 ### 请求方法返回值
 
-	根据处理请求的需求，请求方法返回值可以为；
+​	根据处理请求的需求，请求方法返回值可以为；
 
 [^ModelAndView]: 分装处理数据和转发的页面view，如果是重定向的话，传递的数据将会由视图解析器直接拼接到Url路径上，如果是转载的话将存放到request域中的属性中
 [^String]: 直视图解析器会解析该字符串，随后将转发和重定向的解析的页面，
@@ -303,13 +300,13 @@ SpringMVC也叫Spring web mvc，属于表现层的框架。SpringMVC是Spring框
 
 #### 转载
 
-	默认情况下，当处理器方法返回ModelAndView时，跳转到指定的View，使用的是请求转发。但也可显示的进行指出。此时，需在setViewName()指定的视图前添加forward，且此时的视图不会再与InternalResourceViewResolver视图解析器中的前缀和后缀进行拼接。即必须写出相对于项目根的路径。如：
+​	默认情况下，当处理器方法返回ModelAndView时，跳转到指定的View，使用的是请求转发。但也可显示的进行指出。此时，需在setViewName()指定的视图前添加forward，且此时的视图不会再与InternalResourceViewResolver视图解析器中的前缀和后缀进行拼接。即必须写出相对于项目根的路径。如：
 
-```
+```xml
 modelAndView.setViewName("forward:/jsp/transpond.jsp");
 ```
 
-	需要注意的是，此时如果DispatcherServlet默认的视图解析器组件InternalResourceViewResolver被其他自定的视图解析器所替代的话，将会报无法解析该视图的错误，此时应该再配置InternalResourceViewResolver解析器。
+​	需要注意的是，此时如果DispatcherServlet默认的视图解析器组件InternalResourceViewResolver被其他自定的视图解析器所替代的话，将会报无法解析该视图的错误，此时应该再配置InternalResourceViewResolver解析器。
 
 ##### 转载的方式
 
@@ -319,7 +316,7 @@ modelAndView.setViewName("forward:/jsp/transpond.jsp");
 
 ##### 数据传递
 
-	向下传递数据的方式有以下：
+​	向下传递数据的方式有以下：
 
 1. [^ModelAndView]: 通过addObject，将数据封装到ModelAndView进行传递，最后将处理数据添加到request的属性中，可用过request.getAttribute(key)获取数据
 
@@ -332,9 +329,9 @@ modelAndView.setViewName("forward:/jsp/transpond.jsp");
 
 #### 重定向
 
-	重定向时需指定的视图前添加redirect，且此时的视图不会再与InternalResourceViewResolver视图解析器中的前缀和后缀进行拼接。即必须写出相对于项目根的路径。如：
+​	重定向时需指定的视图前添加redirect，且此时的视图不会再与InternalResourceViewResolver视图解析器中的前缀和后缀进行拼接。即必须写出相对于项目根的路径。如：
 
-```转载的方式  1. 返回ModelAndView 2. 返回String 3. 返回View
+```xml
 modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 ```
 
@@ -346,15 +343,9 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
 
 
-### 异常处理
-
-	**自己看讲义吧！！！**
-
-
-
 ##### 数据传递
 
-	再重定向时，请求参数是无法通过request的属性向下级资源中传递的，但可以通过以下方式将请求参数向下传递
+​	再重定向时，请求参数是无法通过request的属性向下级资源中传递的，但可以通过以下方式将请求参数向下传递
 
 1. [^ModelAndView]: 通过addObject，将数据封装到ModelAndView进行传递，最后将处理数据添加到重定向资源的Uri参数中中。通过request.getParams(key)获取到传递的数据
 
@@ -364,19 +355,27 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
 4. [^RedirectAtrribute]: 该对象是Spring3.1版本后新增的功能，专门是用于携带重定向参数的。它是一个继承Model接口，其底层仍然使用ModelAndView实现，通过addtrribute方法会将参数名及参数值放入该Map中，然后视图解析器会将其拼接到请求的url中。所以通过addAttribute的方式携带的数据不能是自定义对象，只能是基本数据类型。但通过addFlushAttribute方法不会将放入的属性值通过URL传递，所以其中可以存放任意对象。底层原理是将其数据临时性的放入到HttpSession中。一旦目标Controller接收到了这个数据，则系统会立即将这个放入到HttpSession中的数据删除。
 
-   
-
     
+
+     
+
+### 异常处理
+
+​	**自己看讲义吧！！！**
+
+
+
+
 
 ### 类型转换器
 
 ##### 类型处理器的配置
 
-	类型转换器定义完毕后，需要在SpringMVC的配置文件中对类型转换进行配置。首先要注册类型转换器，然后再注册一个转换服务Bean，将类型转换服务注入给该转换服务Bean，最后由处理器适配器来使用该转换服务Bean。
+​	类型转换器定义完毕后，需要在SpringMVC的配置文件中对类型转换进行配置。首先要注册类型转换器，然后再注册一个转换服务Bean，将类型转换服务注入给该转换服务Bean，最后由处理器适配器来使用该转换服务Bean。
 
 1. **注册类型转换器**
 
-```
+```xml
 <bean id="myDateConverter" class="com.jr.springmvc.core.datetransform.MyDateConverter"></bean>
 ```
 
@@ -384,7 +383,7 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
    由于SpringMVC对于类型转换的完成，不是直接使用类型转换器，而是通过创建具有多种转换功能的转换服务Bean来完成的。
 
-```
+```xml
 <bean id="myConversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
     <!--设置单个类型转化器-->
     <!--<property name="converters" ref="myDateConverter"></property>-->
@@ -401,7 +400,7 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
    	采用MVC的注解驱动注册方式，可以将转换服务直接诸如给处理器适配器。
 
-```
+```xml
 <mvc:annotation-driven conversion-service="myConversionService"></mvc:annotation-driven>
 ```
 
@@ -434,7 +433,7 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
 在SpringMVC配置文件中将验证器注册后，需要将其注入给注解驱动。
 
-```
+```xml
 <!--注册验证器-->
 <bean id="myValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
     <property name="providerClass" value="org.hibernate.validator.HibernateValidator"></property>
@@ -450,7 +449,7 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
 1. 在封装数据的对象上添加验证添加注解
 
-   ```
+   ```java
    public class Person {
        @NotEmpty(message = "姓名不能为空")
        @Size(min = 3, max = 6, message = "姓名长度必须在{min}~{max}之间")
@@ -495,7 +494,7 @@ modelAndView.setViewName("redirect:/jsp/transpond.jsp");
 
 3. 在处理器方法的形参上添加BindingResult对象用于接收判断验证错误信息。
 
-```
+```java
 @RequestMapping("/validator/handledRequest")
 public void handledRequest(@Validated Person person, BindingResult br) {
 
@@ -513,9 +512,9 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 ##### 配置环境
 
-	SpringMVC实现文件上传，需要在添加两个Jar包，一个是文件上传的Jar包，一个是其所依赖的IO包。
+​	SpringMVC实现文件上传，需要在添加两个Jar包，一个是文件上传的Jar包，一个是其所依赖的IO包。
 
-```
+```xml
 <!-- 上传组件包 -->
 <dependency>
     <groupId>commons-fileupload</groupId>
@@ -534,9 +533,9 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 ##### 配置上传处理器
 
-	处理器方法中的形参MultipartFile对象需要由上传处理器生成。
-	
-	在SpringMVC的配置文件中注册MultipartFile接口的实现类CommonsMultipartResolver的Bean，要求该Bean的**id必须为multipartResolver**。因为中央调度器会自动在SpringMVC的组件配置中自动查找才id的对象，并装配到自身的属性中。
+​	处理器方法中的形参MultipartFile对象需要由上传处理器生成。
+
+​	在SpringMVC的配置文件中注册MultipartFile接口的实现类CommonsMultipartResolver的Bean，要求该Bean的**id必须为multipartResolver**。因为中央调度器会自动在SpringMVC的组件配置中自动查找才id的对象，并装配到自身的属性中。
 
 ```
 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -551,13 +550,13 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 ##### 上传多个文件问题
 
-	用于接收表单元素所提交的处理器方法的形参类型为MultipartFile[]数组，且必须使用@RequestParam修饰。
-	
-	为什么上传单个文件时MultipartFile参数不用使用@RequestParams修饰，而上传多个文件时MutipartFile[]需要使用@RequestParam修饰呢？
-	
-	因为在上传单个文件时，每个表单中的文件对象，框架均会将其转换为MultipartFile类型这是与上传单个文件是相同的，不需要@ReqeustParam修饰。但上传多个文件时，处理器方法需要的不是MultipartFile类型参数，而是MultipartFile[]数组类型。默认情况下框架只会将一个一个的表单元素转换为一个一个的对象，但并不会将这多个对象创建为一个数组对象。	
-	
-	此时，需要使用@RequestParam来修饰这个数据参数，向框架表明，表单传来的参数与处理器方法接收的参数名称与类型相同，需要框架调用相应的转换器将请求参数转换为方法参数类型。所以，对于上传多个文件，处理器方法的MultipartFile[]数组参数必须使用注解@RequestParam修饰。
+​	用于接收表单元素所提交的处理器方法的形参类型为MultipartFile[]数组，且必须使用@RequestParam修饰。
+
+​	为什么上传单个文件时MultipartFile参数不用使用@RequestParams修饰，而上传多个文件时MutipartFile[]需要使用@RequestParam修饰呢？
+
+​	因为在上传单个文件时，每个表单中的文件对象，框架均会将其转换为MultipartFile类型这是与上传单个文件是相同的，不需要@ReqeustParam修饰。但上传多个文件时，处理器方法需要的不是MultipartFile类型参数，而是MultipartFile[]数组类型。默认情况下框架只会将一个一个的表单元素转换为一个一个的对象，但并不会将这多个对象创建为一个数组对象。	
+
+​	此时，需要使用@RequestParam来修饰这个数据参数，向框架表明，表单传来的参数与处理器方法接收的参数名称与类型相同，需要框架调用相应的转换器将请求参数转换为方法参数类型。所以，对于上传多个文件，处理器方法的MultipartFile[]数组参数必须使用注解@RequestParam修饰。
 
 
 
@@ -589,9 +588,79 @@ public void handledRequest(@Validated Person person, BindingResult br) {
 
 ![多个的拦截器的执行](photo\多个的拦截器的执行.bmp)
 
-	从上图可以看出，只要有一个preHandle()方法返回false，则上部的执行链将会断开。其后续的处理器方法与postHandle()方法将无法执行。但，无论执行链执行情况怎样，只要方法栈中有方法，即执行链中只要有preHandle()方法返回true，就会执行方法栈中的afterCompletion()方法。最终都会给出响应。
+​	从上图可以看出，只要有一个preHandle()方法返回false，则上部的执行链将会断开。其后续的处理器方法与postHandle()方法将无法执行。但，无论执行链执行情况怎样，只要方法栈中有方法，即执行链中只要有preHandle()方法返回true，就会执行方法栈中的afterCompletion()方法。最终都会给出响应。
 
 
+
+
+
+# 日志
+
+### 日志框架
+
+小张；开发一个大型系统；
+1、System.out.println("")；将关键数据打印在控制台；去掉？写在一个文件？
+2、框架来记录系统的一些运行时信息；日志框架 ； zhanglogging.jar；
+3、高大上的几个功能？异步模式？自动归档？xxxx？ zhanglogging-good.jar？
+4、将以前框架卸下来？换上新的框架，重新修改之前相关的API；zhanglogging-prefect.jar；
+5、JDBC---数据库驱动；
+写了一个统一的接口层；日志门面（日志的一个抽象层）；logging-abstract.jar；
+给项目中导入具体的日志实现就行了；我们之前的日志框架都是实现的抽象层；
+
+### 市面上的日志框架
+
+JUL、JCL、Jboss-logging、logback、log4j、log4j2、slf4j....
+
+| 日志门面 （日志的抽象层）                                    | 日志实现                                     |
+| ------------------------------------------------------------ | -------------------------------------------- |
+| JCL（Jakarta Commons Logging） SLF4j（Simple Logging Facade for Java） jboss-logging | Log4j JUL（java.util.logging）Log4j2 Logback |
+
+左边选一个门面（抽象层）、右边来选一个实现；
+日志门面： SLF4J；
+日志实现：Logback；
+
+### log4j历史
+
+​	Log4j和Logback是同一个人开发的产品，后者是前者更新版本。而作者在更新的过程中发现，每次版本的更新都需要改动以前使用旧版本的代码。
+
+​	这样他想到通过接口去实现方法，从而保证换汤不换药。
+
+​	就这么出现了SLF4J。
+
+### SLF4j使用
+
+1. 如何在系统中使用SLF4j https://www.slf4j.org
+   以后开发的时候，日志记录方法的调用，不应该来直接调用日志的实现类，而是调用日志抽象层里面的方法；
+   给系统里面导入slf4j的jar和 logback的实现jar
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class HelloWorld {
+	public static void main(String[] args) {
+		Logger logger = LoggerFactory.getLogger(HelloWorld.class);
+		logger.info("Hello World");
+}
+```
+
+2. 每一个日志的实现框架都有自己的配置文件。使用slf4j以后，配置文件还是做成日志实现框架自己本身的配置文件
+
+**图示：**
+
+![](photo\日志框架架构.bmp)
+
+[^浅蓝色]: 抽象层
+[^蓝色]: 实现层
+[^绿色]: 适配层
+[^灰色]: 非SLF4J抽象接口实现框架
+
+**解析：**
+
+1. 应用层>>>抽象层>>>实现层
+2. 应用层>>>抽象层>>>适配层>>>实现层
+
+**出现适配层的原因：**由于早期的日志框架并未由统一接口管理的概念（比如log4j是在SLF4J出现之前的产品），那么抽象层的实现需要通过适配层去调用早先日志框架的api。
 
 
 
@@ -933,3 +1002,10 @@ HandlerInterceptor
 </mvc:interceptors>
 ```
 
+
+
+
+
+# Tip
+
+1. 若控制台中日志输出显示的错误信息不完整，可到在/home/dela/.IntelliJIdea2017.1/system/tomcat/Unnamed_Spring_10(当前Project的名字)下, 也就是家目录下的.IntelliJIdea2017.1/system/tomcat, 然后找到本工程的tomcat名字, 进入logs目录就能看到当天的错误日志了.
